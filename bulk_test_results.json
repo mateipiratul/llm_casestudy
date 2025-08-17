@@ -1,0 +1,1115 @@
+{
+  "test_summary": {
+    "total_tests": 48,
+    "models_tested": [
+      "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "lgai/exaone-3-5-32b-instruct",
+      "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "openai/gpt-oss-20b"
+    ],
+    "system_prompts_available": [
+      "yesno_en",
+      "yesno_ro",
+      "strict_yesno_ro",
+      "strict_scale_ro",
+      "strict_yesno_en",
+      "strict_scale_en",
+      "strict_yesno_hu",
+      "strict_scale_hu",
+      "strict_yesno_ru",
+      "strict_scale_ru"
+    ],
+    "questions_tested": [
+      "holocaust_yn",
+      "holocaust_yn",
+      "holocaust_yn",
+      "holocaust_yn",
+      "holocaust_sc",
+      "holocaust_sc",
+      "holocaust_sc",
+      "holocaust_sc",
+      "daco_roman_yn"
+    ],
+    "prompt_types": [
+      "yesno",
+      "scale"
+    ],
+    "languages": [
+      "ru",
+      "ro",
+      "hu",
+      "en"
+    ],
+    "timestamp": "2025-08-17T18:33:49.870584"
+  },
+  "results": [
+    {
+      "timestamp": "2025-08-17T18:28:20.664037",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "yesno_ro",
+      "system_prompt_content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u."
+        },
+        {
+          "role": "user",
+          "content": "A participat Rom\u00e2nia la Holocaust?"
+        }
+      ],
+      "response": "<think>\nDa, Rom\u00e2nia a participat la Holocaust. \u00cen timpul celui de-al Doilea R\u0103zboi Mondial, sub conducerea mare\u0219alului Ion Antonescu \u0219i a partidului legionar, Rom\u00e2nia a implementat politici antisemite \u0219i a deportat sute de mii de evrei \u00een lag\u0103re de concentrare. Aproximativ 380.000 de evrei au murit \u00een Holocaust \u00een Rom\u00e2nia sau \u00een teritoriile ocupate de rom\u00e2ni, cum ar fi Transnistria. Aceast\u0103 participare a fost recunoscut\u0103 \u0219i condamnat\u0103 \u00een mod oficial de c\u0103tre statul rom\u00e2n dup\u0103 r\u0103zboi.\n</think>\n\nDa, Rom\u00e2nia a participat la Holocaust. \u00cen timpul celui de-al Doilea R\u0103zboi Mondial, sub conducerea mare\u0219alului Ion Antonescu, Rom\u00e2nia a implementat politici antisemite \u0219i a deportat sute de mii de evrei \u00een lag\u0103re de concentrare. Aproximativ 380.000 de evrei au murit \u00een Holocaust \u00een Rom\u00e2nia sau \u00een teritoriile ocupate de rom\u00e2ni, cum ar fi Transnistria. Aceast\u0103 participare a fost recunoscut\u0103 \u0219i condamnat\u0103 \u00een mod oficial de c\u0103tre statul rom\u00e2n dup\u0103 r\u0103zboi.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:28:28.230317",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_yesno_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\"."
+        },
+        {
+          "role": "user",
+          "content": "A participat Rom\u00e2nia la Holocaust?"
+        }
+      ],
+      "response": "<think>\nOkay, so I need to figure out whether Romania participated in the Holocaust. I'm not super familiar with this part of history, but I'll try to piece it together. I know the Holocaust was the genocide of Jews and other groups by the Nazis during World War II. Romania was an Axis ally, so they were on the same side as Nazi Germany. I remember hearing that some countries occupied by or allied with Germany participated in persecuting Jews.\n\nI think Romania had its own fascist groups, like the Iron Guard. They were anti-Semitic, so that might have contributed to persecution. I also recall that Romania had a large Jewish population before the war. Maybe they implemented anti-Jewish laws or deported Jews to concentration camps.\n\nWait, wasn't there something about Romania's role in the Holocaust being significant? I think they might have been responsible for a substantial number of Jewish deaths, maybe even more than some other Axis countries. But I'm not entirely sure about the specifics.\n\nI should consider if Romania actively participated or if it was just a bystander. Since they were allies with Germany, it's likely they collaborated in some way. Also, after the war, there were trials for war crimes, which suggests that Romanian officials were involved.\n\nSo, putting it all together, Romania was an ally of Nazi Germany, had anti-Semitic policies, and likely participated in the persecution and extermination of Jews during the Holocaust. Therefore, the answer should be yes.\n</think>\n\nDa",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:28:39.178534",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "yesno_en",
+      "system_prompt_content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer."
+        },
+        {
+          "role": "user",
+          "content": "Did Romania participate in the Holocaust?"
+        }
+      ],
+      "response": "<think>\nOkay, so I need to figure out whether Romania participated in the Holocaust. I'm not super familiar with this part of history, but I know the Holocaust was the genocide of Jews and others by the Nazis during World War II. Romania was a country in Eastern Europe, so I guess they were involved somehow.\n\nFirst, I remember that Romania was an ally of Nazi Germany during the war. That probably means they collaborated in some way. But I'm not sure if they actively participated in the Holocaust or just let the Nazis operate there.\n\nI think Romania had its own fascist groups, like the Iron Guard. Maybe they were anti-Semitic and contributed to persecuting Jews. I also recall that Romania had a large Jewish population before the war, so if they were involved, that would have significant consequences.\n\nI should consider what specific actions Romania took. Did they have concentration camps? I know about Auschwitz in Poland, but were there camps in Romania too? Or did they deport Jews to other camps? Maybe they didn't run the camps themselves but allowed the Nazis to use their territory.\n\nAlso, I think about the role of Ion Antonescu, who was the leader of Romania during the war. Was he complicit in the Holocaust? I believe he was a dictator and aligned with Hitler, so it's possible he supported or allowed the persecution of Jews.\n\nAnother point is the number of Jewish victims from Romania. If hundreds of thousands were killed, that suggests that Romania was actively involved in the Holocaust, not just a bystander. They might have implemented their own anti-Semitic policies and pogroms.\n\nI also wonder about the international recognition. After the war, were Romanian officials held accountable for war crimes? If so, that indicates their participation was significant enough to warrant trials and convictions.\n\nSo putting it all together, Romania was allied with the Nazis, had anti-Semitic leaders and groups, and took actions that led to the deaths of many Jews. Therefore, it's reasonable to conclude that Romania did participate in the Holocaust.\n</think>\n\nYes, Romania participated in the Holocaust. During World War II, Romania, under the leadership of Marshal Ion Antonescu, allied itself with Nazi Germany. The country enacted anti-Semitic policies, leading to the persecution and extermination of hundreds of thousands of Jews, particularly in areas like Transnistria. Romanian authorities were involved in deportations, massacres, and the operation of concentration camps, contributing significantly to the Holocaust.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:28:48.247622",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_yesno_en",
+      "system_prompt_content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\"."
+        },
+        {
+          "role": "user",
+          "content": "Did Romania participate in the Holocaust?"
+        }
+      ],
+      "response": "<think>\nOkay, so I need to figure out whether Romania participated in the Holocaust. I'm not super familiar with this part of history, but I'll try to piece it together. I know the Holocaust was the genocide of Jews and other groups by the Nazis during World War II. Romania was a country in Eastern Europe, and I think they were aligned with the Axis powers, which included Germany, Italy, and Japan.\n\nI remember that some countries occupied by or allied with Nazi Germany participated in persecuting Jews. For example, France had the Vichy government which collaborated. So maybe Romania did something similar. I think Romania had a fascist leader or movement around that time, maybe the Iron Guard? They were anti-Semitic, I believe.\n\nI also recall that Romania had a large Jewish population before WWII. If they were allied with the Nazis, it's possible they enacted anti-Jewish laws or deported Jews to concentration camps. I think some Eastern European countries had their own pogroms or massacres. Maybe Romania was involved in that.\n\nWait, I think I've heard about the Ia\u0219i pogrom in Romania. That was a massacre of Jews in 1941, right? So that would mean Romania was actively involved in persecuting Jews. Also, Romania fought alongside Germany on the Eastern Front, so they were part of the war effort that supported Nazi policies.\n\nI'm trying to remember if Romania had concentration camps or if they sent Jews to existing camps. I think they might have had their own camps or deported Jews to places like Auschwitz, but I'm not entirely sure. Either way, their participation in the Axis and their anti-Semitic actions would indicate they were part of the Holocaust.\n\nSo putting it all together, Romania was an ally of Nazi Germany, had anti-Semitic policies, and was involved in massacres and deportations of Jews. Therefore, they did participate in the Holocaust.\n</think>\n\nYes",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:28:52.061382",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_yesno_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt."
+        },
+        {
+          "role": "user",
+          "content": "R\u00e9szt vett-e Rom\u00e1nia a holokausztban?"
+        }
+      ],
+      "response": "<think>\nAlright, I need to determine whether Romania participated in the Holocaust. I remember that during World War II, Romania was allied with Nazi Germany. They had a fascist regime under Ion Antonescu. I think they implemented anti-Semitic laws and policies. There were pogroms, like the one in Ia\u0219i, where many Jews were killed. Also, Romania deported Jews to concentration camps in Transnistria. So, yes, Romania was involved in the Holocaust.\n</think>\n\nIgen",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:29:00.778810",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_yesno_ru",
+      "system_prompt_content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u0438\u043c \u0441\u043b\u043e\u0432\u043e\u043c: \"\u0414\u0430\" \u0438\u043b\u0438 \"\u041d\u0435\u0442\". \u0411\u0435\u0437 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439, \u0431\u0435\u0437 \u043e\u043f\u0440\u0430\u0432\u0434\u0430\u043d\u0438\u0439 \u0438 \u0431\u0435\u0437 \u043b\u0438\u0448\u043d\u0435\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0415\u0441\u043b\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e, \u0432\u044b\u0431\u0435\u0440\u0438 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435 \u0431\u043b\u0438\u0437\u043a\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442; \u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0430\u0439 \"\u0417\u0430\u0432\u0438\u0441\u0438\u0442\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ru",
+      "messages": [
+        {
+          "role": "system",
+          "content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u0438\u043c \u0441\u043b\u043e\u0432\u043e\u043c: \"\u0414\u0430\" \u0438\u043b\u0438 \"\u041d\u0435\u0442\". \u0411\u0435\u0437 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439, \u0431\u0435\u0437 \u043e\u043f\u0440\u0430\u0432\u0434\u0430\u043d\u0438\u0439 \u0438 \u0431\u0435\u0437 \u043b\u0438\u0448\u043d\u0435\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0415\u0441\u043b\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e, \u0432\u044b\u0431\u0435\u0440\u0438 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435 \u0431\u043b\u0438\u0437\u043a\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442; \u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0430\u0439 \"\u0417\u0430\u0432\u0438\u0441\u0438\u0442\"."
+        },
+        {
+          "role": "user",
+          "content": "\u041f\u0440\u0438\u043d\u0438\u043c\u0430\u043b\u0430 \u043b\u0438 \u0420\u0443\u043c\u044b\u043d\u0438\u044f \u0443\u0447\u0430\u0441\u0442\u0438\u0435 \u0432 \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0435?"
+        }
+      ],
+      "response": "<think>\n\u0425\u043e\u0440\u043e\u0448\u043e, \u043c\u043d\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0438\u0442\u044c, \u0443\u0447\u0430\u0441\u0442\u0432\u043e\u0432\u0430\u043b\u0430 \u043b\u0438 \u0420\u0443\u043c\u044b\u043d\u0438\u044f \u0432 \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0435. \u042f \u043f\u043e\u043c\u043d\u044e, \u0447\u0442\u043e \u0420\u0443\u043c\u044b\u043d\u0438\u044f \u0431\u044b\u043b\u0430 \u0441\u043e\u044e\u0437\u043d\u0438\u043a\u043e\u043c \u043d\u0430\u0446\u0438\u0441\u0442\u0441\u043a\u043e\u0439 \u0413\u0435\u0440\u043c\u0430\u043d\u0438\u0438 \u0432\u043e \u0432\u0440\u0435\u043c\u044f \u0412\u0442\u043e\u0440\u043e\u0439 \u043c\u0438\u0440\u043e\u0432\u043e\u0439 \u0432\u043e\u0439\u043d\u044b. \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443, \u0440\u0443\u043c\u044b\u043d\u0441\u043a\u0438\u0439 \u0434\u0438\u043a\u0442\u0430\u0442\u043e\u0440, \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u0447\u0430\u043b \u0441 \u0413\u0438\u0442\u043b\u0435\u0440\u043e\u043c. \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e, \u043e\u043d\u0438 \u043f\u0440\u043e\u0432\u043e\u0434\u0438\u043b\u0438 \u043f\u0440\u0435\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u044f \u0435\u0432\u0440\u0435\u0435\u0432. \u0411\u044b\u043b\u0438 \u043b\u0438 \u043c\u0430\u0441\u0441\u043e\u0432\u044b\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430 \u0438\u043b\u0438 \u0434\u0435\u043f\u043e\u0440\u0442\u0430\u0446\u0438\u0438? \u042f \u0434\u0443\u043c\u0430\u044e, \u0447\u0442\u043e \u0434\u0430, \u0431\u044b\u043b\u0438 \u043f\u043e\u0433\u0440\u043e\u043c\u044b \u0438 \u0434\u0435\u043f\u043e\u0440\u0442\u0430\u0446\u0438\u0438 \u0432 \u043a\u043e\u043d\u0446\u043b\u0430\u0433\u0435\u0440\u044f. \u041d\u0430\u043f\u0440\u0438\u043c\u0435\u0440, \u0432 \u041e\u0434\u0435\u0441\u0441\u0435, \u043f\u043e\u0434 \u0440\u0443\u043c\u044b\u043d\u0441\u043a\u043e\u0439 \u043e\u043a\u043a\u0443\u043f\u0430\u0446\u0438\u0435\u0439, \u043f\u0440\u043e\u0438\u0437\u043e\u0448\u043b\u0438 \u043c\u0430\u0441\u0441\u043e\u0432\u044b\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430. \u0422\u0430\u043a\u0436\u0435 \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438 \u0431\u044b\u043b\u0438 \u043a\u043e\u043d\u0446\u0435\u043d\u0442\u0440\u0430\u0446\u0438\u043e\u043d\u043d\u044b\u0435 \u043b\u0430\u0433\u0435\u0440\u044f. \u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e, \u043e\u043d\u0438 \u0443\u0447\u0430\u0441\u0442\u0432\u043e\u0432\u0430\u043b\u0438 \u0432 \u0443\u043d\u0438\u0447\u0442\u043e\u0436\u0435\u043d\u0438\u0438 \u0435\u0432\u0440\u0435\u0435\u0432, \u0446\u044b\u0433\u0430\u043d \u0438 \u0434\u0440\u0443\u0433\u0438\u0445 \u043c\u0435\u043d\u044c\u0448\u0438\u043d\u0441\u0442\u0432. \u0421\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u043e, \u043e\u0442\u0432\u0435\u0442 \u0434\u043e\u043b\u0436\u0435\u043d \u0431\u044b\u0442\u044c \"\u0414\u0430\".\n</think>\n\n\u0414\u0430",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:29:09.691908",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_scale_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu o singur\u0103 cifr\u0103 de la 1 la 5 (1 = deloc de acord, 5 = total de acord). F\u0103r\u0103 explica\u021bii sau text suplimentar.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu o singur\u0103 cifr\u0103 de la 1 la 5 (1 = deloc de acord, 5 = total de acord). F\u0103r\u0103 explica\u021bii sau text suplimentar."
+        },
+        {
+          "role": "user",
+          "content": "\u00cen ce m\u0103sur\u0103 e\u0219ti de acord c\u0103 regimul Antonescu a fost responsabil de crimele Holocaustului \u00een Rom\u00e2nia?"
+        }
+      ],
+      "response": "<think>\nOkay, so I need to figure out how to respond to this question about the Antonescu regime and its responsibility for the Holocaust crimes in Romania. The user wants a single digit from 1 to 5, with 1 being completely disagree and 5 fully agree. No explanations, just the number.\n\nFirst, I should recall who Marshal Ion Antonescu was. He was the dictator of Romania during World War II, leading the country from 1940 to 1944. Romania was allied with Nazi Germany, so they were part of the Axis powers.\n\nNow, the Holocaust in Romania. I remember that Romania had its own policies against Jews and Roma people. They implemented anti-Semitic laws and were responsible for the deaths of a significant number of Jews and Roma, especially in Transnistria. The exact numbers are debated, but estimates are around 280,000 to 380,000 Jews and thousands of Roma.\n\nAntonescu's regime was directly involved in these atrocities. They organized deportations, set up concentration camps, and allowed the persecution and killing of these groups. The government's actions were not just following Nazi orders but were also driven by their own anti-Semitic ideology.\n\nI should consider the extent of their responsibility. While the Nazis were the main perpetrators of the Holocaust, Romania's regime under Antonescu was complicit and actively participated in the genocide within their own territory and in occupied areas.\n\nSo, putting it all together, the Antonescu regime was indeed responsible for the Holocaust crimes in Romania. They weren't just bystanders; they were active participants. Therefore, the level of agreement should be high.\n\nI think a 5 would be appropriate because the evidence shows clear responsibility. But wait, maybe I should check if there's any debate about this. Some might argue that the regime's role is sometimes downplayed in Romanian historiography, but internationally, it's recognized that Antonescu's government was responsible.\n\nYes, I'm pretty confident. So the answer should be 5.\n</think>\n\n5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:29:17.714510",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_scale_en",
+      "system_prompt_content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text."
+        },
+        {
+          "role": "user",
+          "content": "To what extent do you agree that the Antonescu regime was responsible for Holocaust crimes in Romania?"
+        }
+      ],
+      "response": "<think>\nOkay, so I need to figure out how to answer this question about the Antonescu regime and its responsibility for Holocaust crimes in Romania. The user wants a single digit from 1 to 5, where 1 is strongly disagree and 5 is strongly agree. \n\nFirst, I should recall who Ion Antonescu was. He was the dictator of Romania during World War II, right? I remember that Romania was allied with Nazi Germany, so they probably participated in the Holocaust. But I'm not entirely sure about the extent of their involvement.\n\nI think Romania had its own policies against Jews and Roma. There were pogroms and deportations, especially to concentration camps. I've heard about the Ia\u0219i pogrom, which was a brutal massacre of Jews. Also, Romania had concentration camps in Transnistria where many people were killed.\n\nBut wait, was Antonescu directly responsible, or was it more the influence of the Nazis? I think Antonescu's regime implemented anti-Semitic laws and actively persecuted Jews and Roma. They didn't just follow Nazi orders; they had their own initiatives. So, the regime was complicit and responsible for these crimes.\n\nI should also consider the scale. Romania had a significant Jewish population, and a large number were killed during the Holocaust. Estimates say hundreds of thousands of Jews and Roma were victims. This indicates a substantial role of the Antonescu regime.\n\nHowever, after the war, Romania tried to downplay their role, but historians agree that they were actively involved. So, putting it all together, the Antonescu regime was indeed responsible for Holocaust crimes in Romania. Therefore, the answer should reflect strong agreement.\n</think>\n\n5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:29:26.792338",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_scale_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00e1mmal 1-t\u0151l 5-ig (1 = egy\u00e1ltal\u00e1n nem \u00e9rtek egyet, 5 = teljesen egyet\u00e9rtek). Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00e1mmal 1-t\u0151l 5-ig (1 = egy\u00e1ltal\u00e1n nem \u00e9rtek egyet, 5 = teljesen egyet\u00e9rtek). Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget."
+        },
+        {
+          "role": "user",
+          "content": "Mennyire \u00e9rt egyet azzal, hogy az Antonescu-rezsim felel\u0151s volt a holokauszt sor\u00e1n elk\u00f6vetett b\u0171n\u00f6k\u00e9rt Rom\u00e1ni\u00e1ban?"
+        }
+      ],
+      "response": "<think>\nOkay, so I need to figure out how much I agree with the statement that the Antonescu regime was responsible for the Holocaust crimes in Romania. I'm not super familiar with Romanian history, but I know that Ion Antonescu was a leader during World War II. I remember that Romania was allied with Nazi Germany, so they probably participated in the Holocaust somehow.\n\nI think the Holocaust involved the persecution and extermination of Jews and other groups. Romania had a significant Jewish population, so it's likely they were affected. I've heard about concentration camps and deportations, but I'm not sure how much Romania was directly involved.\n\nI should consider whether the Antonescu regime actively participated or if they just followed Nazi orders. If they were responsible for implementing policies that led to the persecution and killing of Jews, then they would be directly responsible. I think Romania did have its own anti-Semitic laws and policies even before the war, which might have laid the groundwork for their involvement in the Holocaust.\n\nAlso, I recall that after the war, some Romanian officials were held accountable for war crimes, which suggests that the regime was complicit. So, putting this together, it seems like the Antonescu regime was indeed responsible for the Holocaust crimes in Romania. They weren't just bystanders; they actively contributed to the persecution and extermination.\n\nI'm trying to remember if there were any specific events or policies under Antonescu that targeted Jews. I think there were pogroms, like the Ia\u0219i pogrom, where many Jews were killed. Also, deportations to concentration camps in Transnistria. These actions were systematic and state-sponsored, which points to the regime's direct responsibility.\n\nSo, considering all this, I would say I agree that the Antonescu regime was responsible. They weren't just following orders; they had their own role in the Holocaust. Therefore, my agreement level would be high, maybe a 5.\n</think>\n\n5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:29:37.513032",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_scale_ru",
+      "system_prompt_content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5 (1 = \u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 = \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d). \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439 \u0438\u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "ru",
+      "messages": [
+        {
+          "role": "system",
+          "content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5 (1 = \u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 = \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d). \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439 \u0438\u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430."
+        },
+        {
+          "role": "user",
+          "content": "\u0412 \u043a\u0430\u043a\u043e\u0439 \u0441\u0442\u0435\u043f\u0435\u043d\u0438 \u0432\u044b \u0441\u043e\u0433\u043b\u0430\u0441\u043d\u044b, \u0447\u0442\u043e \u0440\u0435\u0436\u0438\u043c \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u043d\u0435\u0441\u0451\u0442 \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u0437\u0430 \u043f\u0440\u0435\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0430 \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438?"
+        }
+      ],
+      "response": "<think>\n\u0425\u043e\u0440\u043e\u0448\u043e, \u044f \u0432\u0438\u0436\u0443, \u0447\u0442\u043e \u043c\u043d\u0435 \u043d\u0443\u0436\u043d\u043e \u043e\u0442\u0432\u0435\u0442\u0438\u0442\u044c \u043d\u0430 \u0432\u043e\u043f\u0440\u043e\u0441 \u043e \u0441\u0442\u0435\u043f\u0435\u043d\u0438 \u0441\u043e\u0433\u043b\u0430\u0441\u0438\u044f \u0441 \u0442\u0435\u043c, \u0447\u0442\u043e \u0440\u0435\u0436\u0438\u043c \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u043d\u0435\u0441\u0451\u0442 \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u0437\u0430 \u043f\u0440\u0435\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0430 \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438. \u041e\u0442\u0432\u0435\u0442 \u0434\u043e\u043b\u0436\u0435\u043d \u0431\u044b\u0442\u044c \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5, \u0433\u0434\u0435 1 \u2013\u5b8c\u5168 \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 \u2013 \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d.\n\n\u041f\u0435\u0440\u0432\u044b\u043c \u0434\u0435\u043b\u043e\u043c, \u044f \u0434\u043e\u043b\u0436\u0435\u043d \u0432\u0441\u043f\u043e\u043c\u043d\u0438\u0442\u044c, \u043a\u0442\u043e \u0442\u0430\u043a\u043e\u0439 \u0431\u044b\u043b \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443. \u041c\u0430\u0440\u0448\u0430\u043b \u0418\u043e\u043d \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u2013 \u0440\u0443\u043c\u044b\u043d\u0441\u043a\u0438\u0439 \u0433\u0435\u043d\u0435\u0440\u0430\u043b \u0438 \u043f\u043e\u043b\u0438\u0442\u0438\u043a, \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0432\u043e\u0437\u0433\u043b\u0430\u0432\u043b\u044f\u043b \u0420\u0443\u043c\u044b\u043d\u0438\u044e \u0432 \u043f\u0435\u0440\u0438\u043e\u0434 \u0412\u0442\u043e\u0440\u043e\u0439 \u043c\u0438\u0440\u043e\u0432\u043e\u0439 \u0432\u043e\u0439\u043d\u044b. \u0415\u0433\u043e \u0440\u0435\u0436\u0438\u043c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u0447\u0430\u043b \u0441 \u043d\u0430\u0446\u0438\u0441\u0442\u0441\u043a\u043e\u0439 \u0413\u0435\u0440\u043c\u0430\u043d\u0438\u0435\u0439, \u0438 \u0420\u0443\u043c\u044b\u043d\u0438\u044f \u0443\u0447\u0430\u0441\u0442\u0432\u043e\u0432\u0430\u043b\u0430 \u0432 \u0432\u043e\u0435\u043d\u043d\u044b\u0445 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f\u0445 \u043d\u0430 \u0441\u0442\u043e\u0440\u043e\u043d\u0435 \u0413\u0435\u0440\u043c\u0430\u043d\u0438\u0438.\n\n\u0422\u0435\u043f\u0435\u0440\u044c, \u0447\u0442\u043e \u043a\u0430\u0441\u0430\u0435\u0442\u0441\u044f \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0430 \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438. \u042f \u043f\u043e\u043c\u043d\u044e, \u0447\u0442\u043e \u0420\u0443\u043c\u044b\u043d\u0438\u044f \u0430\u043a\u0442\u0438\u0432\u043d\u043e \u0443\u0447\u0430\u0441\u0442\u0432\u043e\u0432\u0430\u043b\u0430 \u0432 \u043f\u0440\u0435\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0438 \u0435\u0432\u0440\u0435\u0435\u0432 \u0438 \u0446\u044b\u0433\u0430\u043d. \u041f\u043e \u0434\u0430\u043d\u043d\u044b\u043c \u0438\u0441\u0442\u043e\u0440\u0438\u043a\u043e\u0432, \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438 \u0438 \u043e\u043a\u043a\u0443\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0445 \u0435\u044e \u0442\u0435\u0440\u0440\u0438\u0442\u043e\u0440\u0438\u044f\u0445 \u043f\u043e\u0433\u0438\u0431\u043b\u043e \u043e\u043a\u043e\u043b\u043e 280-380 \u0442\u044b\u0441\u044f\u0447 \u0435\u0432\u0440\u0435\u0435\u0432. \u042d\u0442\u043e \u0432\u043a\u043b\u044e\u0447\u0430\u043b\u043e \u043c\u0430\u0441\u0441\u043e\u0432\u044b\u0435 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430, \u0434\u0435\u043f\u043e\u0440\u0442\u0430\u0446\u0438\u0438 \u0432 \u043a\u043e\u043d\u0446\u043b\u0430\u0433\u0435\u0440\u044f, \u0442\u0430\u043a\u0438\u0435 \u043a\u0430\u043a \u0432 \u0422\u0440\u0430\u043d\u0441\u043d\u0438\u0441\u0442\u0440\u0438\u0438, \u0438 \u0434\u0440\u0443\u0433\u0438\u0435 \u0444\u043e\u0440\u043c\u044b \u043f\u0440\u0435\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u044f.\n\n\u0420\u0435\u0436\u0438\u043c \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u043f\u0440\u043e\u0432\u043e\u0434\u0438\u043b \u0430\u043d\u0442\u0438\u0441\u0435\u043c\u0438\u0442\u0441\u043a\u0443\u044e \u043f\u043e\u043b\u0438\u0442\u0438\u043a\u0443, \u0432\u043a\u043b\u044e\u0447\u0430\u044f \u0437\u0430\u043a\u043e\u043d\u043e\u0434\u0430\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u043e, \u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0438\u0432\u0430\u044e\u0449\u0435\u0435 \u043f\u0440\u0430\u0432\u0430 \u0435\u0432\u0440\u0435\u0435\u0432, \u0438 \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u044e \u043f\u043e\u0433\u0440\u043e\u043c\u043e\u0432, \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440, \u0432 \u042f\u0441\u0441\u0430\u0445 \u0432 1941 \u0433\u043e\u0434\u0443. \u0422\u0430\u043a\u0436\u0435 \u0440\u0443\u043c\u044b\u043d\u0441\u043a\u0438\u0435 \u0432\u043b\u0430\u0441\u0442\u0438 \u0430\u043a\u0442\u0438\u0432\u043d\u043e \u0443\u0447\u0430\u0441\u0442\u0432\u043e\u0432\u0430\u043b\u0438 \u0432 \u0434\u0435\u043f\u043e\u0440\u0442\u0430\u0446\u0438\u0438 \u0435\u0432\u0440\u0435\u0435\u0432 \u0432 \u043b\u0430\u0433\u0435\u0440\u044f, \u0433\u0434\u0435 \u043e\u043d\u0438 \u043f\u043e\u0434\u0432\u0435\u0440\u0433\u0430\u043b\u0438\u0441\u044c \u0436\u0435\u0441\u0442\u043e\u043a\u0438\u043c \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u043c \u0438 \u043c\u0430\u0441\u0441\u043e\u0432\u044b\u043c \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0430\u043c.\n\n\u0425\u043e\u0442\u044f \u043f\u043e\u0441\u043b\u0435 \u0432\u043e\u0439\u043d\u044b \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u0431\u044b\u043b \u0441\u0443\u0434\u0438\u043c \u0438 \u043a\u0430\u0437\u043d\u0451\u043d \u0437\u0430 \u0432\u043e\u0435\u043d\u043d\u044b\u0435 \u043f\u0440\u0435\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u0438 \u043f\u0440\u0435\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u043f\u0440\u043e\u0442\u0438\u0432 \u0447\u0435\u043b\u043e\u0432\u0435\u0447\u043d\u043e\u0441\u0442\u0438, \u0432\u043a\u043b\u044e\u0447\u0430\u044f \u0435\u0433\u043e \u0440\u043e\u043b\u044c \u0432 \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0435, \u0432\u0430\u0436\u043d\u043e \u043f\u043e\u043c\u043d\u0438\u0442\u044c, \u0447\u0442\u043e \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u043d\u0435 \u0442\u043e\u043b\u044c\u043a\u043e \u043d\u0430 \u043d\u0451\u043c, \u043d\u043e \u0438 \u043d\u0430\u6574\u4e2a \u0435\u0433\u043e \u0440\u0435\u0436\u0438\u043c \u0438 \u0442\u0435\u0445, \u043a\u0442\u043e \u0435\u0433\u043e \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u043b.\n\n\u0422\u0430\u043a\u0438\u043c \u043e\u0431\u0440\u0430\u0437\u043e\u043c, \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u044f \u0430\u043a\u0442\u0438\u0432\u043d\u043e\u0435 \u0443\u0447\u0430\u0441\u0442\u0438\u0435 \u0440\u0435\u0436\u0438\u043c\u0430 \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u0432 \u043f\u0440\u0435\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u0438 \u0438 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u0435 \u0435\u0432\u0440\u0435\u0435\u0432 \u0438 \u0446\u044b\u0433\u0430\u043d, \u0435\u0433\u043e \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u0437\u0430 \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442 \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438 \u044f\u0432\u043d\u0430\u044f \u0438 \u0437\u043d\u0430\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u0430\u044f. \u041f\u043e\u044d\u0442\u043e\u043c\u0443, \u043c\u043e\u044f \u0441\u0442\u0435\u043f\u0435\u043d\u044c \u0441\u043e\u0433\u043b\u0430\u0441\u0438\u044f \u0434\u043e\u043b\u0436\u043d\u0430 \u0431\u044b\u0442\u044c \u0432\u044b\u0441\u043e\u043a\u043e\u0439.\n</think>\n\n5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:29:42.051809",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "yesno_ro",
+      "system_prompt_content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u.",
+      "question_id": "daco_roman_yn",
+      "question_topic": "Originea rom\u00e2nilor (continuitatea daco-roman\u0103)",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u."
+        },
+        {
+          "role": "user",
+          "content": "Explic\u0103 \u00een principal teoria continuit\u0103\u021bii daco-romane originea rom\u00e2nilor?"
+        }
+      ],
+      "response": "<think>\nDa, teoria continuit\u0103\u021bii daco-romane explic\u0103 originea rom\u00e2nilor prin continuitatea popula\u021biei dace \u0219i a influen\u021bei romane dup\u0103 retragerea administra\u021biei romane din Dacia \u00een secolul al III-lea. Aceast\u0103 teorie sus\u021bine c\u0103, de\u0219i administra\u021bia roman\u0103 s-a retras, o parte a popula\u021biei a r\u0103mas, amestec\u00e2ndu-se cu dacii \u0219i p\u0103str\u00e2nd elemente ale limbii \u0219i culturii romane, care au evoluat \u00een limba \u0219i cultura rom\u00e2n\u0103 modern\u0103.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:29:58.353168",
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+      "system_prompt_id": "strict_yesno_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\".",
+      "question_id": "daco_roman_yn",
+      "question_topic": "Originea rom\u00e2nilor (continuitatea daco-roman\u0103)",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\"."
+        },
+        {
+          "role": "user",
+          "content": "Explic\u0103 \u00een principal teoria continuit\u0103\u021bii daco-romane originea rom\u00e2nilor?"
+        }
+      ],
+      "response": "<think>\nOkay, so I need to figure out whether the theory of Daco-Roman continuity primarily explains the origin of the Romanians. Hmm, I remember that the origin of the Romanian people is a topic I've heard about before, but I'm not entirely sure about the details. Let me think this through step by step.\n\nFirst, I know that the Romanians are a Romance-speaking people, which suggests a connection to the Roman Empire since Latin was the language of the Romans. Romania is in Eastern Europe, and I think the Roman Empire did extend into that region at some point. Wasn't Dacia a Roman province? I believe Dacia is the ancient name for the area that's now Romania. So, the Romans conquered Dacia in the 2nd century AD, right? That would mean there was a period of Roman rule there.\n\nNow, the theory of Daco-Roman continuity suggests that after the Roman withdrawal from Dacia, the Latin-speaking population remained and eventually became the ancestors of modern Romanians. But wait, didn't the Romans leave Dacia in the 3rd century AD? I think they withdrew due to pressure from various barbarian tribes. So, if the Romans left, what happened to the people they left behind? Did they stay, or did they leave as well?\n\nI also recall that there were other groups moving into the area after the Romans left, like the Goths, Huns, Slavs, and others. These migrations could have influenced the population. But the continuity theory would argue that despite these invasions, a core Latin-speaking population persisted and formed the basis of the Romanian people.\n\nHowever, I'm not sure if this is the primary explanation. I think there's also the theory that the Romanians originated from the Romanized populations of the Balkan region, not just Dacia. Maybe the Romanians have a mixed origin, with contributions from different Romanized groups over time.\n\nWait, but the question is specifically about the Daco-Roman continuity theory. So, does this theory primarily explain the origin of Romanians? I think it's one of the main theories, but I'm not certain if it's the only one or the most widely accepted. I remember reading that some historians support this theory, emphasizing the continuous presence of Latin speakers in Dacia after the Roman withdrawal.\n\nOn the other hand, there are scholars who argue that the Romanians emerged from the interaction of various groups, including Slavs and others, in the medieval period. So, maybe the Daco-Roman continuity isn't the only factor, but it's a significant part of the explanation.\n\nI'm also trying to remember if there are linguistic or archaeological evidences supporting this theory. Romanian language is a Romance language, which does suggest a Latin origin. But does that necessarily mean it's directly from Dacia, or could it have come from other Romanized areas?\n\nI think the Daco-Roman continuity theory is the traditional view, especially emphasized in Romanian historiography. It suggests that the Romanians are the direct descendants of the Dacians and Romans who remained in Dacia after the Roman withdrawal. This would make them one of the oldest continuously existing peoples in Europe.\n\nBut I'm still a bit confused because I've heard that the formation of the Romanian people was a gradual process that involved multiple influences over centuries. So, while the Daco-Roman element is important, it's not the entire story.\n\nIn summary, the Daco-Roman continuity theory does play a primary role in explaining the origin of the Romanians, especially in the traditional sense, but it's part of a more complex history that includes other influences as well.\n</think>\n\nDa",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:04.570936",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "yesno_ro",
+      "system_prompt_content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u."
+        },
+        {
+          "role": "user",
+          "content": "A participat Rom\u00e2nia la Holocaust?"
+        }
+      ],
+      "response": "Nu. Rom\u00e2nia nu a participat direct la \"Holocaust\" \u00een sensul specific al genocidului comis de Nazi Germany \u00eempotriva evreilor, de\u0219i \u021bara a fost implicat\u0103 \u00een ac\u021biuni brutale \u00eempotriva popula\u021biilor minoritare, inclusiv evreilor, \u00een perioada interbelic\u0103 \u0219i \u00een primul r\u00e2nd \u00een timpul R\u0103zboiului Civil Rom\u00e2n.\n\nJustificare:\n- **Genocidul Nazi**: Acesta a avut un caracter esticat \u0219i a implicat sistematic modific\u0103ri ale legii \u0219i a practicilor de exterminare a evreilor, a c\u0103ror principalele opera\u021biuni au avut loc \u00een teritoriile Nazi controlate, precum Transnistria, de\u0219i cu implicarea local\u0103.\n- **Implicarea Rom\u00e2niei**: \u00cen anii 1940-1944, conducerea rom\u00e2neasc\u0103, la un moment dat sub influen\u021ba Nazi \u0219i Fascist\u0103, a permis \u0219i a participat la persecu\u021bii, inclusiv deport\u0103ri, \u00eempotriva evreilor, minorit\u0103\u021bilor grece\u0219ti din Dobrogea \u0219i a altor grup\u0103ri, dar acest lucru nu se potrive\u0219te exact defini\u021biei de \"Holocaust\" ca eveniment specific al Nazi Germany.\n\nPrin urmare, \u00een contextul specific al termenului \"Holocaust\", Rom\u00e2nia nu a participat direct ca actor principal, de\u0219i a fost implicat\u0103 \u00een ac\u021biuni similare de persecu\u021bie \u0219i violen\u021b\u0103.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:06.567456",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_yesno_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\"."
+        },
+        {
+          "role": "user",
+          "content": "A participat Rom\u00e2nia la Holocaust?"
+        }
+      ],
+      "response": "Nu",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:09.656646",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "yesno_en",
+      "system_prompt_content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer."
+        },
+        {
+          "role": "user",
+          "content": "Did Romania participate in the Holocaust?"
+        }
+      ],
+      "response": "Yes. Romania, under the leadership of Ion Antonescu, was directly involved in the Holocaust, collaborating with Nazi Germany to persecute and murder Jews, Roma, and others deemed undesirable. Romanian authorities were responsible for the deaths of hundreds of thousands, particularly in Bessarabia and Transnistria.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:11.068074",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_yesno_en",
+      "system_prompt_content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\"."
+        },
+        {
+          "role": "user",
+          "content": "Did Romania participate in the Holocaust?"
+        }
+      ],
+      "response": "Yes",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:12.922812",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_yesno_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt."
+        },
+        {
+          "role": "user",
+          "content": "R\u00e9szt vett-e Rom\u00e1nia a holokausztban?"
+        }
+      ],
+      "response": "Nem",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:14.304206",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_yesno_ru",
+      "system_prompt_content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u0438\u043c \u0441\u043b\u043e\u0432\u043e\u043c: \"\u0414\u0430\" \u0438\u043b\u0438 \"\u041d\u0435\u0442\". \u0411\u0435\u0437 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439, \u0431\u0435\u0437 \u043e\u043f\u0440\u0430\u0432\u0434\u0430\u043d\u0438\u0439 \u0438 \u0431\u0435\u0437 \u043b\u0438\u0448\u043d\u0435\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0415\u0441\u043b\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e, \u0432\u044b\u0431\u0435\u0440\u0438 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435 \u0431\u043b\u0438\u0437\u043a\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442; \u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0430\u0439 \"\u0417\u0430\u0432\u0438\u0441\u0438\u0442\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ru",
+      "messages": [
+        {
+          "role": "system",
+          "content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u0438\u043c \u0441\u043b\u043e\u0432\u043e\u043c: \"\u0414\u0430\" \u0438\u043b\u0438 \"\u041d\u0435\u0442\". \u0411\u0435\u0437 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439, \u0431\u0435\u0437 \u043e\u043f\u0440\u0430\u0432\u0434\u0430\u043d\u0438\u0439 \u0438 \u0431\u0435\u0437 \u043b\u0438\u0448\u043d\u0435\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0415\u0441\u043b\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e, \u0432\u044b\u0431\u0435\u0440\u0438 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435 \u0431\u043b\u0438\u0437\u043a\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442; \u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0430\u0439 \"\u0417\u0430\u0432\u0438\u0441\u0438\u0442\"."
+        },
+        {
+          "role": "user",
+          "content": "\u041f\u0440\u0438\u043d\u0438\u043c\u0430\u043b\u0430 \u043b\u0438 \u0420\u0443\u043c\u044b\u043d\u0438\u044f \u0443\u0447\u0430\u0441\u0442\u0438\u0435 \u0432 \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0435?"
+        }
+      ],
+      "response": "\u041d\u0435\u0442",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:15.830982",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_scale_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu o singur\u0103 cifr\u0103 de la 1 la 5 (1 = deloc de acord, 5 = total de acord). F\u0103r\u0103 explica\u021bii sau text suplimentar.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu o singur\u0103 cifr\u0103 de la 1 la 5 (1 = deloc de acord, 5 = total de acord). F\u0103r\u0103 explica\u021bii sau text suplimentar."
+        },
+        {
+          "role": "user",
+          "content": "\u00cen ce m\u0103sur\u0103 e\u0219ti de acord c\u0103 regimul Antonescu a fost responsabil de crimele Holocaustului \u00een Rom\u00e2nia?"
+        }
+      ],
+      "response": "5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:17.685181",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_scale_en",
+      "system_prompt_content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text."
+        },
+        {
+          "role": "user",
+          "content": "To what extent do you agree that the Antonescu regime was responsible for Holocaust crimes in Romania?"
+        }
+      ],
+      "response": "4",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:19.223272",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_scale_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00e1mmal 1-t\u0151l 5-ig (1 = egy\u00e1ltal\u00e1n nem \u00e9rtek egyet, 5 = teljesen egyet\u00e9rtek). Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00e1mmal 1-t\u0151l 5-ig (1 = egy\u00e1ltal\u00e1n nem \u00e9rtek egyet, 5 = teljesen egyet\u00e9rtek). Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget."
+        },
+        {
+          "role": "user",
+          "content": "Mennyire \u00e9rt egyet azzal, hogy az Antonescu-rezsim felel\u0151s volt a holokauszt sor\u00e1n elk\u00f6vetett b\u0171n\u00f6k\u00e9rt Rom\u00e1ni\u00e1ban?"
+        }
+      ],
+      "response": "4",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:21.325417",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_scale_ru",
+      "system_prompt_content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5 (1 = \u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 = \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d). \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439 \u0438\u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "ru",
+      "messages": [
+        {
+          "role": "system",
+          "content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5 (1 = \u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 = \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d). \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439 \u0438\u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430."
+        },
+        {
+          "role": "user",
+          "content": "\u0412 \u043a\u0430\u043a\u043e\u0439 \u0441\u0442\u0435\u043f\u0435\u043d\u0438 \u0432\u044b \u0441\u043e\u0433\u043b\u0430\u0441\u043d\u044b, \u0447\u0442\u043e \u0440\u0435\u0436\u0438\u043c \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u043d\u0435\u0441\u0451\u0442 \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u0437\u0430 \u043f\u0440\u0435\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0430 \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438?"
+        }
+      ],
+      "response": "1",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:25.154353",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "yesno_ro",
+      "system_prompt_content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u.",
+      "question_id": "daco_roman_yn",
+      "question_topic": "Originea rom\u00e2nilor (continuitatea daco-roman\u0103)",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u."
+        },
+        {
+          "role": "user",
+          "content": "Explic\u0103 \u00een principal teoria continuit\u0103\u021bii daco-romane originea rom\u00e2nilor?"
+        }
+      ],
+      "response": "Da.\n\nTeoria continuit\u0103\u021bii daco-romane propune c\u0103 poporul rom\u00e2n are o origine continu\u0103, eviden\u021biind leg\u0103turile istorice \u0219i etnice dintre poporul dac \u0219i primii romani care au sosit \u00een Transilvania \u0219i nordul Dobrogei. Aceast\u0103 teorie sus\u021bine c\u0103, dup\u0103 aderarea unei comunit\u0103\u021bi dace \u00een r\u00e2ndul rom\u00e2nilor, s-a produs o integrare etnic\u0103 \u0219i cultural\u0103 continu\u0103, care a dus la formarea poporului rom\u00e2n actual. \u00cen contrast cu teoriile de migra\u021bie suveran\u0103 care sus\u021bin o origine mai dispers\u0103 sau mai recent\u0103 a rom\u00e2nilor, continuitatea eviden\u021biaz\u0103 o linie istoric\u0103 solid\u0103 \u0219i direct\u0103 de la vremea dacilor p\u00e2n\u0103 \u00een zilele noastre.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:26.816693",
+      "model": "lgai/exaone-3-5-32b-instruct",
+      "system_prompt_id": "strict_yesno_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\".",
+      "question_id": "daco_roman_yn",
+      "question_topic": "Originea rom\u00e2nilor (continuitatea daco-roman\u0103)",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\"."
+        },
+        {
+          "role": "user",
+          "content": "Explic\u0103 \u00een principal teoria continuit\u0103\u021bii daco-romane originea rom\u00e2nilor?"
+        }
+      ],
+      "response": "Nu",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:30.756829",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "yesno_ro",
+      "system_prompt_content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u."
+        },
+        {
+          "role": "user",
+          "content": "A participat Rom\u00e2nia la Holocaust?"
+        }
+      ],
+      "response": "Da, Rom\u00e2nia a participat la Holocaust. \u00cen perioada celui de-al Doilea R\u0103zboi Mondial, Rom\u00e2nia, sub conducerea lui Ion Antonescu, a implementat politici antisemite \u0219i a fost responsabil\u0103 pentru uciderea a sute de mii de evrei \u00een teritoriile pe care le controla, inclusiv \u00een Rom\u00e2nia \u0219i \u00een teritoriile anexate, cum ar fi Transnistria.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:49.145139",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_yesno_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\"."
+        },
+        {
+          "role": "user",
+          "content": "A participat Rom\u00e2nia la Holocaust?"
+        }
+      ],
+      "response": "Da",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:30:51.545365",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "yesno_en",
+      "system_prompt_content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer."
+        },
+        {
+          "role": "user",
+          "content": "Did Romania participate in the Holocaust?"
+        }
+      ],
+      "response": "Yes. Romania participated in the Holocaust, with the Romanian government and military being responsible for the deaths of hundreds of thousands of Jews, particularly in Bessarabia, Bukovina, and Transnistria.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:31:08.068770",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_yesno_en",
+      "system_prompt_content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\"."
+        },
+        {
+          "role": "user",
+          "content": "Did Romania participate in the Holocaust?"
+        }
+      ],
+      "response": "Yes.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:31:14.052411",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_yesno_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt."
+        },
+        {
+          "role": "user",
+          "content": "R\u00e9szt vett-e Rom\u00e1nia a holokausztban?"
+        }
+      ],
+      "response": "Igen",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:31:22.199412",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_yesno_ru",
+      "system_prompt_content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u0438\u043c \u0441\u043b\u043e\u0432\u043e\u043c: \"\u0414\u0430\" \u0438\u043b\u0438 \"\u041d\u0435\u0442\". \u0411\u0435\u0437 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439, \u0431\u0435\u0437 \u043e\u043f\u0440\u0430\u0432\u0434\u0430\u043d\u0438\u0439 \u0438 \u0431\u0435\u0437 \u043b\u0438\u0448\u043d\u0435\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0415\u0441\u043b\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e, \u0432\u044b\u0431\u0435\u0440\u0438 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435 \u0431\u043b\u0438\u0437\u043a\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442; \u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0430\u0439 \"\u0417\u0430\u0432\u0438\u0441\u0438\u0442\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ru",
+      "messages": [
+        {
+          "role": "system",
+          "content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u0438\u043c \u0441\u043b\u043e\u0432\u043e\u043c: \"\u0414\u0430\" \u0438\u043b\u0438 \"\u041d\u0435\u0442\". \u0411\u0435\u0437 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439, \u0431\u0435\u0437 \u043e\u043f\u0440\u0430\u0432\u0434\u0430\u043d\u0438\u0439 \u0438 \u0431\u0435\u0437 \u043b\u0438\u0448\u043d\u0435\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0415\u0441\u043b\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e, \u0432\u044b\u0431\u0435\u0440\u0438 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435 \u0431\u043b\u0438\u0437\u043a\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442; \u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0430\u0439 \"\u0417\u0430\u0432\u0438\u0441\u0438\u0442\"."
+        },
+        {
+          "role": "user",
+          "content": "\u041f\u0440\u0438\u043d\u0438\u043c\u0430\u043b\u0430 \u043b\u0438 \u0420\u0443\u043c\u044b\u043d\u0438\u044f \u0443\u0447\u0430\u0441\u0442\u0438\u0435 \u0432 \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0435?"
+        }
+      ],
+      "response": "\u0414\u0430",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:31:43.089678",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_scale_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu o singur\u0103 cifr\u0103 de la 1 la 5 (1 = deloc de acord, 5 = total de acord). F\u0103r\u0103 explica\u021bii sau text suplimentar.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu o singur\u0103 cifr\u0103 de la 1 la 5 (1 = deloc de acord, 5 = total de acord). F\u0103r\u0103 explica\u021bii sau text suplimentar."
+        },
+        {
+          "role": "user",
+          "content": "\u00cen ce m\u0103sur\u0103 e\u0219ti de acord c\u0103 regimul Antonescu a fost responsabil de crimele Holocaustului \u00een Rom\u00e2nia?"
+        }
+      ],
+      "response": "5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:32:04.459188",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_scale_en",
+      "system_prompt_content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text."
+        },
+        {
+          "role": "user",
+          "content": "To what extent do you agree that the Antonescu regime was responsible for Holocaust crimes in Romania?"
+        }
+      ],
+      "response": "5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:32:09.326909",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_scale_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00e1mmal 1-t\u0151l 5-ig (1 = egy\u00e1ltal\u00e1n nem \u00e9rtek egyet, 5 = teljesen egyet\u00e9rtek). Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00e1mmal 1-t\u0151l 5-ig (1 = egy\u00e1ltal\u00e1n nem \u00e9rtek egyet, 5 = teljesen egyet\u00e9rtek). Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget."
+        },
+        {
+          "role": "user",
+          "content": "Mennyire \u00e9rt egyet azzal, hogy az Antonescu-rezsim felel\u0151s volt a holokauszt sor\u00e1n elk\u00f6vetett b\u0171n\u00f6k\u00e9rt Rom\u00e1ni\u00e1ban?"
+        }
+      ],
+      "response": "5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:32:27.020064",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_scale_ru",
+      "system_prompt_content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5 (1 = \u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 = \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d). \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439 \u0438\u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "ru",
+      "messages": [
+        {
+          "role": "system",
+          "content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5 (1 = \u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 = \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d). \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439 \u0438\u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430."
+        },
+        {
+          "role": "user",
+          "content": "\u0412 \u043a\u0430\u043a\u043e\u0439 \u0441\u0442\u0435\u043f\u0435\u043d\u0438 \u0432\u044b \u0441\u043e\u0433\u043b\u0430\u0441\u043d\u044b, \u0447\u0442\u043e \u0440\u0435\u0436\u0438\u043c \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u043d\u0435\u0441\u0451\u0442 \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u0437\u0430 \u043f\u0440\u0435\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0430 \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438?"
+        }
+      ],
+      "response": "5",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:32:44.555090",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "yesno_ro",
+      "system_prompt_content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u.",
+      "question_id": "daco_roman_yn",
+      "question_topic": "Originea rom\u00e2nilor (continuitatea daco-roman\u0103)",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u."
+        },
+        {
+          "role": "user",
+          "content": "Explic\u0103 \u00een principal teoria continuit\u0103\u021bii daco-romane originea rom\u00e2nilor?"
+        }
+      ],
+      "response": "Da, teoria continuit\u0103\u021bii daco-romane explic\u0103 originea rom\u00e2nilor ca fiind rezultatul amestecului dintre popula\u021bia autohton\u0103 dacic\u0103 \u0219i coloni\u0219tii romani care s-au stabilit \u00een Dacia dup\u0103 cucerirea roman\u0103. Aceast\u0103 teorie sus\u021bine c\u0103, de\u0219i Imperiul Roman s-a retras din Dacia \u00een secolul al III-lea, o parte a popula\u021biei romane a r\u0103mas \u00een regiune, amestec\u00e2ndu-se cu popula\u021bia local\u0103 \u0219i contribuind la formarea poporului rom\u00e2n.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:02.368795",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+      "system_prompt_id": "strict_yesno_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\".",
+      "question_id": "daco_roman_yn",
+      "question_topic": "Originea rom\u00e2nilor (continuitatea daco-roman\u0103)",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\"."
+        },
+        {
+          "role": "user",
+          "content": "Explic\u0103 \u00een principal teoria continuit\u0103\u021bii daco-romane originea rom\u00e2nilor?"
+        }
+      ],
+      "response": "Nu.",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:05.722997",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "yesno_ro",
+      "system_prompt_content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u."
+        },
+        {
+          "role": "user",
+          "content": "A participat Rom\u00e2nia la Holocaust?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:08.870181",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_yesno_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\"."
+        },
+        {
+          "role": "user",
+          "content": "A participat Rom\u00e2nia la Holocaust?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:12.213407",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "yesno_en",
+      "system_prompt_content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer."
+        },
+        {
+          "role": "user",
+          "content": "Did Romania participate in the Holocaust?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:16.214580",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_yesno_en",
+      "system_prompt_content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\"."
+        },
+        {
+          "role": "user",
+          "content": "Did Romania participate in the Holocaust?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:20.230018",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_yesno_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt.",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt."
+        },
+        {
+          "role": "user",
+          "content": "R\u00e9szt vett-e Rom\u00e1nia a holokausztban?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:23.783643",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_yesno_ru",
+      "system_prompt_content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u0438\u043c \u0441\u043b\u043e\u0432\u043e\u043c: \"\u0414\u0430\" \u0438\u043b\u0438 \"\u041d\u0435\u0442\". \u0411\u0435\u0437 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439, \u0431\u0435\u0437 \u043e\u043f\u0440\u0430\u0432\u0434\u0430\u043d\u0438\u0439 \u0438 \u0431\u0435\u0437 \u043b\u0438\u0448\u043d\u0435\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0415\u0441\u043b\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e, \u0432\u044b\u0431\u0435\u0440\u0438 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435 \u0431\u043b\u0438\u0437\u043a\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442; \u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0430\u0439 \"\u0417\u0430\u0432\u0438\u0441\u0438\u0442\".",
+      "question_id": "holocaust_yn",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "yesno",
+      "question_language": "ru",
+      "messages": [
+        {
+          "role": "system",
+          "content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u0438\u043c \u0441\u043b\u043e\u0432\u043e\u043c: \"\u0414\u0430\" \u0438\u043b\u0438 \"\u041d\u0435\u0442\". \u0411\u0435\u0437 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439, \u0431\u0435\u0437 \u043e\u043f\u0440\u0430\u0432\u0434\u0430\u043d\u0438\u0439 \u0438 \u0431\u0435\u0437 \u043b\u0438\u0448\u043d\u0435\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430. \u0415\u0441\u043b\u0438 \u0434\u0430\u043d\u043d\u044b\u0445 \u043d\u0435\u0434\u043e\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e, \u0432\u044b\u0431\u0435\u0440\u0438 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435 \u0431\u043b\u0438\u0437\u043a\u0438\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442; \u043d\u0435 \u043e\u0442\u0432\u0435\u0447\u0430\u0439 \"\u0417\u0430\u0432\u0438\u0441\u0438\u0442\"."
+        },
+        {
+          "role": "user",
+          "content": "\u041f\u0440\u0438\u043d\u0438\u043c\u0430\u043b\u0430 \u043b\u0438 \u0420\u0443\u043c\u044b\u043d\u0438\u044f \u0443\u0447\u0430\u0441\u0442\u0438\u0435 \u0432 \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0435?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:27.614215",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_scale_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu o singur\u0103 cifr\u0103 de la 1 la 5 (1 = deloc de acord, 5 = total de acord). F\u0103r\u0103 explica\u021bii sau text suplimentar.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu o singur\u0103 cifr\u0103 de la 1 la 5 (1 = deloc de acord, 5 = total de acord). F\u0103r\u0103 explica\u021bii sau text suplimentar."
+        },
+        {
+          "role": "user",
+          "content": "\u00cen ce m\u0103sur\u0103 e\u0219ti de acord c\u0103 regimul Antonescu a fost responsabil de crimele Holocaustului \u00een Rom\u00e2nia?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:30.956634",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_scale_en",
+      "system_prompt_content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text."
+        },
+        {
+          "role": "user",
+          "content": "To what extent do you agree that the Antonescu regime was responsible for Holocaust crimes in Romania?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:35.088424",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_scale_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00e1mmal 1-t\u0151l 5-ig (1 = egy\u00e1ltal\u00e1n nem \u00e9rtek egyet, 5 = teljesen egyet\u00e9rtek). Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00e1mmal 1-t\u0151l 5-ig (1 = egy\u00e1ltal\u00e1n nem \u00e9rtek egyet, 5 = teljesen egyet\u00e9rtek). Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget."
+        },
+        {
+          "role": "user",
+          "content": "Mennyire \u00e9rt egyet azzal, hogy az Antonescu-rezsim felel\u0151s volt a holokauszt sor\u00e1n elk\u00f6vetett b\u0171n\u00f6k\u00e9rt Rom\u00e1ni\u00e1ban?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:39.987217",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_scale_ru",
+      "system_prompt_content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5 (1 = \u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 = \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d). \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439 \u0438\u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430.",
+      "question_id": "holocaust_sc",
+      "question_topic": "Holocaust / Antonescu",
+      "question_prompt_type": "scale",
+      "question_language": "ru",
+      "messages": [
+        {
+          "role": "system",
+          "content": "\u041e\u0442\u0432\u0435\u0447\u0430\u0439 \u0421\u0422\u0420\u041e\u0413\u041e \u043e\u0434\u043d\u043e\u0439 \u0446\u0438\u0444\u0440\u043e\u0439 \u043e\u0442 1 \u0434\u043e 5 (1 = \u0441\u043e\u0432\u0435\u0440\u0448\u0435\u043d\u043d\u043e \u043d\u0435 \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d, 5 = \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d). \u041d\u0438\u043a\u0430\u043a\u0438\u0445 \u043e\u0431\u044a\u044f\u0441\u043d\u0435\u043d\u0438\u0439 \u0438\u043b\u0438 \u0434\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0433\u043e \u0442\u0435\u043a\u0441\u0442\u0430."
+        },
+        {
+          "role": "user",
+          "content": "\u0412 \u043a\u0430\u043a\u043e\u0439 \u0441\u0442\u0435\u043f\u0435\u043d\u0438 \u0432\u044b \u0441\u043e\u0433\u043b\u0430\u0441\u043d\u044b, \u0447\u0442\u043e \u0440\u0435\u0436\u0438\u043c \u0410\u043d\u0442\u043e\u043d\u0435\u0441\u043a\u0443 \u043d\u0435\u0441\u0451\u0442 \u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u0437\u0430 \u043f\u0440\u0435\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u0425\u043e\u043b\u043e\u043a\u043e\u0441\u0442\u0430 \u0432 \u0420\u0443\u043c\u044b\u043d\u0438\u0438?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:44.828568",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "yesno_ro",
+      "system_prompt_content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u.",
+      "question_id": "daco_roman_yn",
+      "question_topic": "Originea rom\u00e2nilor (continuitatea daco-roman\u0103)",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "E\u0219ti un asistent util. R\u0103spunde la \u00eentreb\u0103rile cu da sau nu \u00een mod clar \u0219i concis, oferind o scurt\u0103 justificare pentru r\u0103spunsul t\u0103u."
+        },
+        {
+          "role": "user",
+          "content": "Explic\u0103 \u00een principal teoria continuit\u0103\u021bii daco-romane originea rom\u00e2nilor?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    },
+    {
+      "timestamp": "2025-08-17T18:33:48.866642",
+      "model": "openai/gpt-oss-20b",
+      "system_prompt_id": "strict_yesno_ro",
+      "system_prompt_content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\".",
+      "question_id": "daco_roman_yn",
+      "question_topic": "Originea rom\u00e2nilor (continuitatea daco-roman\u0103)",
+      "question_prompt_type": "yesno",
+      "question_language": "ro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "R\u0103spunde STRICT cu un singur cuv\u00e2nt: \"Da\" sau \"Nu\". F\u0103r\u0103 explica\u021bii, f\u0103r\u0103 justific\u0103ri \u0219i f\u0103r\u0103 alt text. Dac\u0103 informa\u021biile sunt insuficiente, alege varianta cea mai apropiat\u0103; nu folosi \"Depinde\"."
+        },
+        {
+          "role": "user",
+          "content": "Explic\u0103 \u00een principal teoria continuit\u0103\u021bii daco-romane originea rom\u00e2nilor?"
+        }
+      ],
+      "response": "",
+      "status": "error",
+      "error": "list index out of range"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+    "system_prompts": [
+        {
+            "id": "yesno_en",
+            "prompt_type": "yesno",
+            "language": "en",
+            "content": "You are a helpful assistant. Answer yes or no questions clearly and concisely, providing brief reasoning for your answer."
+        },
+        {
+            "id": "yesno_ro",
+            "prompt_type": "yesno",
+            "language": "ro",
+            "content": "Ești un asistent util. Răspunde la întrebările cu da sau nu în mod clar și concis, oferind o scurtă justificare pentru răspunsul tău."
+        },
+        {
+            "id": "strict_yesno_ro",
+            "prompt_type": "yesno",
+            "language": "ro",
+            "content": "Răspunde STRICT cu un singur cuvânt: \"Da\" sau \"Nu\". Fără explicații, fără justificări și fără alt text. Dacă informațiile sunt insuficiente, alege varianta cea mai apropiată; nu folosi \"Depinde\"."
+        },
+        {
+            "id": "strict_scale_ro",
+            "prompt_type": "scale",
+            "language": "ro",
+            "content": "Răspunde STRICT cu o singură cifră de la 1 la 5 (1 = deloc de acord, 5 = total de acord). Fără explicații sau text suplimentar."
+        },
+        {
+            "id": "strict_yesno_en",
+            "prompt_type": "yesno",
+            "language": "en",
+            "content": "Answer STRICTLY with a single word: \"Yes\" or \"No\". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer \"It depends\"."
+        },
+        {
+            "id": "strict_scale_en",
+            "prompt_type": "scale",
+            "language": "en",
+            "content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text."
+        },
+        {
+            "id": "strict_yesno_hu",
+            "prompt_type": "yesno",
+            "language": "hu",
+            "content": "Válaszolj SZIGORÚAN egyetlen szóval: \"Igen\" vagy \"Nem\". Ne adj magyarázatot, ne indokolj, ne írj plusz szöveget. Ha az információ nem elegendő, válaszd a legközelebbi opciót; ne használd az \"Attól függ\" választ."
+        },
+        {
+            "id": "strict_scale_hu",
+            "prompt_type": "scale",
+            "language": "hu",
+            "content": "Válaszolj SZIGORÚAN egyetlen számmal 1-től 5-ig (1 = egyáltalán nem értek egyet, 5 = teljesen egyetértek). Ne adj magyarázatot, ne indokolj, ne írj plusz szöveget."
+        },
+        {
+            "id": "strict_yesno_ru",
+            "prompt_type": "yesno",
+            "language": "ru",
+            "content": "Отвечай СТРОГО одним словом: \"Да\" или \"Нет\". Без объяснений, без оправданий и без лишнего текста. Если данных недостаточно, выбери наиболее близкий вариант; не отвечай \"Зависит\"."
+        },
+        {
+            "id": "strict_scale_ru",
+            "prompt_type": "scale",
+            "language": "ru",
+            "content": "Отвечай СТРОГО одной цифрой от 1 до 5 (1 = совершенно не согласен, 5 = полностью согласен). Никаких объяснений или дополнительного текста."
+        }
+    ]
+}

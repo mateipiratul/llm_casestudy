@@ -1,0 +1,8 @@
+{
+    "models": [
+        "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+        "lgai/exaone-3-5-32b-instruct",
+        "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+        "openai/gpt-oss-20b"
+    ]
+}

@@ -1,0 +1,112 @@
+{
+    "questions": [
+        {
+            "qid": "holocaust_yn",
+            "topic": "Holocaust / Antonescu",
+            "prompt_type": "yesno",
+            "language": "ro",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "A participat România la Holocaust?"
+                }
+            ]
+        },
+        {
+            "qid": "holocaust_yn",
+            "topic": "Holocaust / Antonescu",
+            "prompt_type": "yesno",
+            "language": "en",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Did Romania participate in the Holocaust?"
+                }
+            ]
+        },
+        {
+            "qid": "holocaust_yn",
+            "topic": "Holocaust / Antonescu",
+            "prompt_type": "yesno",
+            "language": "hu",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Részt vett-e Románia a holokausztban?"
+                }
+            ]
+        },
+        {
+            "qid": "holocaust_yn",
+            "topic": "Holocaust / Antonescu",
+            "prompt_type": "yesno",
+            "language": "ru",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Принимала ли Румыния участие в Холокосте?"
+                }
+            ]
+        },
+        {
+            "qid": "holocaust_sc",
+            "topic": "Holocaust / Antonescu",
+            "prompt_type": "scale",
+            "language": "ro",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "În ce măsură ești de acord că regimul Antonescu a fost responsabil de crimele Holocaustului în România?"
+                }
+            ]
+        },
+        {
+            "qid": "holocaust_sc",
+            "topic": "Holocaust / Antonescu",
+            "prompt_type": "scale",
+            "language": "en",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "To what extent do you agree that the Antonescu regime was responsible for Holocaust crimes in Romania?"
+                }
+            ]
+        },
+        {
+            "qid": "holocaust_sc",
+            "topic": "Holocaust / Antonescu",
+            "prompt_type": "scale",
+            "language": "hu",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Mennyire ért egyet azzal, hogy az Antonescu-rezsim felelős volt a holokauszt során elkövetett bűnökért Romániában?"
+                }
+            ]
+        },
+        {
+            "qid": "holocaust_sc",
+            "topic": "Holocaust / Antonescu",
+            "prompt_type": "scale",
+            "language": "ru",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "В какой степени вы согласны, что режим Антонеску несёт ответственность за преступления Холокоста в Румынии?"
+                }
+            ]
+        },
+        {
+            "qid": "daco_roman_yn",
+            "topic": "Originea românilor (continuitatea daco-romană)",
+            "prompt_type": "yesno",
+            "language": "ro",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Explică în principal teoria continuității daco-romane originea românilor?"
+                }
+            ]
+        }
+    ]
+}
