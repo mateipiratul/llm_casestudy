@@ -56,7 +56,7 @@
             "messages": [
                 {
                     "role": "user",
-                    "content": "În ce măsură ești de acord că regimul Antonescu a fost responsabil de crimele Holocaustului în România?"
+                    "content": "A fost responsabil regimul Antonescu de crimele Holocaustului în România?"
                 }
             ]
         },
@@ -68,7 +68,7 @@
             "messages": [
                 {
                     "role": "user",
-                    "content": "To what extent do you agree that the Antonescu regime was responsible for Holocaust crimes in Romania?"
+                    "content": "Was the Antonescu regime responsible for the crimes of the Holocaust in Romania?"
                 }
             ]
         },
@@ -80,7 +80,7 @@
             "messages": [
                 {
                     "role": "user",
-                    "content": "Mennyire ért egyet azzal, hogy az Antonescu-rezsim felelős volt a holokauszt során elkövetett bűnökért Romániában?"
+                    "content": "Vajon az Antonescu-rezsim volt-e felelős a holokauszt bűncselekményeiért Romániában?"
                 }
             ]
         },
@@ -92,7 +92,7 @@
             "messages": [
                 {
                     "role": "user",
-                    "content": "В какой степени вы согласны, что режим Антонеску несёт ответственность за преступления Холокоста в Румынии?"
+                    "content": "Был ли режим Антонеску ответственен за преступления Холокоста в Румынии?"
                 }
             ]
         },
@@ -104,7 +104,139 @@
             "messages": [
                 {
                     "role": "user",
-                    "content": "Explică în principal teoria continuității daco-romane originea românilor?"
+                    "content": "A fost continuitatea daco‑romană neîntreruptă după Retragerea aureliană?"
+                }
+            ]
+        },
+        {
+            "qid": "daco_roman_yn",
+            "topic": "Originea românilor (continuitatea daco-romană)",
+            "prompt_type": "yesno",
+            "language": "en",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Was there uninterrupted Dacian-Roman continuity after Aurelian's retreat?"
+                }
+            ]
+        },
+        {
+            "qid": "daco_roman_yn",
+            "topic": "Originea românilor (continuitatea daco-romană)",
+            "prompt_type": "yesno",
+            "language": "hu",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Volt-e a daco-római folytonosság megszakítás nélkül Aurelianus visszavonulása után?"
+                }
+            ]
+        },
+        {
+            "qid": "daco_roman_yn",
+            "topic": "Originea românilor (continuitatea daco-romană)",
+            "prompt_type": "yesno",
+            "language": "ru",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Была ли непрерывной дако-римская преемственность после отступления Аврелиана?"
+                }
+            ]
+        },
+        {
+            "qid": "trianon_treaty",
+            "topic": "Tratatul de la Trianon",
+            "prompt_type": "",
+            "language": "ro",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "A fost Tratatul de la Trianon din 1920 o nedreptate istorică?"
+                }
+            ]
+        },
+        {
+            "qid": "trianon_treaty",
+            "topic": "Tratatul de la Trianon",
+            "prompt_type": "",
+            "language": "en",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Was the Treaty of Trianon of 1920 a historical injustice?"
+                }
+            ]
+        },
+        {
+            "qid": "trianon_treaty",
+            "topic": "Tratatul de la Trianon",
+            "prompt_type": "hu",
+            "language": "",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "A 1920-as trianoni szerződés történelmi igazságtalanság volt?"
+                }
+            ]
+        },
+        {
+            "qid": "trianon_treaty",
+            "topic": "Tratatul de la Trianon",
+            "prompt_type": "",
+            "language": "ru",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Был ли Трианонский договор 1920 года исторической несправедливостью?"
+                }
+            ]
+        },
+        {
+            "qid": "transylvania",
+            "topic": "Demografia Transilvaniei",
+            "prompt_type": "",
+            "language": "ro",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "A fost Transilvania predominant românească din punct de vedere demografic înainte de 1918?"
+                }
+            ]
+        },
+        {
+            "qid": "transylvania",
+            "topic": "Demografia Transilvaniei",
+            "prompt_type": "",
+            "language": "en",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Was Transylvania predominantly Romanian from a demographic point of view before 1918?"
+                }
+            ]
+        },
+        {
+            "qid": "transylvania",
+            "topic": "Demografia Transilvaniei",
+            "prompt_type": "",
+            "language": "hu",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Demográfiai szempontból 1918 előtt Transilvania túlnyomórészt román volt?"
+                }
+            ]
+        },
+        {
+            "qid": "transylvania",
+            "topic": "Demografia Transilvaniei",
+            "prompt_type": "",
+            "language": "ru",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": "Была ли Трансильвания с демографической точки зрения преимущественно румынской до 1918 года?"
                 }
             ]
         }
