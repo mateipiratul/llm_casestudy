@@ -66,8 +66,8 @@
 
 \begin{document}
 \maketitle
-\begin{abstract} 
-In this case study, multiple large language models, both open-source and closed-source, provided various answers to certain controversial questions related to Romania's foreign history from different secular periods, having to deliver an answer that complies with the kind of request provided in a specific context. Besides being a study mainly performed for educational purposes, the motivation also lies in the recognition that history is often presented through altered perspectives, primarily influenced by the culture and ideals of a state, even through large language models. Since they are often trained on certain data sets that may present certain ambiguities, the lack of neutrality is subsequently instilled in users. The research process was carried out in three stages, to confirm the idea that the type of response expected can influence, to a certain extent, the response itself; after providing an affirmative answer to some given question, an LLM could shift its way of thinking after being asked the same question again, but being told to respond with a numerical value of a scale. Our research brings to light the predisposition of models to such inconsistencies, within a specific contextualization of the language for the question asked.
+\begin{abstract}
+In this case study, we select a set of controversial Romanian historical questions and ask multiple Large Language Models to answer them across languages and contexts, in order to assess their biases. Besides being a study mainly performed for educational purposes, the motivation also lies in the recognition that history is often presented through altered perspectives, primarily influenced by the culture and ideals of a state, even through large language models. Since they are often trained on certain data sets that may present certain ambiguities, the lack of neutrality is subsequently instilled in users. The research process was carried out in three stages, to confirm the idea that the type of response expected can influence, to a certain extent, the response itself; after providing an affirmative answer to some given question, an LLM could shift its way of thinking after being asked the same question again, but being told to respond with a numerical value of a scale. Our research brings to light the predisposition of models to such inconsistencies, within a specific contextualization of the language for the question asked. 
 \end{abstract}
 
 \begin{keyword} 
@@ -79,8 +79,7 @@ In this case study, multiple large language models, both open-source and closed-
 
 \section{Introduction}
 \label{intro}
-Reasoning - the process of drawing conclusions to facilitate problem-solving and decision-making (Leighton, 2003)
-A significant number of studies indicate the fact that reasoning has become a prominent feature of LLMs ().
+Reasoning - the process of drawing conclusions to facilitate problem-solving and decision-making (Leighton, 2003); a significant number of studies indicate the fact that reasoning has become a prominent feature of LLMs (), and along with this quality comes a certain bias towards some ideologies of certain domains.
 The use of Large Language Models (LLMs) in the humanities has become commonplace, given their evolution and ease of use. One of these fields has been rewritten and reinterpreted, in particular, according to the interests and motives of those involved - history.
 
 
@@ -121,6 +120,7 @@ For our experiments, we chose
 \subsection{Questioning Process}
 
 \subsubsection{Prompt}
+The following prompt template was used
 
 \subsubsection{Question Selection}
 
@@ -172,11 +172,6 @@ It is of utmost importance to specify the \textbf{A4 format} (21 cm
 x 29.7 cm) when formatting the paper. When working with
 {\tt dvips}, for instance, one should specify {\tt -t a4}.
 
-If you cannot meet the above requirements
-for the production of your electronic submission, please contact the
-publication co-chairs as soon as possible.
-
-
 \subsection{Layout}
 \label{ssec:layout}
 
@@ -200,18 +195,6 @@ publication co-chairs above as soon as possible.
 
 \subsection{Fonts}
 
-For reasons of uniformity, Adobe's {\bf Times Roman} font should be
-used. In \LaTeX2e{} this is accomplished by putting
-
-\begin{quote}
-\begin{verbatim}
-\usepackage{times}
-\usepackage{latexsym}
-\end{verbatim}
-\end{quote}
-in the preamble. If Times Roman is unavailable, use {\bf Computer
-  Modern Roman} (\LaTeX2e{}'s default).  Note that the latter is about
-  10\% less dense than Adobe's Times Roman font, The \textbf{Times New Roman} font, which is configured for us in the Microsoft Word template (consilr2024.dotx) and which some Linux distributions offer for installation, can be used as well.
 
 \fontsize{10}{12}{
 \begin{table}[h]

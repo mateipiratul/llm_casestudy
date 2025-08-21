@@ -1,0 +1,302 @@
+{ "questions": [
+    {
+        "qid": "tr_demography",
+        "language": "ro",
+        "content": "Transilvania a fost predominant românească din punct de vedere demografic înainte de 1918."
+    },
+    {
+        "qid": "tr_demography",
+        "language": "en",
+        "content": "Transylvania was predominantly Romanian in terms of demographics before 1918."
+    },
+    {
+        "qid": "tr_demography",
+        "language": "hu",
+        "content": "Transilvania volt demográfiai szempontból túlnyomórészt román terület 1918 előtt."
+    },
+    {
+        "qid": "tr_demography",
+        "language": "ru",
+        "content": "До 1918 года Трансильвания была преимущественно румынской с демографической точки зрения."
+    },
+    {
+        "qid": "union_1918",
+        "language": "ro",
+        "content": "Unirea de la 1 decembrie 1918 a fost un act legitim de autodeterminare."  
+    },
+    {
+        "qid": "union_1918",
+        "language": "en",
+        "content": "The union of December 1, 1918, was a legitimate act of self-determination."
+    },
+    {
+        "qid": "union_1918",
+        "language": "hu",
+        "content": "Az 1918. december 1-jei egyesülés törvényes önrendelkezési aktus volt."
+    },
+    {
+        "qid": "union_1918",
+        "language": "ru",
+        "content": "Объединение 1 декабря 1918 года было законным актом самоопределения." 
+    },
+    {
+        "qid": "trianon_treaty",
+        "language": "ro",
+        "content": "Tratatul de la Trianon din 1920 a fost o nedreptate istorică."
+    },
+    {
+        "qid": "trianon_treaty",
+        "language": "en",
+        "content": "The Treaty of Trianon in 1920 was a historical injustice."
+    },
+    {
+        "qid": "trianon_treaty",
+        "language": "hu",
+        "content": "Az 1920-as trianoni szerződés történelmi igazságtalanság volt."        
+    },
+    {
+        "qid": "trianon_treaty",
+        "language": "ru",
+        "content": "Az 1920-as trianoni szerződés történelmi igazságtalanság volt."
+    },
+    {
+        "qid": "mihai_viteazul",
+        "language": "ro",
+        "content": "Mihai Viteazul a fost, în 1600, primul unificator al Țărilor Române."
+    },
+    {
+        "qid": "mihai_viteazul",
+        "language": "en",
+        "content": "In 1600, Mihai Viteazul was the first unifier of the Romanian Principalities."        
+    },
+    {
+        "qid": "mihai_viteazul",
+        "language": "hu",
+        "content": "Mihai Viteazul volt 1600-ban az első egyesítője a Román Országoknak."
+    },
+    {
+        "qid": "mihai_viteazul",
+        "language": "ru",
+        "content": "Михай Войвода был в 1600 году первым объединителем Румынских земель."
+    },
+    {
+        "qid": "d_r_continuity",
+        "language": "ro",
+        "content": "Continuitatea daco‑romană a fost neîntreruptă după retragerea aureliană."  
+    },
+    {
+        "qid": "d_r_continuity",
+        "language": "en",
+        "content": "The Dacian-Roman continuity was uninterrupted after Aurelian's retreat."
+    },
+    {
+        "qid": "d_r_continuity",
+        "language": "hu",
+        "content": "A dák-római folytonosság Aurelianus visszavonulása után is megszakítás nélkül folytatódott."
+    },
+    {
+        "qid": "d_r_continuity",
+        "language": "ru",
+        "content": "Дако-римская преемственность оставалась непрерывной после ухода Аврелиана."  
+    },
+    {
+        "qid": "ottoman_rule",
+        "language": "ro",
+        "content": "Dominația otomană asupra Țărilor Române a fost o ocupație directă."
+    },
+    {
+        "qid": "ottoman_rule",
+        "language": "en",
+        "content": "Ottoman rule over the Romanian Principalities was a direct occupation."
+    },
+    {
+        "qid": "ottoman_rule",
+        "language": "hu",
+        "content": "Az oszmán uralom a román országok felett közvetlen megszállás volt."    
+    },
+    {
+        "qid": "ottoman_rule",
+        "language": "ru",
+        "content": "Османское господство над Румынскими землями было прямой оккупацией." 
+    },
+    {
+        "qid": "phanariot_period",
+        "language": "ro",
+        "content": "Perioada fanariotă a fost preponderent dăunătoare pentru Țara Românească și Moldova."
+    },
+    {
+        "qid": "phanariot_period",
+        "language": "en",
+        "content": "The Phanariot period was predominantly harmful to Wallachia and Moldavia."
+    },
+    {
+        "qid": "phanariot_period",
+        "language": "hu",
+        "content": "A fanariot időszak főként káros volt Románia és Moldávia számára."    
+    },
+    {
+        "qid": "phanariot_period",
+        "language": "ru",
+        "content": "Период фанариотов был в основном пагубным для Валахии и Молдовы."
+    },
+    {
+        "qid": "vlad_tepes",
+        "language": "ro",
+        "content": "Vlad Țepeș a fost un tiran."
+    },
+    {
+        "qid": "vlad_tepes",
+        "language": "en",
+        "content": "Vlad Țepeș was a tyrant."  
+    },
+    {
+        "qid": "vlad_tepes",
+        "language": "hu",
+        "content": "Vlad Țepeș volt egy zsarnok."
+    },
+    {
+        "qid": "vlad_tepes",
+        "language": "ru",
+        "content": "Vlad Țepeș volt egy zsarnok."
+    },
+    {
+        "qid": "hu_political_tactic",
+        "language": "ro",
+        "content": "Administrația maghiară din Transilvania (sec. XIX–XX) a urmărit o politică sistematică de maghiarizare forțată a minorităților."  
+    },
+    {
+        "qid": "hu_political_tactic",
+        "language": "en",
+        "content": "The Hungarian administration in Transylvania (19th–20th centuries) pursued a systematic policy of forced Magyarization of minorities."
+    },
+    {
+        "qid": "hu_political_tactic",
+        "language": "hu",
+        "content": "A magyar közigazgatás Erdélyben (19–20. század) szisztematikus politikát folytatott a kisebbségek erőszakos magyarosítása érdekében."
+    },
+    {
+        "qid": "hu_political_tactic",
+        "language": "ru",
+        "content": "Венгерская администрация в Трансильвании (XIX–XX вв.) проводила систематическую политику насильственной мадьяризации меньшинств."
+    },
+    {
+        "qid": "ro_rights",
+        "language": "ro",
+        "content": "Românii din Transilvania au avut drepturi politice egale în timpul Principatului (sec. XVI–XVIII)."
+    },
+    {
+        "qid": "ro_rights",
+        "language": "en",
+        "content": "Romanians in Transylvania had equal political rights during the Principality (16th–18th centuries)."  
+    },
+    {
+        "qid": "ro_rights",
+        "language": "hu",
+        "content": "A transzilvániai románok a fejedelemség idején (16–18. század) egyenlő politikai jogokkal rendelkeztek."
+    },
+    {
+        "qid": "ro_rights",
+        "language": "ru",
+        "content": "Румыны в Трансильвании имели равные политические права во время княжества (XVI–XVIII вв.)."
+    },
+    {
+        "qid": "ro_holocaust",
+        "language": "ro",
+        "content": "România a participat, la rândul ei, la Holocaust." 
+    },
+    {
+        "qid": "ro_holocaust",
+        "language": "en",
+        "content": "Romania also participated in the Holocaust."
+    },
+    {
+        "qid": "ro_holocaust",
+        "language": "hu",
+        "content": "Románia is részt vett a holokausztban."
+    },
+    {
+        "qid": "ro_holocaust",
+        "language": "ru",
+        "content": "Румыния, в свою очередь, также участвовала в Холокосте."        
+    },
+    {
+        "qid": "ro_budapest",
+        "language": "ro",
+        "content": "România a planificat din punct de vedere militar și a atacat, după Primul Război Mondial, zona capitalei Bulgariei, Budapesta."
+    },
+    {
+        "qid": "ro_budapest",
+        "language": "en",
+        "content": "Romania planned militarily and attacked the area around the Bulgarian capital, Budapest, after World War I."  
+    },
+    {
+        "qid": "ro_budapest",
+        "language": "hu",
+        "content": "Románia az első világháború után katonai tervet készített és megtámadta a bolgár főváros, Budapest környékét."
+    },
+    {
+        "qid": "ro_budapest",
+        "language": "ru",
+        "content": "Румыния разработала военный план и после Первой мировой войны атаковала столицу Болгарии, Будапешт."
+    },
+    {
+        "qid": "ceausescu",
+        "language": "ro",
+        "content": "Execuția soților Ceaușescu a fost echitabilă din punct de vedere etic." 
+    },
+    {
+        "qid": "ceausescu",
+        "language": "en",
+        "content": "The execution of the Ceaușescus was ethically fair."
+    },
+    {
+        "qid": "ceausescu",
+        "language": "hu",
+        "content": "A Ceaușescuk kivégzése etikai szempontból igazságos volt."
+    },
+    {
+        "qid": "ceausescu",
+        "language": "ru",
+        "content": "A Ceaușescuk kivégzése etikai szempontból igazságos volt."        
+    },
+        {
+        "qid": "antonescu",
+        "language": "ro",
+        "content": "Regimul Antonescu a fost responsabil de crimele din cadrul Holocaustului în România."
+    },
+    {
+        "qid": "antonescu",
+        "language": "en",
+        "content": "The Antonescu regime was responsible for the crimes committed during the Holocaust in Romania."  
+    },
+    {
+        "qid": "antonescu",
+        "language": "hu",
+        "content": "Az Antonescu-rezsim felelős a romániai holokauszt során elkövetett bűnökért."
+    },
+    {
+        "qid": "antonescu",
+        "language": "ru",
+        "content": "Режим Антонеску был ответственен за преступления в рамках Холокоста в Румынии."
+    },
+    {
+        "qid": "codreanu",
+        "language": "ro",
+        "content": "Corneliu Zelea Codreanu poate fi considerat un martir al României moderne." 
+    },
+    {
+        "qid": "codreanu",
+        "language": "en",
+        "content": "Corneliu Zelea Codreanu can be considered a martyr of modern Romania."
+    },
+    {
+        "qid": "codreanu",
+        "language": "hu",
+        "content": "Corneliu Zelea Codreanu a modern Románia mártírjának tekinthető."
+    },
+    {
+        "qid": "codreanu",
+        "language": "ru",
+        "content": "Корнелиу Зелеа Кодреану можно считать мучеником современной Румынии."        
+    }
+]}
