@@ -8,7 +8,7 @@ import sys
 
 # Checkpoint file to save progress
 CHECKPOINT_FILE = 'bulk_test_checkpoint.json'
-RESULTS_FILE = 'bulk_test_results.json'
+RESULTS_FILE = 'test_results.json'
 
 # Global variable to handle graceful shutdown
 shutdown_requested = False
@@ -69,15 +69,15 @@ def save_final_results(all_results, model_config, system_prompts_config, questio
         os.remove(CHECKPOINT_FILE)
 
 # Load model configuration
-with open('models.json', 'r') as f:
+with open('models.json', 'r', encoding='utf-8') as f:
     model_config = json.load(f)
 
-# Load questions (make sure to rename your new file to questions.json or change the filename below)
-with open('questions.json', 'r') as f:
+# Load questions
+with open('questions.json', 'r', encoding='utf-8') as f:
     questions_config = json.load(f)
 
 # Load system prompts
-with open('system_prompts.json', 'r') as f:
+with open('system_prompts.json', 'r', encoding='utf-8') as f:
     system_prompts_config = json.load(f)
 
 client = Together()
