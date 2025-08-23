@@ -5,6 +5,7 @@ import time
 import os
 import signal
 import sys
+import argparse
 
 # Checkpoint file to save progress
 CHECKPOINT_FILE = 'bulk_test_checkpoint.json'
@@ -21,6 +22,12 @@ def signal_handler(signum, frame):
 
 # Register signal handler
 signal.signal(signal.SIGINT, signal_handler)
+
+# Parse command line arguments
+parser = argparse.ArgumentParser(description='Run bulk testing with optional model skipping')
+parser.add_argument('-skipm', '--skip-models', type=int, default=0, 
+                    help='Number of models to skip from the beginning (default: 0)')
+args = parser.parse_args()
 
 def save_checkpoint(current_model_idx, current_question_idx, current_prompt_idx, all_results):
     """Save current progress to checkpoint file"""
@@ -88,15 +95,34 @@ if checkpoint:
     print(f"Resuming from checkpoint saved at {checkpoint['timestamp']}")
     print(f"Already completed {len(checkpoint['completed_results'])} tests")
     all_results = checkpoint['completed_results']
-    start_model_idx = checkpoint['current_model_idx']
-    start_question_idx = checkpoint['current_question_idx']
-    start_prompt_idx = checkpoint['current_prompt_idx']
+    # Command line argument overrides checkpoint
+    if args.skip_models > 0:
+        start_model_idx = args.skip_models
+        start_question_idx = 0
+        start_prompt_idx = 0
+        print(f"Command line override: skipping to model {args.skip_models + 1}")
+    else:
+        start_model_idx = checkpoint['current_model_idx']
+        start_question_idx = checkpoint['current_question_idx']
+        start_prompt_idx = checkpoint['current_prompt_idx']
 else:
     print("Starting fresh bulk testing...")
     all_results = []
-    start_model_idx = 0
+    start_model_idx = args.skip_models  # Start from the specified model skip count
     start_question_idx = 0
     start_prompt_idx = 0
+
+# Validate skip models parameter
+if args.skip_models > 0:
+    if args.skip_models >= len(model_config['models']):
+        print(f"Error: Cannot skip {args.skip_models} models. Only {len(model_config['models'])} models available.")
+        sys.exit(1)
+    print(f"Skipping first {args.skip_models} model(s). Starting from model {args.skip_models + 1}")
+
+# Ensure we don't start beyond the model count when resuming from checkpoint
+if start_model_idx >= len(model_config['models']):
+    print(f"All models completed!")
+    sys.exit(0)
 
 print(f"Starting bulk testing with {len(model_config['models'])} models, {len(system_prompts_config['system_prompts'])} system prompts, and {len(questions_config['questions'])} questions...")
 
