@@ -1,7 +1,0 @@
-ABSTRACT:
-In this case study, multiple large language models, both open-source and closed-source, provided various answers to certain controversial questions related to Romania's foreign history from different secular periods, having to deliver an answer that complies with the kind of request provided in a specific context. Besides being a study mainly performed for educational purposes, the motivation also lies in the recognition that history is often presented through altered perspectives, primarily influenced by the culture and ideals of a state, even through large language models. Since they are often trained on certain data sets that may present certain ambiguities, the lack of neutrality is subsequently instilled in users. The research process was carried out in three stages, to confirm the idea that the type of response expected can influence, to a certain extent, the response itself; after providing an affirmative answer to some given question, an LLM could shift its way of thinking after being asked the same question again, but being told to respond with a numerical value of a scale. Our research brings to light the predisposition of models to such inconsistencies, within a specific contextualization of the language for the question asked.
-
-
-INTRO:
-
-The use of Large Language Models (LLMs) in the humanities has become commonplace, given their evolution and ease of use. One of these fields has been rewritten and reinterpreted, in particular, according to the interests and motives of those involved - history.

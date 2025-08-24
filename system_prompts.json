@@ -10,7 +10,7 @@
             "id": "scale_ro",
             "prompt_type": "scale",
             "language": "ro",
-            "content": "Răspunde STRICT cu o singură cifră de la 1 la 5 (1 = deloc de acord, 5 = total de acord). Fără explicații sau text suplimentar."
+            "content": "Răspunde STRICT cu o singură cifră de la 1 la 10 (1 = deloc de acord, 10 = total de acord). Fără explicații sau text suplimentar."
         },
         {
             "id": "yesno_en",
@@ -22,7 +22,7 @@
             "id": "scale_en",
             "prompt_type": "scale",
             "language": "en",
-            "content": "Answer STRICTLY with a single digit from 1 to 5 (1 = strongly disagree, 5 = strongly agree). No explanations or extra text."
+            "content": "Answer STRICTLY with a single digit from 1 to 10 (1 = strongly disagree, 10 = strongly agree). No explanations or extra text."
         },
         {
             "id": "yesno_hu",
@@ -34,7 +34,7 @@
             "id": "scale_hu",
             "prompt_type": "scale",
             "language": "hu",
-            "content": "Válaszolj SZIGORÚAN egyetlen számmal 1-től 5-ig (1 = egyáltalán nem értek egyet, 5 = teljesen egyetértek). Ne adj magyarázatot, ne indokolj, ne írj plusz szöveget."
+            "content": "Válaszolj SZIGORÚAN egyetlen számmal 1-től 10-ig (1 = egyáltalán nem értek egyet, 10 = teljesen egyetértek). Ne adj magyarázatot, ne indokolj, ne írj plusz szöveget."
         },
         {
             "id": "yesno_ru",
@@ -46,7 +46,7 @@
             "id": "scale_ru",
             "prompt_type": "scale",
             "language": "ru",
-            "content": "Отвечай СТРОГО одной цифрой от 1 до 5 (1 = совершенно не согласен, 5 = полностью согласен). Никаких объяснений или дополнительного текста."
+            "content": "Отвечай СТРОГО одной цифрой от 1 до 10 (1 = совершенно не согласен, 10 = полностью согласен). Никаких объяснений или дополнительного текста."
         }
     ]
 }

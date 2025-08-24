@@ -4,143 +4,176 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.patches as mpatches
 import os
+import numpy as np
 
 # --- Configuration ---
 RESULTS_FILE = 'bulk_test_results.json'
-OUTPUT_IMAGE_FILE = 'llm_test_results_visualization.png'
+YESNO_PLOT_FILE = 'results_yes_no_heatmap.png'
+SCALE_PLOT_FILE = 'results_scale_heatmap.png'
 
-# Define colors for languages and statuses for consistency
+# Define consistent colors for languages
 LANG_COLORS = {
-    'ro': '#0077b6',  # Blue for Romanian
-    'en': '#009e73',  # Green for English
-    'hu': '#d55e00',  # Orange for Hungarian
-    'ru': '#cc79a7'   # Mauve for Russian
-}
-STATUS_COLORS = {
-    'success': '#90be6d', # Light Green
-    'error': '#f94144'    # Light Red
+    'ro': '#0077b6',  # Blue
+    'en': '#009e73',  # Green
+    'hu': '#d55e00',  # Orange
+    'ru': '#cc79a7'   # Mauve
 }
 
-def create_results_visualization(file_path):
-    """
-    Parses the LLM test results JSON file and creates a 2D visualization.
-    """
-    # 1. Parse the results file
+def load_and_prepare_data(file_path):
     print(f"Loading results from '{file_path}'...")
     if not os.path.exists(file_path):
         print(f"Error: Results file not found at '{file_path}'.")
-        print("Please run the main testing script first to generate the results.")
-        return
+        return None
 
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        results = data.get('results', [])
-        if not results:
-            print("Error: The results file does not contain any test data.")
-            return
-    except json.JSONDecodeError:
-        print(f"Error: Could not parse '{file_path}'. The file may be corrupted.")
+        
+        # The results are in the 'results' key
+        df = pd.DataFrame(data.get('results', []))
+        if df.empty:
+            print("Warning: The results file is empty or contains no results.")
+            return None
+        return df
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"Error parsing the results file: {e}")
+        return None
+
+def create_yesno_heatmap(df):
+    """Creates a heatmap for Yes/No/Error responses."""
+    if df.empty:
+        print("No 'Yes/No' data found to generate a plot.")
         return
 
-    # Convert the results into a pandas DataFrame for easier manipulation
-    df = pd.DataFrame(results)
-    
-    # We only need a few columns for this visualization
-    df = df[['model', 'question_id', 'question_language', 'status']]
+    print("Generating 'Yes/No' response heatmap...")
 
-    # Map the status ('success'/'error') to a numerical value for the heatmap
-    # 1 for success, 0 for error
-    df['status_code'] = df['status'].apply(lambda x: 1 if x == 'success' else 0)
+    # 1. Map text responses to numerical values for coloring
+    response_map = {'Yes': 1, 'No': 0}
+    df['response_code'] = df['response'].map(response_map).fillna(-1) # -1 for errors/other text
 
-    # Pivot the DataFrame to create the 2D grid structure:
-    # - Rows (index) = models
-    # - Columns = question_ids
-    # - Values = status_code (1 or 0)
-    pivot_df = df.pivot_table(
-        index='model', 
-        columns='question_id', 
-        values='status_code'
-    )
+    # 2. Create the pivot tables
+    # One for the color codes (numeric)
+    pivot_color = df.pivot_table(index='model', columns='question_id', values='response_code')
+    # One for the text annotations (strings)
+    pivot_annot = df.pivot_table(index='model', columns='question_id', values='response', aggfunc=lambda x: ' '.join(x))
 
-    # 2. Create the visualization
-    print("Generating plot...")
-    
-    # Set up the plot size
-    # We make it wider to accommodate question IDs
-    fig, ax = plt.subplots(figsize=(20, 10))
-
-    # Create the heatmap using seaborn
+    # 3. Set up the plot
+    fig, ax = plt.subplots(figsize=(24, 12))
     sns.heatmap(
-        pivot_df,
+        pivot_color,
         ax=ax,
-        cmap=[STATUS_COLORS['error'], STATUS_COLORS['success']], # Custom colormap for error/success
+        annot=pivot_annot, # Use the text pivot for annotations
+        fmt='s',           # 's' format for strings
+        cmap=['#f94144', '#f9c74f', '#90be6d'], # Red (Error), Yellow (No), Green (Yes)
         linewidths=1.5,
         linecolor='white',
-        cbar=False, # We will create a custom legend instead of a color bar
-        annot=False # Annotations (1/0) can make it look cluttered
+        cbar=False,        # We'll use a custom legend
+        annot_kws={"size": 10, "weight": "bold"}
     )
 
-    # --- Customize the plot for clarity ---
-
-    # Set titles and labels
-    ax.set_title('LLM Performance on Historical Controversies', fontsize=20, pad=20)
+    # 4. Customize the plot
+    ax.set_title('Model Responses: Yes/No Questions', fontsize=20, pad=20)
     ax.set_xlabel('Question ID', fontsize=14, labelpad=15)
     ax.set_ylabel('Model', fontsize=14, labelpad=15)
 
-    # Color the x-axis labels (question_ids) based on language
-    # First, create a mapping from question_id to its language
+    # Color the x-axis labels by language
     qid_to_lang = df.set_index('question_id')['question_language'].to_dict()
-    
     for tick_label in ax.get_xticklabels():
         qid = tick_label.get_text()
         language = qid_to_lang.get(qid)
         if language in LANG_COLORS:
             tick_label.set_color(LANG_COLORS[language])
-            tick_label.set_weight('bold')
 
-    # Rotate labels for better readability
     plt.xticks(rotation=45, ha='right')
-    plt.yticks(rotation=0)
 
-    # --- Create custom legends ---
-
-    # Legend for languages (using the colored labels)
+    # 5. Create custom legends
     lang_patches = [mpatches.Patch(color=color, label=lang.upper()) for lang, color in LANG_COLORS.items()]
-    lang_legend = plt.legend(
-        handles=lang_patches, 
-        title='Question Language', 
-        bbox_to_anchor=(1.02, 1), 
-        loc='upper left',
-        fontsize='large',
-        title_fontsize='large'
-    )
-    ax.add_artist(lang_legend) # Add the first legend manually
-
-    # Legend for status (the cells)
     status_patches = [
-        mpatches.Patch(color=STATUS_COLORS['success'], label='Success'),
-        mpatches.Patch(color=STATUS_COLORS['error'], label='Error')
+        mpatches.Patch(color='#90be6d', label='Yes'),
+        mpatches.Patch(color='#f9c74f', label='No'),
+        mpatches.Patch(color='#f94144', label='Error / Invalid')
     ]
-    plt.legend(
-        handles=status_patches, 
-        title='Test Status', 
-        bbox_to_anchor=(1.02, 0.5), 
-        loc='center left',
-        fontsize='large',
-        title_fontsize='large'
+    
+    # Place legends outside the plot
+    legend1 = ax.legend(handles=lang_patches, title='Question Language', bbox_to_anchor=(1.01, 1), loc='upper left')
+    ax.add_artist(legend1)
+    ax.legend(handles=status_patches, title='Response', bbox_to_anchor=(1.01, 0.7), loc='upper left')
+    
+    # 6. Save and show
+    plt.tight_layout(rect=[0, 0, 0.9, 1])
+    plt.savefig(YESNO_PLOT_FILE, dpi=300, bbox_inches='tight')
+    print(f"Yes/No heatmap saved to '{YESNO_PLOT_FILE}'")
+    plt.show()
+
+def create_scale_heatmap(df):
+    """Creates a heatmap for numerical scale responses."""
+    if df.empty:
+        print("No 'Scale' data found to generate a plot.")
+        return
+
+    print("Generating 'Scale' response heatmap...")
+
+    # 1. Convert response to a number, coercing errors to NaN
+    df['response_num'] = pd.to_numeric(df['response'], errors='coerce')
+
+    # 2. Create the pivot table
+    pivot_data = df.pivot_table(index='model', columns='question_id', values='response_num')
+
+    # 3. Set up the plot
+    fig, ax = plt.subplots(figsize=(24, 12))
+    sns.heatmap(
+        pivot_data,
+        ax=ax,
+        annot=True,        # Show the numbers in the cells
+        fmt=".1f",         # Format numbers as floats with one decimal
+        cmap="viridis",    # A nice perceptually uniform colormap
+        linewidths=1.5,
+        linecolor='white',
+        cbar_kws={'label': 'Agreement Score (1=Disagree, 5=Agree)'}
     )
 
-    # Adjust layout to prevent labels from being cut off
-    plt.tight_layout(rect=[0, 0, 0.85, 1]) # Make space on the right for legends
+    # 4. Customize the plot
+    ax.set_title('Model Responses: Scale Questions (1-5)', fontsize=20, pad=20)
+    ax.set_xlabel('Question ID', fontsize=14, labelpad=15)
+    ax.set_ylabel('Model', fontsize=14, labelpad=15)
 
-    # Save the plot to a file
-    plt.savefig(OUTPUT_IMAGE_FILE, dpi=300, bbox_inches='tight')
-    print(f"Visualization saved successfully to '{OUTPUT_IMAGE_FILE}'")
-    
-    # Display the plot
+    # Color the x-axis labels by language
+    qid_to_lang = df.set_index('question_id')['question_language'].to_dict()
+    for tick_label in ax.get_xticklabels():
+        qid = tick_label.get_text()
+        language = qid_to_lang.get(qid)
+        if language in LANG_COLORS:
+            tick_label.set_color(LANG_COLORS[language])
+
+    plt.xticks(rotation=45, ha='right')
+
+    # 5. Create language legend
+    lang_patches = [mpatches.Patch(color=color, label=lang.upper()) for lang, color in LANG_COLORS.items()]
+    ax.legend(handles=lang_patches, title='Question Language', bbox_to_anchor=(1.01, 1), loc='upper left')
+
+    # 6. Save and show
+    plt.tight_layout(rect=[0, 0, 0.9, 1])
+    plt.savefig(SCALE_PLOT_FILE, dpi=300, bbox_inches='tight')
+    print(f"Scale heatmap saved to '{SCALE_PLOT_FILE}'")
     plt.show()
 
 
+def main():
+    """Main function to run the analysis and generate plots."""
+    # Load the data
+    df = load_and_prepare_data(RESULTS_FILE)
+    
+    if df is None:
+        return
+
+    # Filter data into two categories based on 'system_prompt_id'
+    df_yesno = df[df['system_prompt_id'].str.startswith('yesno')].copy()
+    df_scale = df[df['system_prompt_id'].str.startswith('scale')].copy()
+
+    # Generate the two separate graphics
+    create_yesno_heatmap(df_yesno)
+    create_scale_heatmap(df_scale)
+
+
 if __name__ == "__main__":
-    create_results_visualization(RESULTS_FILE)
+    main()
