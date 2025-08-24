@@ -7,6 +7,13 @@ import signal
 import sys
 import argparse
 
+# Per-model rate limits (model: {max_requests, window_seconds})
+MODEL_RATE_LIMITS = {
+    "deepseek-ai/DeepSeek-R1": {"max_requests": 3, "window_seconds": 60},
+    # Add more models here if needed
+}
+DEFAULT_RATE_LIMIT = {"wait_seconds": 60}
+
 # Checkpoint file to save progress
 CHECKPOINT_FILE = 'bulk_test_checkpoint.json'
 RESULTS_FILE = 'test_results.json'
@@ -131,6 +138,11 @@ for model_idx, model in enumerate(model_config['models']):
     # Skip models we've already processed
     if model_idx < start_model_idx:
         continue
+
+    # Rate limit tracking for this model
+    rate_limit = MODEL_RATE_LIMITS.get(model, None)
+    requests_made = 0
+    window_start = time.time()
         
     for question_idx, question in enumerate(questions_config['questions']):
         # Skip questions we've already processed for this model
@@ -171,47 +183,74 @@ for model_idx, model in enumerate(model_config['models']):
                 {"role": "user", "content": question['content']}
             ]
             
-            try:
-                stream = client.chat.completions.create(
-                    model=model,
-                    messages=messages,
-                    stream=True,
-                )
-
-                for chunk in stream:
-                    # Check if choices array exists and has content
-                    if hasattr(chunk, 'choices') and len(chunk.choices) > 0:
-                        if hasattr(chunk.choices[0], 'delta') and hasattr(chunk.choices[0].delta, 'content'):
-                            content = chunk.choices[0].delta.content or ""
-                            full_response += content
-
-                # Store the result, removing fields that are no longer available
-                result = {
-                    "timestamp": datetime.now().isoformat(),
-                    "model": model,
-                    "system_prompt_id": system_prompt['id'],
-                    "system_prompt_content": system_prompt['content'],
-                    "question_id": question['qid'],
-                    "question_language": question['language'],
-                    "messages": messages,
-                    "response": full_response.strip(),
-                    "status": "success"
-                }
-                
-            except Exception as e:
-                result = {
-                    "timestamp": datetime.now().isoformat(),
-                    "model": model,
-                    "system_prompt_id": system_prompt['id'],
-                    "system_prompt_content": system_prompt['content'],
-                    "question_id": question['qid'],
-                    "question_language": question['language'],
-                    "messages": messages,
-                    "response": "",
-                    "status": "error",
-                    "error": str(e)
-                }
-                print(f"Error: {str(e)}")
+            # Try block for API call and rate limit handling
+            success = False
+            while not success:
+                try:
+                    stream = client.chat.completions.create(
+                        model=model,
+                        messages=messages,
+                        stream=True,
+                    )
+                    full_response = ""
+                    for chunk in stream:
+                        if hasattr(chunk, 'choices') and len(chunk.choices) > 0:
+                            if hasattr(chunk.choices[0], 'delta') and hasattr(chunk.choices[0].delta, 'content'):
+                                content = chunk.choices[0].delta.content or ""
+                                full_response += content
+                    result = {
+                        "timestamp": datetime.now().isoformat(),
+                        "model": model,
+                        "system_prompt_id": system_prompt['id'],
+                        "system_prompt_content": system_prompt['content'],
+                        "question_id": question['qid'],
+                        "question_language": question['language'],
+                        "messages": messages,
+                        "response": full_response.strip(),
+                        "status": "success"
+                    }
+                    # Rate limit accounting
+                    if rate_limit:
+                        requests_made += 1
+                        if requests_made >= rate_limit["max_requests"]:
+                            elapsed = time.time() - window_start
+                            if elapsed < rate_limit["window_seconds"]:
+                                wait_time = rate_limit["window_seconds"] - elapsed
+                                print(f"Rate limit reached for {model}. Waiting {int(wait_time)+1} seconds...")
+                                time.sleep(wait_time + 1)
+                            window_start = time.time()
+                            requests_made = 0
+                    success = True
+                except Exception as e:
+                    error_msg = str(e)
+                    if "429" in error_msg and "rate limit" in error_msg:
+                        if rate_limit:
+                            print(f"Rate limit error for {model}. Waiting full window and retrying...")
+                            elapsed = time.time() - window_start
+                            wait_time = rate_limit["window_seconds"] - elapsed
+                            if wait_time > 0:
+                                time.sleep(wait_time + 1)
+                            window_start = time.time()
+                            requests_made = 0
+                        else:
+                            print(f"Rate limit error for {model}. Waiting {DEFAULT_RATE_LIMIT['wait_seconds']} seconds and retrying...")
+                            time.sleep(DEFAULT_RATE_LIMIT['wait_seconds'])
+                        # Loop will retry
+                    else:
+                        result = {
+                            "timestamp": datetime.now().isoformat(),
+                            "model": model,
+                            "system_prompt_id": system_prompt['id'],
+                            "system_prompt_content": system_prompt['content'],
+                            "question_id": question['qid'],
+                            "question_language": question['language'],
+                            "messages": messages,
+                            "response": "",
+                            "status": "error",
+                            "error": error_msg
+                        }
+                        print(f"Error: {error_msg}")
+                        success = True
                 
             all_results.append(result)
             

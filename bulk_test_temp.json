@@ -1,6 +1,6 @@
 {
   "current_model_idx": 10,
-  "current_question_idx": 13,
+  "current_question_idx": 14,
   "current_prompt_idx": 1,
   "completed_results": [
     {
@@ -23273,7 +23273,47 @@
       ],
       "response": "Yes",
       "status": "success"
+    },
+    {
+      "timestamp": "2025-08-24T18:24:06.564999",
+      "model": "Qwen/Qwen2.5-7B-Instruct-Turbo",
+      "system_prompt_id": "scale_en",
+      "system_prompt_content": "Answer STRICTLY with a single digit from 1 to 10 (1 = strongly disagree, 10 = strongly agree). No explanations or extra text.",
+      "question_id": "mihai_viteazul",
+      "question_language": "en",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Answer STRICTLY with a single digit from 1 to 10 (1 = strongly disagree, 10 = strongly agree). No explanations or extra text."
+        },
+        {
+          "role": "user",
+          "content": "In 1600, Mihai Viteazul was the first unifier of the Romanian Principalities."
+        }
+      ],
+      "response": "7",
+      "status": "success"
+    },
+    {
+      "timestamp": "2025-08-24T18:24:08.095048",
+      "model": "Qwen/Qwen2.5-7B-Instruct-Turbo",
+      "system_prompt_id": "yesno_hu",
+      "system_prompt_content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt.",
+      "question_id": "mihai_viteazul",
+      "question_language": "hu",
+      "messages": [
+        {
+          "role": "system",
+          "content": "V\u00e1laszolj SZIGOR\u00daAN egyetlen sz\u00f3val: \"Igen\" vagy \"Nem\". Ne adj magyar\u00e1zatot, ne indokolj, ne \u00edrj plusz sz\u00f6veget. Ha az inform\u00e1ci\u00f3 nem elegend\u0151, v\u00e1laszd a legk\u00f6zelebbi opci\u00f3t; ne haszn\u00e1ld az \"Att\u00f3l f\u00fcgg\" v\u00e1laszt."
+        },
+        {
+          "role": "user",
+          "content": "Mihai Viteazul volt 1600-ban az els\u0151 egyes\u00edt\u0151je a Rom\u00e1n Orsz\u00e1goknak."
+        }
+      ],
+      "response": "Igen",
+      "status": "success"
     }
   ],
-  "timestamp": "2025-08-23T03:04:34.890719"
+  "timestamp": "2025-08-24T18:24:09.138103"
 }
