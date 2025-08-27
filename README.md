@@ -7,7 +7,7 @@ Studiu de caz asupra răspunsurilor oferite de modelele lingvistice mari și a �
 ### Running the bulk test
 
 ```bash
-python main.py
+python main.py -t {temp}
 ```
 
 ### Checkpoint System

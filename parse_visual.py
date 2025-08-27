@@ -7,7 +7,7 @@ import os
 import numpy as np
 import re
 
-RESULTS_FILE = '2_test_results.json'
+RESULTS_FILE = '1_test_results.json'
 YESNO_PLOT_FILE = 'results_yesno_quadrant_map.png'
 SCALE_PLOT_FILE = 'results_scale_map.png'
 A4_LANDSCAPE_FIGSIZE = (10.5, 7.5)
