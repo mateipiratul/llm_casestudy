@@ -1,23 +1,3 @@
-"""
-Simple language-model analysis producing five requested stats/plots from 1_test_results.json:
-
-1) Comparison between languages (per model):
-   - Yes/No: percent YES; Scale: mean score. Heatmaps (languages x models).
-2) Stability between languages (same model):
-   - Fraction of questions with identical answers across languages.
-   - Yes/No exact match; Scale uses tolerance (default 1 point). Bar charts per model.
-3) Sensitive questions:
-   - For each question, max difference between languages (averaged across models).
-   - Top-10 bar charts (Yes/No and Scale).
-4) Flips between languages (Yes/No):
-   - Heatmap of fraction where lang A=YES and lang B=NO across (model,question) pairs.
-5) Difference across formats (Yes/No vs Scale):
-   - Scatter: X = percent YES (here 0/1 at pair level), Y = mean scale (score). Colored by language.
-
-Outputs in analysis_reports/simple/
-"""
-
-
 import json
 import os
 import re
@@ -29,11 +9,12 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
-# -----------------------------
-# Config
-# -----------------------------
-RESULTS_FILE = "1_test_results.json"
+RESULTS_FILES = [
+    'results/1_test_results.json',
+    'results/2_test_results.json',
+    'results/3_test_results.json',
+    'results/4_test_results.json'
+]
 OUT_DIR = os.path.join("analysis_reports", "simple")
 
 LANG_ORDER = ["ro", "en", "hu", "ru"]
@@ -47,9 +28,6 @@ YES_WORDS = {"en": ["yes"], "ro": ["da"], "hu": ["igen"], "ru": ["да"]}
 NO_WORDS = {"en": ["no"], "ro": ["nu"], "hu": ["nem"], "ru": ["нет"]}
 
 
-# -----------------------------
-# Helpers
-# -----------------------------
 def ensure_dir(p: str):
     os.makedirs(p, exist_ok=True)
 
@@ -80,17 +58,30 @@ def parse_yesno_value(response: str, lang: str) -> Optional[int]:
     return None
 
 
-def load_results(path: str) -> pd.DataFrame:
-    if not os.path.exists(path):
-        raise FileNotFoundError(f"Missing {path}")
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    df = pd.DataFrame(data.get("results", []))
-    if df.empty:
-        raise ValueError("Results JSON has no entries under 'results'.")
-    df["response"] = df["response"].apply(clean_response)
-    df["model"] = df["model"].apply(shorten_model_name)
-    return df
+def load_results(paths: List[str]) -> pd.DataFrame:
+    """Loads and concatenates data from a list of JSON files."""
+    all_dfs = []
+    for file_path in paths:
+        if not os.path.exists(file_path):
+            print(f"Warning: File not found, skipping: {file_path}")
+            continue
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            df = pd.DataFrame(data.get("results", []))
+            if not df.empty:
+                all_dfs.append(df)
+        except (json.JSONDecodeError, KeyError) as e:
+            print(f"Error parsing '{file_path}': {e}")
+    
+    if not all_dfs:
+        raise ValueError("No valid data loaded from any of the provided files.")
+    
+    full_df = pd.concat(all_dfs, ignore_index=True)
+    
+    full_df["response"] = full_df["response"].apply(clean_response)
+    full_df["model"] = full_df["model"].apply(shorten_model_name)
+    return full_df
 
 
 # -----------------------------
@@ -98,7 +89,6 @@ def load_results(path: str) -> pd.DataFrame:
 # -----------------------------
 def plot_lang_model_heatmaps(df: pd.DataFrame, out_dir: str):
     ensure_dir(out_dir)
-    # YesNo
     yn = df[df["system_prompt_id"].str.startswith("yesno")].copy()
     yn["y"] = yn.apply(lambda r: parse_yesno_value(r.get("response"), r.get("question_language")), axis=1)
     yn = yn.dropna(subset=["y"]).copy()
@@ -115,7 +105,6 @@ def plot_lang_model_heatmaps(df: pd.DataFrame, out_dir: str):
         plt.savefig(os.path.join(out_dir, "heatmap_yes_rate_lang_x_model.png"), dpi=FIG_DPI, bbox_inches="tight")
         plt.close()
 
-    # Scale
     sc = df[df["system_prompt_id"].str.startswith("scale")].copy()
     sc["score"] = pd.to_numeric(sc["response"], errors="coerce")
     sc = sc.dropna(subset=["score"]).copy()
@@ -195,7 +184,6 @@ def plot_stability_bars(stab_df: pd.DataFrame, out_path: str, title: str):
 # -----------------------------
 def plot_sensitive_questions(df: pd.DataFrame, out_dir: str, top_k: int = 10):
     ensure_dir(out_dir)
-    # Yes/No: average per language over models, then max gap
     yn = df[df["system_prompt_id"].str.startswith("yesno")].copy()
     yn["y"] = yn.apply(lambda r: parse_yesno_value(r.get("response"), r.get("question_language")), axis=1)
     yn = yn.dropna(subset=["y"]).copy()
@@ -214,7 +202,6 @@ def plot_sensitive_questions(df: pd.DataFrame, out_dir: str, top_k: int = 10):
         plt.savefig(os.path.join(out_dir, "top_sensitive_yesno.png"), dpi=FIG_DPI, bbox_inches="tight")
         plt.close()
 
-    # Scale: average per language over models, then max gap
     sc = df[df["system_prompt_id"].str.startswith("scale")].copy()
     sc["score"] = pd.to_numeric(sc["response"], errors="coerce")
     sc = sc.dropna(subset=["score"]).copy()
@@ -260,7 +247,6 @@ def plot_flip_matrix(df: pd.DataFrame, out_path: str):
                 counts.loc[la, lb] += 1
                 if int(va) == 1 and int(vb) == 0:
                     flips.loc[la, lb] = (0 if pd.isna(flips.loc[la, lb]) else flips.loc[la, lb]) + 1
-    # Normalize
     frac = flips.copy()
     for la, lb in product(LANG_ORDER, LANG_ORDER):
         if la == lb:
@@ -291,13 +277,11 @@ def plot_yesno_vs_scale_scatter(df: pd.DataFrame, out_dir: str):
     sc = df[df["system_prompt_id"].str.startswith("scale")].copy()
     sc["score"] = pd.to_numeric(sc["response"], errors="coerce")
     sc = sc.dropna(subset=["score"]).copy()
-    # Join on model, question_id, language
     ynj = yn[["model", "question_id", "question_language", "y"]].rename(columns={"question_language": "language"})
     scj = sc[["model", "question_id", "question_language", "score"]].rename(columns={"question_language": "language"})
     merged = pd.merge(ynj, scj, on=["model", "question_id", "language"], how="inner")
     if merged.empty:
         return
-    # 2.1 Accord Rate per model/language
     merged["accord"] = ((merged["y"].astype(int) == 1) & (merged["score"] >= 6)) | ((merged["y"].astype(int) == 0) & (merged["score"] <= 5))
     accord = merged.groupby(["language", "model"]).agg(accord_rate=("accord", "mean"), n=("accord", "size")).reset_index()
     pivot = accord.pivot_table(index="language", columns="model", values="accord_rate")
@@ -312,7 +296,6 @@ def plot_yesno_vs_scale_scatter(df: pd.DataFrame, out_dir: str):
     plt.close()
     accord.to_csv(os.path.join(out_dir, "yesno_scale_accord_rate.csv"), index=False)
 
-    # 2.2 Violin plots: scale by YES=0/1, faceted by language
     merged["YES"] = merged["y"].astype(int)
     try:
         g = sns.catplot(
@@ -332,7 +315,6 @@ def plot_yesno_vs_scale_scatter(df: pd.DataFrame, out_dir: str):
         g.savefig(os.path.join(out_dir, "violin_yesno_vs_scale_by_language.png"), dpi=FIG_DPI, bbox_inches="tight")
         plt.close(g.fig)
     except Exception:
-        # Fallback single-plot violin if FacetGrid fails
         plt.figure(figsize=(9, 6))
         sns.violinplot(data=merged, x="YES", y="score", inner="quartile")
         plt.ylim(1, 10)
@@ -343,7 +325,6 @@ def plot_yesno_vs_scale_scatter(df: pd.DataFrame, out_dir: str):
         plt.savefig(os.path.join(out_dir, "violin_yesno_vs_scale_by_language.png"), dpi=FIG_DPI, bbox_inches="tight")
         plt.close()
 
-    # 2.3 Violin plots: faceted by model (may be many columns; wrap)
     try:
         g2 = sns.catplot(
             data=merged,
@@ -364,8 +345,6 @@ def plot_yesno_vs_scale_scatter(df: pd.DataFrame, out_dir: str):
     except Exception:
         pass
 
-    # 2.4 Replace scatter with 100% stacked bar (Low/Mid/High) for YES=0 vs YES=1
-    # Define bands
     def band(score: float) -> str:
         if score <= 3:
             return "Low (1–3)"
@@ -379,11 +358,9 @@ def plot_yesno_vs_scale_scatter(df: pd.DataFrame, out_dir: str):
     )
     totals = dist.groupby("YES")["n"].transform("sum")
     dist["prop"] = dist["n"] / totals
-    # Pivot to YES rows x band cols
     order_bands = ["Low (1–3)", "Mid (4–7)", "High (8–10)"]
     pivot_bar = dist.pivot_table(index="YES", columns="band", values="prop").reindex(columns=order_bands).fillna(0)
 
-    # Plot stacked 100%
     plt.figure(figsize=(8, 5))
     bottoms = np.zeros(pivot_bar.shape[0])
     xlabels = ["NO", "YES"] if set(pivot_bar.index) == {0, 1} else [str(i) for i in pivot_bar.index]
@@ -402,7 +379,6 @@ def plot_yesno_vs_scale_scatter(df: pd.DataFrame, out_dir: str):
     plt.savefig(os.path.join(out_dir, "stacked100_yesno_scale_low_mid_high.png"), dpi=FIG_DPI, bbox_inches="tight")
     plt.close()
 
-    # 2.5 Frequency heatmap (YES rows x exact scale score columns)
     merged["score_int"] = merged["score"].round().clip(1, 10).astype(int)
     freq = merged.groupby(["YES", "score_int"]).size().reset_index(name="n")
     row_tot = freq.groupby("YES")["n"].transform("sum")
@@ -421,10 +397,10 @@ def plot_yesno_vs_scale_scatter(df: pd.DataFrame, out_dir: str):
 # -----------------------------
 # Main
 # -----------------------------
-def main(results_file: str = RESULTS_FILE):
+def main(results_files: List[str] = RESULTS_FILES):
     ensure_dir(OUT_DIR)
-    print(f"Loading {results_file} ...")
-    df = load_results(results_file)
+    print(f"Loading {len(results_files)} result file(s) ...")
+    df = load_results(results_files)
 
     # 1) Heatmaps
     plot_lang_model_heatmaps(df, OUT_DIR)

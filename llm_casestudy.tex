@@ -115,19 +115,21 @@ The use of Large Language Models (LLMs) in the humanities has become commonplace
 % }
 
 \section{Related Work}
-
+While similar extensive research has focused on general bias evaluation \cite{guo2024}, sociodemographic persona prompting \cite{lutz2025} and \cite{}, less attention has been paid to the more subtle geopolitical and historiographical biases that arise from culturally-specific training data.
 
 \section{Methodology}
-The methodology for this study was structured into [few] key stages, each thought to ensure a comprehensive analysis of the biases, regarding controversial historical events, that could be exploited.
+The methodology for this study was structured into three key phases, each thought to ensure a comprehensive analysis of the biases, regarding controversial historical events, that could be exploited.
 \begin{enumerate}
-    \item In the initial stage, % The linguistic framework for our analysis was deliberately constructed around four languages to probe for bias from distinct cultural and historical angles. Romanian was chosen as the native baseline, grounding the study in the primary context of the historical questions. English, as the global lingua franca, was included to assess the models' default, and often Western-centric, perspectives derived from their most extensive training data. To introduce a direct counter-narrative, Hungarian was selected due to the significant political and historiographical tensions with Romania inherent in many of the chosen topics, while Russian was included to examine the influence of a major regional power whose historical narrative has frequently intersected with and shaped that of Romania.
-    \item The second stage consisted of selecting a set of 15 questions regarding certain debated historic events and periods of time. Spanning from The Middle Ages to the Fall of Communism while flagging various ethical and political views, the ideas were brought up to the LLMs as affirmations, which, in turn, were prompted to analyse their accuracy.
-    \item In the third stage, we 
+    \item In the initial phase, the linguistic framework for our analysis was deliberately constructed around four languages to probe for bias from distinct cultural and historical angles. Romanian was chosen as the native baseline, grounding the study in the primary context of the historical affirmations. English, as the global rule of thumb language, was included to assess the models' default, and often western-centric, perspectives derived from their most extensive training data. To introduce a direct counter-narrative, Hungarian was selected due to the significant political and historiographical tensions with Romania, present in many of the chosen topics, while Russian was included to examine the influence of a major regional power whose historical narrative has frequently intersected with and shaped that of Romania.
+    \item The second phase consisted of selecting a set of 15 questions regarding certain debated historic events and periods of time. Spanning from The Middle Ages to the Fall of Communism while flagging various ethical and political views, the ideas were brought up to the LLMs as affirmations, which, in turn, were prompted to analyse their accuracy.
+    \item In the third phase, we systematically deconstructed model bias response inconsistency into a three-layered questioning process, all stages going through the same initially established set of affirmations.
     \begin{enumerate} % cele 3 stagii, da/nu, 1-10 fixat si llm-asa-judge
-        \item 
+        \item The first stage constrained the models to simply respond with either an affirmative or negative answer. This served to establish an \textit{absolute} stance, removing any second opinion to be presented by the LLM, and thus being more prone to have its response considered biased.
+        \item Secondly, the models were prompted to reply with a numerical value on a \textit{1-10 scale}, a method supposed to measure the degree of a model's conviction and, implicitly, to reveal potential significant shifts from its initial binary choice, fact which is proven subsequently.
+        \item Ultimately, for the final and most intricate stage, the LLMs had to elaborate a full-scale \textit{structured essay}, hence covering a more versatile perspective. To standardize the evaluation of these qualitative outputs, a powerful LLM was assigned the role of "LLM-as-a-judge", being tasked to rate the nuance, neutrality and general factual accuracy of each response from the other models. 
     \end{enumerate}
-    \item 
-\end{enumerate}
+\end{enumerate} % 180 de prompt-uri separate pentru fiecare model
+This multi-state approach allowed us to not only compare direct answers, but to also analyze how the format of the prompt itself influences the model's apparent reasoning and decision-making matter.[...]
 
 \begin{table}[h]
 \caption{\label{tab:questions} List of used questions.}
@@ -171,7 +173,7 @@ codreanu & Corneliu Zelea Codreanu can be considered a martyr of modern Romania.
 \end{table}
 
 \subsection{LLM Selection}
-For our experiments, we chose
+For our experiments, we chose a main pool of 13 LLMs, all part of various families, 
 
 \subsection{Questioning Process}
 

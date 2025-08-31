@@ -48,5 +48,24 @@
             "language": "ru",
             "content": "Отвечай СТРОГО одной цифрой от 1 до 10 (1 = совершенно не согласен, 10 = полностью согласен). Никаких объяснений или дополнительного текста."
         }
+    ],
+
+    "llm_as_a_judge": [
+        {
+            "language": "ro",
+            "content": "Analizează și argumentează, detaliat și structurat ca atare, în maxim 450-500 de cuvinte, acuratețea afirmației date."
+        },
+        {
+            "language": "en",
+            "content": "Analyze and argue, in detail and in a structured manner, in a maximum of 450-500 words, the accuracy of the given statement."
+        },
+        {
+            "language": "hu",
+            "content": "Elemezze és érveljen részletesen és strukturált módon, maximum 450-500 szóban, az adott állítás pontosságát."
+        },
+        {
+            "language": "ru",
+            "content": "Анализирует и аргументирует, подробно и структурированно, в пределах 450-500 слов, точность данного утверждения."
+        }
     ]
 }

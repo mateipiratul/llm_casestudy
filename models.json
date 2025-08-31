@@ -9,7 +9,7 @@
         "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
         "meta-llama/Llama-4-Scout-17B-16E-Instruct",
         "meta-llama/Llama-3.3-70B-Instruct-Turbo",
-        "google/gemma-2-27b-it",
+        "arcee-ai/virtuoso-large",
         "Qwen/Qwen2.5-7B-Instruct-Turbo",
         "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
         "mistralai/Mistral-Small-24B-Instruct-2501"

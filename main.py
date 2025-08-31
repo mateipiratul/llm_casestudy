@@ -7,17 +7,19 @@ import signal
 import sys
 import argparse
 
-# Per-model rate limits (model: {max_requests, window_seconds})
 MODEL_RATE_LIMITS = {
     "deepseek-ai/DeepSeek-R1": {"max_requests": 3, "window_seconds": 60},
 }
 DEFAULT_RATE_LIMIT = {"wait_seconds": 60}
 
-# Checkpoint file to save progress
-CHECKPOINT_FILE = '2_test_checkpoint.json'
-RESULTS_FILE = '2_test_results.json'
+# run_temp_1: 1
+# run_temp_2: 0.4
+# run_temp_3: 1
+# run_temp_4: 1
+# run_temp_5:
+CHECKPOINT_FILE = '_test_checkpoint.json'
+RESULTS_FILE = '_test_results.json'
 
-# Global variable to handle graceful shutdown
 shutdown_requested = False
 
 def signal_handler(signum, frame):
@@ -31,7 +33,6 @@ signal.signal(signal.SIGINT, signal_handler)
 parser = argparse.ArgumentParser(description='Run bulk testing with optional model skipping and temperature control')
 parser.add_argument('-skipm', '--skip-models', type=int, default=0, 
                     help='Number of models to skip from the beginning (default: 0)')
-# --- MODIFICATION: Add temperature as a command-line argument ---
 parser.add_argument('-t', '--temperature', type=float, default=1,
                     help='Set the temperature for the LLM response (default: 1)')
 args = parser.parse_args()
