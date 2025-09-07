@@ -1,0 +1,202 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
+from datetime import datetime
+
+model_data = [
+    {
+        "name": "Qwen/Qwen2.5-7B-Instruct-Turbo",
+        "short_name": "Qwen2.5-7B",
+        "developer": "Alibaba",
+        "release_date": "2024-07-01",
+        "total_params_b": 7,
+        "active_params_b": 7,
+        "architecture": "Dense",
+    },
+    {
+        "name": "mistralai/Mistral-Small-24B-Instruct-2501",
+        "short_name": "Mistral-Small-24B",
+        "developer": "Mistral AI",
+        "release_date": "2024-07-11",
+        "total_params_b": 24,
+        "active_params_b": 6, # estimated active params
+        "architecture": "MoE",
+    },
+    {
+        "name": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+        "short_name": "Llama-3.3-70B",
+        "developer": "Meta",
+        "release_date": "2024-09-04",
+        "total_params_b": 70,
+        "active_params_b": 70,
+        "architecture": "Dense",
+    },
+    {
+        "name": "openai/gpt-oss-20b",
+        "short_name": "GPT-OSS-20B",
+        "developer": "OpenAI",
+        "release_date": "2024-08-21",
+        "total_params_b": 20,
+        "active_params_b": 20,
+        "architecture": "Dense",
+    },
+    {
+        "name": "google/gemma-3n-E4B-it",
+        "short_name": "Gemma-3n-4B",
+        "developer": "Google",
+        "release_date": "2024-09-03",
+        "total_params_b": 4,
+        "active_params_b": 4,
+        "architecture": "Dense",
+    },
+    {
+        "name": "deepseek-ai/DeepSeek-R1",
+        "short_name": "DeepSeek-R1",
+        "developer": "DeepSeek AI",
+        "release_date": "2024-09-02",
+        "total_params_b": 145, # estimated total often cited as very large
+        "active_params_b": 21, # Estimated active params
+        "architecture": "MoE",
+    },
+    {
+        "name": "deepseek-ai/DeepSeek-V3",
+        "short_name": "DeepSeek-V3",
+        "developer": "DeepSeek AI",
+        "release_date": "2024-09-02", # often discussed alongside R1
+        "total_params_b": 150, # placeholder
+        "active_params_b": 25, # placeholder
+        "architecture": "MoE",
+    },
+    {
+        "name": "Qwen/Qwen3-235B-A22B-Instruct-2507-tput",
+        "short_name": "Qwen3-235B",
+        "developer": "Alibaba",
+        "release_date": "2024-07-25",
+        "total_params_b": 235,
+        "active_params_b": 22,
+        "architecture": "MoE",
+    },
+    {
+        "name": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        "short_name": "Llama-4-Scout-17B",
+        "developer": "Meta",
+        "release_date": "2024-09-04",
+        "total_params_b": 85, # estimated total params
+        "active_params_b": 17,
+        "architecture": "MoE",
+    },
+    {
+        "name": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+        "short_name": "Llama-4-Maverick-17B",
+        "developer": "Meta",
+        "release_date": "2024-09-04",
+        "total_params_b": 200, # estimated total params
+        "active_params_b": 17,
+        "architecture": "MoE",
+    },
+    {
+        "name": "lgai/exaone-3-5-32b-instruct",
+        "short_name": "Exaone-3.5-32B",
+        "developer": "LG AI",
+        "release_date": "2024-07-15", # approx public date
+        "total_params_b": 32,
+        "active_params_b": 32,
+        "architecture": "Dense",
+    },
+    {
+        "name": "moonshotai/Kimi-K2-Instruct",
+        "short_name": "Kimi-K2",
+        "developer": "Moonshot AI",
+        "release_date": "2024-07-10", # approx public date
+        "total_params_b": 100, # estimate
+        "active_params_b": 100,
+        "architecture": "Dense",
+    },
+    {
+        "name": "arcee-ai/virtuoso-large",
+        "short_name": "Virtuoso-Large",
+        "developer": "Arcee AI",
+        "release_date": "2024-08-01", # approx public date
+        "total_params_b": 70, # based on Llama-3 70B
+        "active_params_b": 70,
+        "architecture": "Dense",
+    },
+]
+
+def create_model_timeline_plot(data, output_path="model_timeline_plot.png"):
+    """
+    Generates a scatter plot of models over time, showing total vs. active parameters.
+    """
+    print("Preparing data for plotting...")
+    df = pd.DataFrame(data)
+    df['release_date'] = pd.to_datetime(df['release_date'])
+    df = df.sort_values('release_date')
+
+    developers = df['developer'].unique()
+    colors = plt.cm.viridis(range(0, 256, 256 // len(developers)))
+    color_map = dict(zip(developers, colors))
+    df['color'] = df['developer'].map(color_map)
+
+    print("Generating plot...")
+    fig, ax = plt.subplots(figsize=(14, 8))
+
+    ax.scatter(
+        df['release_date'],
+        df['total_params_b'],
+        s=df['active_params_b'] * 15,
+        c=df['color'],
+        alpha=0.7,
+        edgecolors='w',
+        linewidth=0.5
+    )
+
+    for i, row in df.iterrows():
+        ax.text(
+            row['release_date'],
+            row['total_params_b'],
+            f"  {row['short_name']}",
+            fontsize=8,
+            verticalalignment='center'
+        )
+
+
+    ax.set_yscale('log')
+    ax.set_ylim(bottom=3, top=300)
+
+    ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda y, _: f'{int(y)}B'))
+    ax.yaxis.set_minor_formatter(mticker.NullFormatter())
+
+    ax.set_title("Evolution of Selected LLMs by Size and Release Date", fontsize=16, pad=20)
+    ax.set_xlabel("Release Date (2024)", fontsize=12)
+    ax.set_ylabel("Total Parameters (Billions, Log Scale)", fontsize=12)
+
+    ax.grid(True, which="both", linestyle='--', linewidth=0.5)
+    
+    developer_patches = [plt.Line2D([0], [0], marker='o', color='w', label=dev,
+                                    markerfacecolor=color, markersize=10)
+                         for dev, color in color_map.items()]
+    legend1 = ax.legend(handles=developer_patches, title="Developer", 
+                        bbox_to_anchor=(0.02, 0.98), loc='upper left', 
+                        borderaxespad=0.)
+    ax.add_artist(legend1)
+
+    size_legend_points = [10, 50, 100]
+    size_handles = [plt.scatter([], [], s=p * 15, c='gray', alpha=0.7, edgecolors='w',
+                                label=f'{p}B') for p in size_legend_points]
+    legend2 = ax.legend(handles=size_handles, title="Active Parameters",
+                        bbox_to_anchor=(0.02, 0.64), loc='upper left', 
+                        borderaxespad=0., labelspacing=2)
+
+    fig.tight_layout()
+    
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    print(f"Plot saved successfully to '{output_path}'")
+    plt.show()
+
+
+if __name__ == "__main__":
+    print("--- LLM Timeline Plot Generator ---")
+    print("NOTE: Release dates and parameter counts are based on publicly available,")
+    print("often estimated data and are subject to change. This plot is for illustrative purposes.\n")
+    
+    create_model_timeline_plot(model_data)

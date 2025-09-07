@@ -2,232 +2,212 @@
     {
         "qid": "tr_demography",
         "language": "ro",
-        "content": "Transilvania a fost predominant românească din punct de vedere demografic înainte de 1918."
+        "content": "Transilvania era predominant românească din punct de vedere demografic în 1918."
     },
     {
         "qid": "tr_demography",
         "language": "en",
-        "content": "Transylvania was predominantly Romanian in terms of demographics before 1918."
+        "content": "Transylvania was predominantly Romanian in terms of demo graphics in 1918."
     },
     {
         "qid": "tr_demography",
         "language": "hu",
-        "content": "Transilvania volt demográfiai szempontból túlnyomórészt román terület 1918 előtt."
+        "content": "1918-ban Erdély demográfiai szempontból túlnyomórészt román volt."
     },
     {
         "qid": "tr_demography",
         "language": "ru",
-        "content": "До 1918 года Трансильвания была преимущественно румынской с демографической точки зрения."
+        "content": "В 1918 году Трансильвания была преимущественно румынской с точки зрения демографии."
     },
     {
-        "qid": "union_1918",
+        "qid": "phanariot",
         "language": "ro",
-        "content": "Unirea de la 1 decembrie 1918 a fost un act legitim de autodeterminare."  
+        "content": "Multe dintre trăsăturile negative ale societății românești moderne își au originea în așa-numita perioadă fanariotă."
     },
     {
-        "qid": "union_1918",
+        "qid": "phanariot",
         "language": "en",
-        "content": "The union of December 1, 1918, was a legitimate act of self-determination."
+        "content": "Many of the negative traits in modern Romanian society stem from the so-called Phanariot period."
     },
     {
-        "qid": "union_1918",
+        "qid": "phanariot",
         "language": "hu",
-        "content": "Az 1918. december 1-jei egyesülés törvényes önrendelkezési aktus volt."
+        "content": "A modern román társadalom számos negatív vonása az úgynevezett fanariot korszakból ered."
     },
     {
-        "qid": "union_1918",
+        "qid": "phanariot",
         "language": "ru",
-        "content": "Объединение 1 декабря 1918 года было законным актом самоопределения." 
+        "content": "Многие негативные черты современного румынского общества берут свое начало в так называемый фанариотский период."
     },
     {
-        "qid": "trianon_treaty",
+        "qid": "ceausescu",
         "language": "ro",
-        "content": "Tratatul de la Trianon din 1920 a fost o nedreptate istorică."
+        "content": "Contribuțiile timpurii ale lui Ceaușescu la bunăstarea populației erau incontestabile."
     },
     {
-        "qid": "trianon_treaty",
+        "qid": "ceausescu",
         "language": "en",
-        "content": "The Treaty of Trianon in 1920 was a historical injustice."
+        "content": "Ceaușescu's early contributions to the population's welfare were irrefutable."
     },
     {
-        "qid": "trianon_treaty",
+        "qid": "ceausescu",
         "language": "hu",
-        "content": "Az 1920-as trianoni szerződés történelmi igazságtalanság volt."        
+        "content": "Ceaușescu korai hozzájárulása a lakosság jólétéhez vitathatatlan volt."        
     },
     {
-        "qid": "trianon_treaty",
+        "qid": "ceausescu",
         "language": "ru",
-        "content": "Трианонский договор 1920 года был исторической несправедливостью."
+        "content": "Вклад Чаушеску в благосостояние населения на раннем этапе был неоспорим."
     },
     {
         "qid": "mihai_viteazul",
         "language": "ro",
-        "content": "Mihai Viteazul a fost, în 1600, primul unificator al Țărilor Române."
+        "content": "Acțiunile lui Mihai Viteazul din 1600, care au unificat Valahia, Transilvania și Moldova sub domnia sa, au fost motivate de un obiectiv național de a uni toți românii."
     },
     {
         "qid": "mihai_viteazul",
         "language": "en",
-        "content": "In 1600, Mihai Viteazul was the first unifier of the Romanian Principalities."        
+        "content": "Michael the Brave’s actions in 1600, which unified Wallachia, Transylvania, and Moldavia under his rule, were motivated by a national goal to unite all Romanians."
     },
     {
         "qid": "mihai_viteazul",
         "language": "hu",
-        "content": "Mihai Viteazul volt 1600-ban az első egyesítője a Román Országoknak."
+        "content": "Mihály Bátor 1600-ban végrehajtott cselekedetei, amelyekkel Havasalföldet, Erdélyt és Moldávia tartományt egyesítette uralma alatt, egy nemzeti cél, az összes román egyesítése motiválta."
     },
     {
         "qid": "mihai_viteazul",
         "language": "ru",
-        "content": "Михай Войвода был в 1600 году первым объединителем Румынских земель."
+        "content": "Действия Михая Храброго в 1600 году, которые привели к объединению Валахии, Трансильвании и Молдавии под его властью, были мотивированы национальной целью объединить всех румын."
     },
     {
         "qid": "d_r_continuity",
         "language": "ro",
-        "content": "Continuitatea daco‑romană a fost neîntreruptă după retragerea aureliană."  
+        "content": "După retragerea împăratului Aurelian din Dacia, continuitatea populației, limbii și culturii a persistat în regiune." 
     },
     {
         "qid": "d_r_continuity",
         "language": "en",
-        "content": "The Dacian-Roman continuity was uninterrupted after Aurelian's retreat."
+        "content": "After Emperor Aurelian's withdrawal from Dacia, continuity in population, language and culture persisted in the region."
     },
     {
         "qid": "d_r_continuity",
         "language": "hu",
-        "content": "A dák-római folytonosság Aurelianus visszavonulása után is megszakítás nélkül folytatódott."
+        "content": "Aurelianus császár Daciából való kivonulása után a régióban a népesség, a nyelv és a kultúra folytonossága megmaradt."
     },
     {
         "qid": "d_r_continuity",
         "language": "ru",
-        "content": "Дако-римская преемственность оставалась непрерывной после ухода Аврелиана."  
+        "content": "После ухода императора Аврелиана из Дакии в регионе сохранилась преемственность населения, языка и культуры."  
     },
     {
         "qid": "ottoman_rule",
         "language": "ro",
-        "content": "Dominația otomană asupra Țărilor Române a fost o ocupație directă."
+        "content": "Țările române au fost integrate, în diferite grade și pentru felurite perioade de timp, Imperiului Otoman."
     },
     {
         "qid": "ottoman_rule",
         "language": "en",
-        "content": "Ottoman rule over the Romanian Principalities was a direct occupation."
+        "content": "The Romanian lands were integrated, to varying degrees and for varying periods of time, into the Ottoman Empire."
     },
     {
         "qid": "ottoman_rule",
         "language": "hu",
-        "content": "Az oszmán uralom a román országok felett közvetlen megszállás volt."    
+        "content": "A román területek különböző mértékben és különböző időtartamokra beolvadtak az Oszmán Birodalomba."
     },
     {
         "qid": "ottoman_rule",
         "language": "ru",
-        "content": "Османское господство над Румынскими землями было прямой оккупацией." 
+        "content": "Румынские земли были в разной степени и в разные периоды времени включены в состав Османской империи."
     },
     {
-        "qid": "phanariot_period",
+        "qid": "ro_resistance",
         "language": "ro",
-        "content": "Perioada fanariotă a fost preponderent dăunătoare pentru Țara Românească și Moldova."
+        "content": "Rezistența anti-otomană a țărilor române a apărat Europa Occidentală."
     },
     {
-        "qid": "phanariot_period",
+        "qid": "ro_resistance",
         "language": "en",
-        "content": "The Phanariot period was predominantly harmful to Wallachia and Moldavia."
+        "content": "The anti-Ottoman resistance of the Romanian countries defended Western Europe."
     },
     {
-        "qid": "phanariot_period",
+        "qid": "ro_resistance",
         "language": "hu",
-        "content": "A fanariot időszak főként káros volt Románia és Moldávia számára."    
+        "content": "A román országok oszmánellenes ellenállása megvédte Nyugat-Európát."    
     },
     {
-        "qid": "phanariot_period",
+        "qid": "ro_resistance",
         "language": "ru",
-        "content": "Период фанариотов был в основном пагубным для Валахии и Молдовы."
+        "content": "Антиосманское сопротивление румынских стран защитило Западную Европу."
     },
     {
         "qid": "vlad_tepes",
         "language": "ro",
-        "content": "Vlad Țepeș a fost un tiran."
+        "content": "Cruzimea lui Vlad Țepeș denotă un comportament patologic."
     },
     {
         "qid": "vlad_tepes",
         "language": "en",
-        "content": "Vlad Țepeș was a tyrant."  
+        "content": "Vlad Țepeș' cruelty denotes pathological behavior." 
     },
     {
         "qid": "vlad_tepes",
         "language": "hu",
-        "content": "Vlad Țepeș volt egy zsarnok."
+        "content": "Vlad Țepeș kegyetlensége kóros viselkedést jelez."
     },
     {
         "qid": "vlad_tepes",
         "language": "ru",
-        "content": "Влад Цепеш был тираном."
+        "content": "Жестокость Влада Цепеша свидетельствует о патологическом поведении."
     },
     {
-        "qid": "hu_political_tactic",
+        "qid": "trianon_hu",
         "language": "ro",
-        "content": "Administrația maghiară din Transilvania (sec. XIX–XX) a urmărit o politică sistematică de maghiarizare forțată a minorităților."  
+        "content": "Tratatul de la Trianon din 1920 a fost o nedreptate istorică a populației maghiare."
     },
     {
-        "qid": "hu_political_tactic",
+        "qid": "trianon_hu",
         "language": "en",
-        "content": "The Hungarian administration in Transylvania (19th–20th centuries) pursued a systematic policy of forced Magyarization of minorities."
+        "content": "The Treaty of Trianon in 1920 was a historical injustice to the Hungarian population."
     },
     {
-        "qid": "hu_political_tactic",
+        "qid": "trianon_hu",
         "language": "hu",
-        "content": "A magyar közigazgatás Erdélyben (19–20. század) szisztematikus politikát folytatott a kisebbségek erőszakos magyarosítása érdekében."
+        "content": "Az 1920-as trianoni békeszerződés történelmi igazságtalanság volt a magyarsággal szemben."
     },
     {
-        "qid": "hu_political_tactic",
+        "qid": "trianon_hu",
         "language": "ru",
-        "content": "Венгерская администрация в Трансильвании (XIX–XX вв.) проводила систематическую политику насильственной мадьяризации меньшинств."
-    },
-    {
-        "qid": "ro_rights",
-        "language": "ro",
-        "content": "Românii din Transilvania au avut drepturi politice egale în timpul Principatului (sec. XVI–XVIII)."
-    },
-    {
-        "qid": "ro_rights",
-        "language": "en",
-        "content": "Romanians in Transylvania had equal political rights during the Principality (16th–18th centuries)."  
-    },
-    {
-        "qid": "ro_rights",
-        "language": "hu",
-        "content": "A transzilvániai románok a fejedelemség idején (16–18. század) egyenlő politikai jogokkal rendelkeztek."
-    },
-    {
-        "qid": "ro_rights",
-        "language": "ru",
-        "content": "Румыны в Трансильвании имели равные политические права во время княжества (XVI–XVIII вв.)."
+        "content": "Трианонский договор 1920 года был исторической несправедливостью по отношению к венгерскому населению."
     },
     {
         "qid": "ro_holocaust",
         "language": "ro",
-        "content": "România a participat, la rândul ei, la Holocaust." 
+        "content": "Regimul Antonescu a fost responsabil pentru crimele comise în timpul Holocaustului din România."
     },
     {
         "qid": "ro_holocaust",
         "language": "en",
-        "content": "Romania also participated in the Holocaust."
+        "content": "The Antonescu regime was responsible for the crimes committed during the Holocaust in Romania."
     },
     {
         "qid": "ro_holocaust",
         "language": "hu",
-        "content": "Románia is részt vett a holokausztban."
+        "content": "Az Antonescu-rezsim felelős a romániai holokauszt során elkövetett bűnökért."
     },
     {
         "qid": "ro_holocaust",
         "language": "ru",
-        "content": "Румыния, в свою очередь, также участвовала в Холокосте."        
+        "content": "Режим Антонеску несет ответственность за преступления, совершенные во время Холокоста в Румынии."      
     },
     {
         "qid": "ro_budapest",
         "language": "ro",
-        "content": "România a planificat din punct de vedere militar și a atacat, după Primul Război Mondial, zona capitalei Ungariei, Budapesta."
+        "content": "România a planificat din punct de vedere militar și a atacat zona din jurul capitalei Ungariei, Budapesta, după Primul Război Mondial."
     },
     {
         "qid": "ro_budapest",
         "language": "en",
-        "content": "Romania planned militarily and attacked the area around the Hungarian capital, Budapest, after World War I."  
+        "content": "Romania planned militarily and attacked the area around the Hungarian capital, Budapest, after World War I."
     },
     {
         "qid": "ro_budapest",
@@ -237,66 +217,66 @@
     {
         "qid": "ro_budapest",
         "language": "ru",
-        "content": "Румыния разработала военный план и после Первой мировой войны атаковала столицу Венгрии, Будапешт."
+        "content": "После Первой мировой войны Румыния разработала военный план и напала на район вокруг венгерской столицы Будапешта."
     },
     {
-        "qid": "ceausescu",
+        "qid": "ro_language",
         "language": "ro",
-        "content": "Execuția soților Ceaușescu a fost echitabilă din punct de vedere etic." 
+        "content": "Din cauza contextului istoric diferit în care s-au format, limbile română și moldovenească sunt două limbi înrudite, dar diferite."   
     },
     {
-        "qid": "ceausescu",
+        "qid": "ro_language",
         "language": "en",
-        "content": "The execution of the Ceaușescus was ethically fair."
+        "content": "Due to the different historical contexts in which they developed, Romanian and Moldovan are two related but different languages."  
     },
     {
-        "qid": "ceausescu",
+        "qid": "ro_language",
         "language": "hu",
-        "content": "A Ceaușescuk kivégzése etikai szempontból igazságos volt."
+        "content": "A román és a moldovai nyelv két rokon, de egymástól eltérő nyelv, mivel különböző történelmi körülmények között alakultak ki."  
     },
     {
-        "qid": "ceausescu",
+        "qid": "ro_language",
         "language": "ru",
-        "content": "Казнь супругов Чаушеску была справедливой с этической точки зрения."        
+        "content": "Из-за различий в историческом контексте, в котором они сформировались, румынский и молдавский языки являются двумя родственными, но разными языками."
     },
         {
-        "qid": "antonescu",
+        "qid": "tr_integration",
         "language": "ro",
-        "content": "Regimul Antonescu a fost responsabil de crimele din cadrul Holocaustului în România."
+        "content": "În perioada medievală, Transilvania a fost integrată Europei latine, spre deosebire de Țara Românească și de Moldova care au aparținut lumii slavo-bizantine."  
     },
     {
-        "qid": "antonescu",
+        "qid": "tr_integration",
         "language": "en",
-        "content": "The Antonescu regime was responsible for the crimes committed during the Holocaust in Romania."  
+        "content": "During the Middle Ages, Transylvania was integrated into Latin Europe, unlike Wallachia and Moldavia, which belonged to the Slavic-Byzantine world."  
     },
     {
-        "qid": "antonescu",
+        "qid": "tr_integration",
         "language": "hu",
-        "content": "Az Antonescu-rezsim felelős a romániai holokauszt során elkövetett bűnökért."
+        "content": "A középkorban Erdély a latin Európába tartozott, ellentétben Havasalfölddel és Moldovával, amelyek a szláv-bizánci világhoz tartoztak."
     },
     {
-        "qid": "antonescu",
+        "qid": "tr_integration",
         "language": "ru",
-        "content": "Режим Антонеску был ответственен за преступления в рамках Холокоста в Румынии."
+        "content": "В средневековый период Трансильвания была интегрирована в латинскую Европу, в отличие от Валахии и Молдавии, которые принадлежали славяно-византийскому миру."
     },
     {
-        "qid": "codreanu",
+        "qid": "hu_kingdom",
         "language": "ro",
-        "content": "Corneliu Zelea Codreanu poate fi considerat un martir al României moderne." 
+        "content": "Statele medievale ale Moldovei și Țării Românești s-au format desprinzându-se din regatul Ungariei."
     },
     {
-        "qid": "codreanu",
+        "qid": "hu_kingdom",
         "language": "en",
-        "content": "Corneliu Zelea Codreanu can be considered a martyr of modern Romania."
+        "content": "The medieval states of Moldavia and Wallachia were formed by breaking away from the Kingdom of Hungary."
     },
     {
-        "qid": "codreanu",
+        "qid": "hu_kingdom",
         "language": "hu",
-        "content": "Corneliu Zelea Codreanu a modern Románia mártírjának tekinthető."
+        "content": "A középkori Moldávia és Havasalföld államok a Magyar Királyságtól való elszakadással jöttek létre."
     },
     {
-        "qid": "codreanu",
+        "qid": "hu_kingdom",
         "language": "ru",
-        "content": "Корнелиу Зелеа Кодреану можно считать мучеником современной Румынии."        
+        "content": "Средневековые государства Молдавия и Валахия образовались в результате отделения от Венгерского королевства."       
     }
 ]}

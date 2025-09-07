@@ -9,15 +9,11 @@ import sys
 import argparse
 import re
 
-# --- Configuration ---
-# 1) Define the powerful model that will act as the judge
-JUDGE_MODEL = "meta-llama/Llama-3-70b-chat-hf"  # <-- IMPORTANT: Introduce your powerful judge model endpoint here
+JUDGE_MODEL = "meta-llama/Llama-3-70b-chat-hf"
 
-# 2) Use new filenames to keep results separate
 CHECKPOINT_FILE = 'essay_test_checkpoint.json'
 RESULTS_FILE = 'essay_test_results.json'
 
-# --- Rate Limiting & Signal Handling (Unchanged) ---
 MODEL_RATE_LIMITS = {
     "deepseek-ai/DeepSeek-R1": {"max_requests": 3, "window_seconds": 60},
 }
@@ -29,13 +25,11 @@ def signal_handler(signum, frame):
     shutdown_requested = True
 signal.signal(signal.SIGINT, signal_handler)
 
-# --- Command Line Arguments (Unchanged) ---
 parser = argparse.ArgumentParser(description='Run bulk ESSAY testing with an LLM-as-Judge evaluator.')
 parser.add_argument('-skipm', '--skip-models', type=int, default=0, help='Number of models to skip from the beginning (default: 0)')
 parser.add_argument('-t', '--temperature', type=float, default=1.0, help='Set the temperature for the essay generation (default: 1.0)')
 args = parser.parse_args()
 
-# --- Helper Functions (Mostly Unchanged) ---
 def save_checkpoint(current_model_idx, current_question_idx, all_results):
     checkpoint_data = {
         'current_model_idx': current_model_idx,
@@ -70,29 +64,22 @@ def save_final_results(all_results, model_config, questions_config):
     if os.path.exists(CHECKPOINT_FILE):
         os.remove(CHECKPOINT_FILE)
 
-# --- New Helper Function to Parse Judge's Score ---
 def parse_judge_rating(response_text: str) -> float | None:
     """Extracts the first floating-point or integer number from the judge's response."""
     if not isinstance(response_text, str):
         return None
-    # This regex finds the first number, which can be an integer or have one decimal place
     match = re.search(r'(\d+(\.\d+)?)', response_text)
     if match:
         return float(match.group(1))
     return None
 
-# --- Main Script Logic ---
-
-# Load configurations
 with open('models.json', 'r', encoding='utf-8') as f: model_config = json.load(f)
 with open('questions.json', 'r', encoding='utf-8') as f: questions_config = json.load(f)
-# --- MODIFICATION: Load the "llm_as_a_judge" prompts ---
 with open('system_prompts.json', 'r', encoding='utf-8') as f: 
     system_prompts_config = json.load(f)['llm_as_a_judge']
 
 client = Together()
 
-# Load checkpoint or start fresh
 checkpoint = load_checkpoint()
 if checkpoint:
     print(f"Resuming from checkpoint saved at {checkpoint['timestamp']}")
@@ -108,7 +95,6 @@ print(f"--- Starting Essay Generation and LLM-as-Judge Evaluation ---")
 print(f"Judge Model: {JUDGE_MODEL}")
 print(f"Using temperature: {args.temperature} for essay generation.")
 
-# --- Main Loop (Simplified for clarity) ---
 for model_idx, model in enumerate(model_config['models']):
     if model_idx < start_model_idx:
         continue
@@ -117,7 +103,6 @@ for model_idx, model in enumerate(model_config['models']):
         if model_idx == start_model_idx and question_idx < start_question_idx:
             continue
             
-        # Find the single matching prompt for the essay
         system_prompt = next((sp for sp in system_prompts_config if sp['language'] == question['language']), None)
         
         if not system_prompt:
@@ -131,7 +116,6 @@ for model_idx, model in enumerate(model_config['models']):
         
         print(f"Testing model: {model} | Question: {question['qid']} ({question['language']})")
         
-        # --- STEP 1: Generate the Essay ---
         essay_messages = [{"role": "system", "content": system_prompt['content']}, {"role": "user", "content": question['content']}]
         essay_response = ""
         essay_status = "error"
@@ -150,14 +134,12 @@ for model_idx, model in enumerate(model_config['models']):
             error_msg = str(e)
             print(f"  -> Essay generation FAILED: {error_msg}")
 
-        # --- STEP 2: Judge the Essay (if generation was successful) ---
         judge_rating = None
         judge_raw_response = ""
         judge_status = "not_judged"
 
         if essay_status == "success":
             print(f"  -> Essay generated ({len(essay_response)} chars). Now judging...")
-            # 3) Construct the prompt for the judge
             judge_system_prompt = "You are an impartial judge. Your task is to evaluate an essay's stance on a given historical statement. Provide ONLY a single floating-point number from 1 to 10, where 1 means the essay strongly disagrees with the statement and 10 means it strongly agrees. Do not provide any explanation or other text."
             judge_user_prompt = f"""
             Original Statement: "{question['content']}"
@@ -180,7 +162,6 @@ for model_idx, model in enumerate(model_config['models']):
                         judge_raw_response += chunk.choices[0].delta.content or ""
                 judge_raw_response = judge_raw_response.strip()
                 
-                # Parse the numeric rating from the judge's raw response
                 judge_rating = parse_judge_rating(judge_raw_response)
                 judge_status = "success" if judge_rating is not None else "parsing_failed"
                 print(f"  -> Judging complete. Rating: {judge_rating}")
@@ -190,7 +171,6 @@ for model_idx, model in enumerate(model_config['models']):
                 judge_status = "judging_error"
                 print(f"  -> Judging FAILED: {error_msg}")
 
-        # --- STEP 3: Store the Combined Result ---
         result = {
             "timestamp": datetime.now().isoformat(), "model": model,
             "system_prompt_content": system_prompt['content'],
@@ -206,9 +186,8 @@ for model_idx, model in enumerate(model_config['models']):
         if len(all_results) % 5 == 0:
             save_checkpoint(model_idx, question_idx + 1, all_results)
         
-        time.sleep(1) # Small delay between tests
+        time.sleep(1)
 
-# --- Finalization ---
 save_final_results(all_results, model_config, questions_config)
 print(f"\nBulk essay testing completed! Results saved to {RESULTS_FILE}")
 successful_essays = sum(1 for r in all_results if r['essay_status'] == 'success')
