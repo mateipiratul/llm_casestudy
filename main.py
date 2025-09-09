@@ -15,10 +15,10 @@ MODEL_RATE_LIMITS = {
 DEFAULT_RATE_LIMIT = {"wait_seconds": 60}
 
 # run_temp_1: 1
-# run_temp_2: 0.4
+# run_temp_2: 1 
 # run_temp_3: 1
 # run_temp_4: 1
-# run_temp_5:
+# run_temp_5: 0.6
 CHECKPOINT_FILE = '_test_checkpoint.json'
 RESULTS_FILE = '_test_results.json'
 
