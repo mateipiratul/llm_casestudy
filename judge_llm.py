@@ -1,4 +1,3 @@
-# take and parse the results of those 4 json files, same output structure (without the "system_prompt_id", since it's not necesarily needed at all)
 import json
 from together import Together
 from datetime import datetime
@@ -8,6 +7,8 @@ import signal
 import sys
 import argparse
 import re
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 JUDGE_MODEL = "meta-llama/Llama-3-70b-chat-hf"
 
@@ -19,24 +20,75 @@ MODEL_RATE_LIMITS = {
 }
 DEFAULT_RATE_LIMIT = {"wait_seconds": 60}
 shutdown_requested = False
+results_lock = threading.Lock()
+progress_lock = threading.Lock()
+# serialize judge calls to avoid hammering the judge model API
+judge_lock = threading.Lock()
+progress_stop = threading.Event()
+progress_total = 0
+progress_completed = 0
+progress_start_time = None
+
+def _fmt_eta(seconds: float) -> str:
+    if seconds is None or seconds == float('inf') or seconds != seconds:
+        return "--:--"
+    seconds = int(max(0, seconds))
+    m, s = divmod(seconds, 60)
+    h, m = divmod(m, 60)
+    return f"{h:d}:{m:02d}:{s:02d}" if h else f"{m:02d}:{s:02d}"
+
+def _progress_thread():
+    global progress_completed
+    last_render = 0
+    while not progress_stop.is_set():
+        now = time.time()
+        if now - last_render < 0.25:
+            time.sleep(0.1)
+            continue
+        last_render = now
+        with progress_lock:
+            total = progress_total
+            done = progress_completed
+            start = progress_start_time
+        pct = (done / total * 100) if total else 100.0
+        bar_len = 30
+        filled = int(bar_len * (done / total)) if total else bar_len
+        bar = '█' * filled + '-' * (bar_len - filled)
+        elapsed = (time.time() - start) if start else 0
+        rate = (done / elapsed) if elapsed > 0 else 0
+        eta = ((total - done) / rate) if rate > 0 else float('inf')
+        line = f"[Progress] |{bar}| {done}/{total} {pct:5.1f}% ETA {_fmt_eta(eta)}"
+        try:
+            sys.stdout.write('\r' + line)
+            sys.stdout.flush()
+        except Exception:
+            pass
+        time.sleep(0.25)
 def signal_handler(signum, frame):
     global shutdown_requested
     print("\n\nShutdown requested. Saving progress...")
     shutdown_requested = True
 signal.signal(signal.SIGINT, signal_handler)
 
-parser = argparse.ArgumentParser(description='Run bulk ESSAY testing with an LLM-as-Judge evaluator.')
+parser = argparse.ArgumentParser(description='Run bulk ESSAY testing with an LLM-as-Judge evaluator, with parallel model execution.')
 parser.add_argument('-skipm', '--skip-models', type=int, default=0, help='Number of models to skip from the beginning (default: 0)')
 parser.add_argument('-t', '--temperature', type=float, default=1.0, help='Set the temperature for the essay generation (default: 1.0)')
+parser.add_argument('-j', '--parallel-models', type=int, default=4, help='Max number of models processed in parallel (default: 4)')
 args = parser.parse_args()
 
-def save_checkpoint(current_model_idx, current_question_idx, all_results):
+def save_checkpoint(all_results, model_progress, legacy_indices=None):
+    """Save progress, including per-model next question index for parallel resume."""
     checkpoint_data = {
-        'current_model_idx': current_model_idx,
-        'current_question_idx': current_question_idx,
         'completed_results': all_results,
+        'model_progress': model_progress,
         'timestamp': datetime.now().isoformat()
     }
+    if legacy_indices is not None:
+        cm, cq = legacy_indices
+        checkpoint_data.update({
+            'current_model_idx': cm,
+            'current_question_idx': cq,
+        })
     with open(CHECKPOINT_FILE, 'w') as f:
         json.dump(checkpoint_data, f, indent=2)
 
@@ -78,102 +130,169 @@ with open('questions.json', 'r', encoding='utf-8') as f: questions_config = json
 with open('system_prompts.json', 'r', encoding='utf-8') as f: 
     system_prompts_config = json.load(f)['llm_as_a_judge']
 
-client = Together()
+def derive_initial_model_progress(models, questions, checkpoint, skip_models):
+    progress = {m: {'next_question_idx': 0} for m in models}
+    for i, m in enumerate(models):
+        if i < skip_models:
+            progress[m] = {'next_question_idx': len(questions)}
+
+    if not checkpoint:
+        return progress
+    if 'model_progress' in checkpoint and isinstance(checkpoint['model_progress'], dict):
+        for m, mp in checkpoint['model_progress'].items():
+            if m in progress and isinstance(mp, dict):
+                nq = int(mp.get('next_question_idx', 0))
+                progress[m] = {'next_question_idx': max(0, min(nq, len(questions)))}
+        return progress
+
+    # Legacy fallback using indices
+    try:
+        cm = int(checkpoint.get('current_model_idx', 0))
+        cq = int(checkpoint.get('current_question_idx', 0))
+        for i, m in enumerate(models):
+            if i < cm:
+                progress[m] = {'next_question_idx': len(questions)}
+            elif i == cm:
+                progress[m] = {'next_question_idx': cq}
+            else:
+                progress[m] = {'next_question_idx': 0}
+    except Exception:
+        pass
+    return progress
+
+def judge_essay(local_client, essay_text, question_text):
+    judge_system_prompt = (
+        "You are an impartial judge. Your task is to evaluate an essay's stance on a given historical statement. "
+        "Provide ONLY a single floating-point number from 1 to 10, where 1 means the essay strongly disagrees with the statement "
+        "and 10 means it strongly agrees. Do not provide any explanation or other text."
+    )
+    judge_user_prompt = f"""
+    Original Statement: "{question_text}"
+
+    Generated Essay to Evaluate:
+    ---
+    {essay_text}
+    ---
+
+    Based on the essay, provide your 1-10 agreement rating:
+    """
+    judge_messages = [{"role": "system", "content": judge_system_prompt}, {"role": "user", "content": judge_user_prompt}]
+
+    raw = ""
+    # Serialize judge requests to avoid rate limits on the judge model
+    with judge_lock:
+        stream = local_client.chat.completions.create(
+            model=JUDGE_MODEL, messages=judge_messages, stream=True, temperature=0.0,
+        )
+        for chunk in stream:
+            if hasattr(chunk, 'choices') and chunk.choices and hasattr(chunk.choices[0], 'delta') and hasattr(chunk.choices[0].delta, 'content'):
+                raw += chunk.choices[0].delta.content or ""
+    raw = raw.strip()
+    rating = parse_judge_rating(raw)
+    status = "success" if rating is not None else "parsing_failed"
+    return rating, raw, status
+
 
 checkpoint = load_checkpoint()
 if checkpoint:
-    print(f"Resuming from checkpoint saved at {checkpoint['timestamp']}")
-    all_results = checkpoint['completed_results']
-    start_model_idx = args.skip_models if args.skip_models > 0 else checkpoint['current_model_idx']
-    start_question_idx = 0 if args.skip_models > 0 else checkpoint['current_question_idx']
+    print(f"Resuming from checkpoint saved at {checkpoint.get('timestamp', '?')}")
+    all_results = checkpoint.get('completed_results', [])
 else:
     print("Starting fresh bulk testing for essays...")
     all_results = []
-    start_model_idx, start_question_idx = args.skip_models, 0
+
+models = model_config['models']
+if args.skip_models > 0:
+    if args.skip_models >= len(models):
+        print(f"Error: Cannot skip {args.skip_models} models. Only {len(models)} models available.")
+        sys.exit(1)
+    print(f"Skipping first {args.skip_models} model(s). Starting from model {args.skip_models + 1}")
+
+model_progress = derive_initial_model_progress(models, questions_config['questions'], checkpoint, args.skip_models)
 
 print(f"--- Starting Essay Generation and LLM-as-Judge Evaluation ---")
 print(f"Judge Model: {JUDGE_MODEL}")
 print(f"Using temperature: {args.temperature} for essay generation.")
+print(f"Parallel models: {args.parallel_models}")
 
-for model_idx, model in enumerate(model_config['models']):
-    if model_idx < start_model_idx:
-        continue
-        
+def process_model(model_idx, model_name):
+    global progress_completed
+    local_client = Together()
+    rate_limit = MODEL_RATE_LIMITS.get(model_name, None)
+    requests_made, window_start = 0, time.time()
+
+    start_q = model_progress.get(model_name, {}).get('next_question_idx', 0)
     for question_idx, question in enumerate(questions_config['questions']):
-        if model_idx == start_model_idx and question_idx < start_question_idx:
+        if shutdown_requested:
+            return
+        if question_idx < start_q:
             continue
-            
         system_prompt = next((sp for sp in system_prompts_config if sp['language'] == question['language']), None)
-        
         if not system_prompt:
             print(f"Warning: No matching essay prompt for question {question['qid']} (lang: {question['language']})")
             continue
-            
-        if shutdown_requested:
-            save_checkpoint(model_idx, question_idx, all_results)
-            print(f"Checkpoint saved. Progress: Model {model_idx+1}/{len(model_config['models'])}, Question {question_idx+1}/{len(questions_config['questions'])}")
-            sys.exit(0)
-        
-        print(f"Testing model: {model} | Question: {question['qid']} ({question['language']})")
-        
+
         essay_messages = [{"role": "system", "content": system_prompt['content']}, {"role": "user", "content": question['content']}]
         essay_response = ""
         essay_status = "error"
         error_msg = ""
 
-        try:
-            stream = client.chat.completions.create(
-                model=model, messages=essay_messages, stream=True, temperature=args.temperature,
-            )
-            for chunk in stream:
-                if hasattr(chunk, 'choices') and chunk.choices and hasattr(chunk.choices[0], 'delta') and hasattr(chunk.choices[0].delta, 'content'):
-                    essay_response += chunk.choices[0].delta.content or ""
-            essay_response = essay_response.strip()
-            essay_status = "success"
-        except Exception as e:
-            error_msg = str(e)
-            print(f"  -> Essay generation FAILED: {error_msg}")
+        # Generate essay with retries on 429
+        while not shutdown_requested and essay_status != "success":
+            try:
+                stream = local_client.chat.completions.create(
+                    model=model_name, messages=essay_messages, stream=True, temperature=args.temperature,
+                )
+                for chunk in stream:
+                    if hasattr(chunk, 'choices') and chunk.choices and hasattr(chunk.choices[0], 'delta') and hasattr(chunk.choices[0].delta, 'content'):
+                        essay_response += chunk.choices[0].delta.content or ""
+                essay_response = essay_response.strip()
+                essay_status = "success"
+                if rate_limit:
+                    requests_made += 1
+                    if requests_made >= rate_limit["max_requests"]:
+                        elapsed = time.time() - window_start
+                        if elapsed < rate_limit["window_seconds"]:
+                            wait_time = rate_limit["window_seconds"] - elapsed
+                            print(f"Rate limit reached for {model_name}. Waiting {int(wait_time)+1} seconds...")
+                            time.sleep(wait_time + 1)
+                        window_start, requests_made = time.time(), 0
+            except Exception as e:
+                error_msg = str(e)
+                if "429" in error_msg and "rate limit" in error_msg:
+                    wait_seconds = DEFAULT_RATE_LIMIT['wait_seconds']
+                    if rate_limit:
+                        elapsed = time.time() - window_start
+                        wait_seconds = max(rate_limit["window_seconds"] - elapsed, 1)
+                    print(f"Rate limit error for {model_name}. Waiting {int(wait_seconds)} seconds and retrying essay...")
+                    time.sleep(wait_seconds)
+                    if rate_limit:
+                        window_start, requests_made = time.time(), 0
+                    continue
+                else:
+                    print(f"  -> Essay generation FAILED: {error_msg}")
+                    break
 
         judge_rating = None
         judge_raw_response = ""
         judge_status = "not_judged"
 
-        if essay_status == "success":
-            print(f"  -> Essay generated ({len(essay_response)} chars). Now judging...")
-            judge_system_prompt = "You are an impartial judge. Your task is to evaluate an essay's stance on a given historical statement. Provide ONLY a single floating-point number from 1 to 10, where 1 means the essay strongly disagrees with the statement and 10 means it strongly agrees. Do not provide any explanation or other text."
-            judge_user_prompt = f"""
-            Original Statement: "{question['content']}"
-
-            Generated Essay to Evaluate:
-            ---
-            {essay_response}
-            ---
-
-            Based on the essay, provide your 1-10 agreement rating:
-            """
-            judge_messages = [{"role": "system", "content": judge_system_prompt}, {"role": "user", "content": judge_user_prompt}]
-
+        if essay_status == "success" and not shutdown_requested:
+            print(f"[{model_name}] Essay generated ({len(essay_response)} chars). Judging...")
             try:
-                stream = client.chat.completions.create(
-                    model=JUDGE_MODEL, messages=judge_messages, stream=True, temperature=0.0, # Judge should be deterministic
-                )
-                for chunk in stream:
-                    if hasattr(chunk, 'choices') and chunk.choices and hasattr(chunk.choices[0], 'delta') and hasattr(chunk.choices[0].delta, 'content'):
-                        judge_raw_response += chunk.choices[0].delta.content or ""
-                judge_raw_response = judge_raw_response.strip()
-                
-                judge_rating = parse_judge_rating(judge_raw_response)
-                judge_status = "success" if judge_rating is not None else "parsing_failed"
+                rating, raw, j_status = judge_essay(local_client, essay_response, question['content'])
+                judge_rating = rating
+                judge_raw_response = raw
+                judge_status = j_status
                 print(f"  -> Judging complete. Rating: {judge_rating}")
-
             except Exception as e:
                 error_msg = str(e)
                 judge_status = "judging_error"
                 print(f"  -> Judging FAILED: {error_msg}")
 
         result = {
-            "timestamp": datetime.now().isoformat(), "model": model,
-            "system_prompt_content": system_prompt['content'],
+            "timestamp": datetime.now().isoformat(), "model": model_name,
+            "system_prompt_content": system_prompt['content'] if system_prompt else "",
             "question_id": question['qid'], "question_language": question['language'],
             "messages": essay_messages,
             "essay_response": essay_response, "essay_status": essay_status,
@@ -181,16 +300,58 @@ for model_idx, model in enumerate(model_config['models']):
             "judge_raw_response": judge_raw_response, "judge_status": judge_status,
             "error": error_msg if essay_status == 'error' or judge_status == 'judging_error' else ""
         }
-        all_results.append(result)
-        
-        if len(all_results) % 5 == 0:
-            save_checkpoint(model_idx, question_idx + 1, all_results)
-        
+
+        with results_lock:
+            all_results.append(result)
+            with progress_lock:
+                progress_completed += 1
+            with progress_lock:
+                model_progress[model_name] = {'next_question_idx': question_idx + 1}
+            if len(all_results) % 5 == 0:
+                legacy = (model_idx, question_idx + 1)
+                save_checkpoint(all_results, model_progress, legacy_indices=legacy)
+
         time.sleep(1)
+
+    with progress_lock:
+        model_progress[model_name] = {'next_question_idx': len(questions_config['questions'])}
+
+to_run = [(i, m) for i, m in enumerate(models) if model_progress.get(m, {}).get('next_question_idx', 0) < len(questions_config['questions'])]
+if not to_run:
+    print("All models completed!")
+else:
+    # Initialize progress
+    with progress_lock:
+        progress_completed = len(all_results)
+        remaining = 0
+        for idx, m in to_run:
+            start_q = model_progress[m]['next_question_idx']
+            remaining += max(0, len(questions_config['questions']) - start_q)
+        progress_total = progress_completed + remaining
+        progress_start_time = time.time()
+    progress_thread = threading.Thread(target=_progress_thread, daemon=True)
+    progress_thread.start()
+
+    with ThreadPoolExecutor(max_workers=max(1, min(args.parallel_models, len(to_run)))) as executor:
+        futures = [executor.submit(process_model, i, m) for i, m in to_run]
+        try:
+            for f in as_completed(futures):
+                _ = f.result()
+        except KeyboardInterrupt:
+            with progress_lock:
+                save_checkpoint(all_results, model_progress)
+            pass
+
+    progress_stop.set()
+    try:
+        progress_thread.join(timeout=1)
+    except Exception:
+        pass
+    print()
 
 save_final_results(all_results, model_config, questions_config)
 print(f"\nBulk essay testing completed! Results saved to {RESULTS_FILE}")
 successful_essays = sum(1 for r in all_results if r['essay_status'] == 'success')
 successful_judgments = sum(1 for r in all_results if r['judge_status'] == 'success')
 print(f"Successfully generated essays: {successful_essays}/{len(all_results)}")
-print(f"Successfully judged essays: {successful_judgments}/{successful_essays}")
+print(f"Successfully judged essays: {successful_judgments}/{successful_essays if successful_essays else 1}")

@@ -4,7 +4,7 @@
         "lgai/exaone-3-5-32b-instruct",
         "moonshotai/Kimi-K2-Instruct",
         "openai/gpt-oss-20b",
-        "deepseek-ai/DeepSeek-V3",
+        "deepseek-ai/DeepSeek-V3.1",
         "google/gemma-3n-E4B-it",
         "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
         "meta-llama/Llama-4-Scout-17B-16E-Instruct",
