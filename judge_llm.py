@@ -10,7 +10,7 @@ import re
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-JUDGE_MODEL = "meta-llama/Llama-3-70b-chat-hf"
+JUDGE_MODEL = "openai/gpt-oss-20b"
 
 CHECKPOINT_FILE = 'essay_test_checkpoint.json'
 RESULTS_FILE = 'essay_test_results.json'
