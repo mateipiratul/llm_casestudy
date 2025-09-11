@@ -12,8 +12,7 @@ RESULTS_FILES = [
     'results/1_test_results.json',
     'results/2_test_results.json',
     'results/3_test_results.json',
-    'results/4_test_results.json',
-    'results/5_test_results.json'
+    'results/4_test_results.json'
 ]
 YESNO_PLOT_FILE = 'analysis_reports/consistency_yesno_quadrant_map.png'
 SCALE_PLOT_FILE = 'analysis_reports/consistency_scale_diagonal_map.png'

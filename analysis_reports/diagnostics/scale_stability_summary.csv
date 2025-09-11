@@ -1,0 +1,14 @@
+model,scale_stability
+Qwen/Qwen2.5-7B-Instruct-Turbo,0.25
+Qwen/Qwen3-235B-A22B-Instruct-2507-tput,0.5
+arcee-ai/virtuoso-large,0.5892857142857143
+deepseek-ai/DeepSeek-R1,0.35714285714285715
+deepseek-ai/DeepSeek-V3.1,0.17857142857142858
+google/gemma-3n-E4B-it,0.4107142857142857
+lgai/exaone-3-5-32b-instruct,0.6428571428571429
+meta-llama/Llama-3.3-70B-Instruct-Turbo,0.5178571428571429
+meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8,0.5892857142857143
+meta-llama/Llama-4-Scout-17B-16E-Instruct,0.5178571428571429
+mistralai/Mistral-Small-24B-Instruct-2501,0.10714285714285714
+moonshotai/Kimi-K2-Instruct,0.26785714285714285
+openai/gpt-oss-20b,0.17857142857142858
