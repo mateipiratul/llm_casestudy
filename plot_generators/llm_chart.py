@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
+import os
 from datetime import datetime
 
 model_data = [
@@ -123,7 +124,7 @@ model_data = [
     },
 ]
 
-def create_model_timeline_plot(data, output_path="model_timeline_plot.png"):
+def create_model_timeline_plot(data, output_path="analysis_reports/model_timeline_plot.png"):
     """
     Generates a scatter plot of models over time, showing total vs. active parameters.
     """
@@ -189,6 +190,7 @@ def create_model_timeline_plot(data, output_path="model_timeline_plot.png"):
 
     fig.tight_layout()
     
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     print(f"Plot saved successfully to '{output_path}'")
     plt.show()

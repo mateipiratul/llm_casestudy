@@ -13,7 +13,8 @@ RESULTS_FILES = [
     'results/1_test_results.json',
     'results/2_test_results.json',
     'results/3_test_results.json',
-    'results/4_test_results.json'
+    'results/4_test_results.json',
+    'results/5_test_results.json'
 ]
 OUT_DIR = os.path.join("analysis_reports", "simple")
 

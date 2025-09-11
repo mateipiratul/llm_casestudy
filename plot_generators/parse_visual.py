@@ -12,10 +12,11 @@ RESULTS_FILES = [
     'results/1_test_results.json',
     'results/2_test_results.json',
     'results/3_test_results.json',
-    'results/4_test_results.json'
+    'results/4_test_results.json',
+    'results/5_test_results.json'
 ]
-YESNO_PLOT_FILE = 'consistency_yesno_quadrant_map.png'
-SCALE_PLOT_FILE = 'consistency_scale_diagonal_map.png'
+YESNO_PLOT_FILE = 'analysis_reports/consistency_yesno_quadrant_map.png'
+SCALE_PLOT_FILE = 'analysis_reports/consistency_scale_diagonal_map.png'
 A4_LANDSCAPE_FIGSIZE = (11.5, 7.5)
 
 YES_WORDS = {
@@ -135,6 +136,7 @@ def create_yesno_heatmap(df):
     cbar.set_label('Number of "Yes" Responses', rotation=270, labelpad=10)
     
     fig.subplots_adjust(left=0.18, right=0.89, top=0.92, bottom=0.15)
+    os.makedirs(os.path.dirname(YESNO_PLOT_FILE), exist_ok=True)
     plt.savefig(YESNO_PLOT_FILE, dpi=300, bbox_inches='tight')
     print(f"Yes/No consistency heatmap saved to '{YESNO_PLOT_FILE}'")
     plt.show()
@@ -217,6 +219,7 @@ def create_scale_heatmap(df):
     ax.legend(handles=[annot_patch], title='Cell Annotation Format', bbox_to_anchor=(1.01, 1), loc='upper left')
     
     fig.subplots_adjust(left=0.17, right=0.83, top=0.9, bottom=0.25)    
+    os.makedirs(os.path.dirname(SCALE_PLOT_FILE), exist_ok=True)
     plt.savefig(SCALE_PLOT_FILE, dpi=300, bbox_inches='tight')
     print(f"Scale divergence heatmap saved to '{SCALE_PLOT_FILE}'")
     plt.show()
