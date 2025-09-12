@@ -6,7 +6,31 @@ from typing import List
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+sns.set_theme(style='whitegrid', context='paper')
+mpl.rcParams.update({
+    'font.size': 8,
+    'axes.titlesize': 10,
+    'axes.labelsize': 9,
+    'xtick.labelsize': 7,
+    'ytick.labelsize': 7,
+    'legend.fontsize': 8,
+})
+try:
+    from .parser_utils import (
+        clean_response_parse_visual,
+        parse_yesno_pv,
+        parse_scale_pv,
+        infer_prompt_type,
+    )
+except Exception:
+    from parser_utils import (
+        clean_response_parse_visual,
+        parse_yesno_pv,
+        parse_scale_pv,
+        infer_prompt_type,
+    )
 
 A4_LANDSCAPE = (11.7, 8.3)
 FIG_DPI = 200
@@ -17,49 +41,14 @@ def ensure_dir(p: str):
 
 
 def parse_yesno(resp: str, lang: str):
-    YES = {"en": ["yes"], "ro": ["da"], "hu": ["igen"], "ru": ["да"]}
-    NO = {"en": ["no"], "ro": ["nu"], "hu": ["nem"], "ru": ["нет"]}
-    if not isinstance(resp, str) or not resp:
-        return None
-    t = resp.strip().lower().split()[0].strip('.,!?;:"')
-    if t in YES.get(lang, []):
-        return True
-    if t in NO.get(lang, []):
-        return False
-    # Fallback substring search to account for formatting
-    low = resp.lower()
-    for y in YES.get(lang, []):
-        if f" {y} " in f" {low} ":
-            return True
-    for n in NO.get(lang, []):
-        if f" {n} " in f" {low} ":
-            return False
-    return None
+    return parse_yesno_pv(resp, lang)
 
 
 def parse_scale(resp: str):
-    if not isinstance(resp, str) or not resp:
-        return None
-    import re
-    m = re.search(r"\b(10|[1-9])\b", resp)
-    if not m:
-        return None
-    try:
-        v = int(m.group(1))
-    except Exception:
-        return None
-    return v if 1 <= v <= 10 else None
+    return parse_scale_pv(resp)
 
 
-def infer_prompt_type(sys_id: str):
-    if not isinstance(sys_id, str):
-        return None
-    s = sys_id.lower()
-    if 'yesno' in s:
-        return 'yesno'
-    if 'scale' in s:
-        return 'scale'
-    return None
+PARSE_FAIL_ROWS = []
 
 
 def load_runs(paths: List[str]) -> pd.DataFrame:
@@ -77,9 +66,14 @@ def load_runs(paths: List[str]) -> pd.DataFrame:
             lang = r.get('question_language')
             sys_id = r.get('system_prompt_id')
             ptype = infer_prompt_type(sys_id)
-            resp = (r.get('response') or '').strip()
+            raw = (r.get('response') or '').strip()
+            resp = clean_response_parse_visual(raw)
             yn = parse_yesno(resp, lang) if ptype == 'yesno' else None
             sc = parse_scale(resp) if ptype == 'scale' else None
+            if ptype == 'yesno' and yn is None:
+                PARSE_FAIL_ROWS.append({'run': idx, 'ptype': ptype, 'model': model, 'qid': qid, 'lang': lang, 'system_prompt_id': sys_id, 'raw': raw, 'cleaned': resp})
+            if ptype == 'scale' and sc is None:
+                PARSE_FAIL_ROWS.append({'run': idx, 'ptype': ptype, 'model': model, 'qid': qid, 'lang': lang, 'system_prompt_id': sys_id, 'raw': raw, 'cleaned': resp})
             rows.append({'model': model, 'qid': qid, 'lang': lang, 'prompt_type': ptype, 'yesno': yn, 'scale': sc, 'run_id': idx})
         frames.append(pd.DataFrame(rows))
     return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame([])
@@ -116,6 +110,18 @@ def main():
         'results/4_test_results.json',
     ]
     df = load_runs(runs)
+    # Print parse failures
+    if PARSE_FAIL_ROWS:
+        warn_df = pd.DataFrame(PARSE_FAIL_ROWS)
+        ensure_dir(csv_dir)
+        warn_path = os.path.join(csv_dir, 'language_summary_parse_failures.csv')
+        warn_df.to_csv(warn_path, index=False)
+        counts = warn_df.groupby(['run','ptype']).size().reset_index(name='n')
+        print('Parse warnings (language_summary_plots):')
+        for _, row in counts.iterrows():
+            print(f"  run {int(row['run'])} {row['ptype']}: {int(row['n'])} failures (details: {warn_path})")
+    else:
+        print('No parse failures detected in language_summary_plots input parsing.')
 
     # Aggregations across runs
     mod = df[df['prompt_type']=='yesno'].groupby(['model','qid','lang'])['yesno'].apply(modal_yes).reset_index(name='modal_yes')
@@ -129,8 +135,8 @@ def main():
         yn_pivot = yn_pivot.apply(pd.to_numeric, errors='coerce')
     plt.figure(figsize=A4_LANDSCAPE)
     if not yn_pivot.empty:
-        sns.heatmap(yn_pivot, annot=True, fmt='.2f', cmap='RdYlGn', vmin=0, vmax=1)
-    plt.title('Yes Rate by Model × Language (modal across runs)')
+        sns.heatmap(yn_pivot, annot=True, fmt='.2f', cmap='YlGnBu', vmin=0, vmax=1)
+    plt.title('Yes Rate by Model × Language (modal across runs)\nCell = fraction of questions where modal answer is Yes (modal = majority across runs 1–4)')
     plt.xlabel('Language')
     plt.ylabel('Model')
     plt.tight_layout()
@@ -144,8 +150,8 @@ def main():
         sc_pivot = sc_pivot.apply(pd.to_numeric, errors='coerce')
     plt.figure(figsize=A4_LANDSCAPE)
     if not sc_pivot.empty:
-        sns.heatmap(sc_pivot, annot=True, fmt='.2f', cmap='mako', vmin=1, vmax=10)
-    plt.title('Mean of Median Scale by Model × Language')
+        sns.heatmap(sc_pivot, annot=True, fmt='.2f', cmap='viridis', vmin=1, vmax=10)
+    plt.title('Mean of Median Scale by Model × Language\nCell = mean across questions of per-question median scale (runs 1–4, 1–10)')
     plt.xlabel('Language')
     plt.ylabel('Model')
     plt.tight_layout()
@@ -185,10 +191,10 @@ def main():
     else:
         yes_stab = pd.Series([0.0]*len(all_models), index=all_models)
     plt.figure(figsize=(10, max(4, 0.3*len(yes_stab))))
-    sns.barplot(x=yes_stab.values, y=yes_stab.index, orient='h')
+    sns.barplot(x=yes_stab.values, y=yes_stab.index, orient='h', color='#1f77b4')
     plt.xlabel('Stability across languages (% of (question,run) pairs)')
     plt.ylabel('Model (sorted: most unstable at top)')
-    plt.title('YES/NO stability across languages')
+    plt.title('YES/NO stability across languages (share of (question,run) with identical answers)\nHigher = more cross-language agreement per (model,question,run)')
     plt.tight_layout()
     plt.savefig(os.path.join(args.outdir, 'bar_yesno_stability_across_languages.png'), dpi=FIG_DPI)
     plt.close()
@@ -218,10 +224,10 @@ def main():
     else:
         sc_stab = pd.Series([0.0]*len(all_models), index=all_models)
     plt.figure(figsize=(10, max(4, 0.3*len(sc_stab))))
-    sns.barplot(x=sc_stab.values, y=sc_stab.index, orient='h')
+    sns.barplot(x=sc_stab.values, y=sc_stab.index, orient='h', color='#2ca02c')
     plt.xlabel('Stability across languages (% of (question,run) pairs)')
     plt.ylabel('Model (sorted: most unstable at top)')
-    plt.title('SCALE stability across languages (tol ≤ 1)')
+    plt.title('SCALE stability across languages (std ≤ 1 across languages per (question,run))\nHigher = more cross-language consistency (lower spread)')
     plt.tight_layout()
     plt.savefig(os.path.join(args.outdir, 'bar_scale_stability_across_languages.png'), dpi=FIG_DPI)
     plt.close()
@@ -235,10 +241,10 @@ def main():
     yn_sens = frac.groupby('qid')['var'].mean().sort_values(ascending=False)
     top = yn_sens.head(args.topk)
     plt.figure(figsize=(10, 0.5*len(top)))
-    sns.barplot(x=top.values, y=top.index, color='#c51b7d')
+    sns.barplot(x=top.values, y=top.index, color='#d62728')
     plt.xlabel('Variability across models (avg p*(1-p) across languages)')
     plt.ylabel('Question')
-    plt.title('Most sensitive questions (YES/NO) — varied across models')
+    plt.title('Most sensitive questions (YES/NO) — varied across models\nHigher = more disagreement across models (avg p·(1–p))')
     plt.tight_layout()
     plt.savefig(os.path.join(args.outdir, 'top_sensitive_yesno_across_models.png'), dpi=FIG_DPI)
     plt.close()
@@ -249,10 +255,10 @@ def main():
     sc_sens = rng.groupby('qid').mean().sort_values(ascending=False)
     top = sc_sens.head(args.topk)
     plt.figure(figsize=(10, 0.5*len(top)))
-    sns.barplot(x=top.values, y=top.index, color='#2c7fb8')
+    sns.barplot(x=top.values, y=top.index, color='#1f77b4')
     plt.xlabel('Average across-model range (median scale) across languages')
     plt.ylabel('Question')
-    plt.title('Most sensitive questions (SCALE) — varied across models')
+    plt.title('Most sensitive questions (SCALE) — varied across models\nHigher = larger across-model range of medians')
     plt.tight_layout()
     plt.savefig(os.path.join(args.outdir, 'top_sensitive_scale_across_models.png'), dpi=FIG_DPI)
     plt.close()

@@ -1,5 +1,7 @@
 import json
 import pandas as pd
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.patches as mpatches
@@ -7,6 +9,28 @@ import matplotlib.colors as mcolors
 import os
 import numpy as np
 import re
+try:
+    from .parser_utils import clean_response_parse_visual, parse_yesno_pv
+except Exception:
+    from parser_utils import clean_response_parse_visual, parse_yesno_pv
+
+# Configuration matching study_plots.py standards
+FIG_DPI = 200
+A4_LANDSCAPE_FIGSIZE = (16, 10)
+
+sns.set_theme(style='whitegrid', context='paper')
+mpl.rcParams.update({
+    'font.size': 8,
+    'axes.titlesize': 10,
+    'axes.labelsize': 9,
+    'xtick.labelsize': 7,
+    'ytick.labelsize': 7,
+    'legend.fontsize': 8,
+})
+
+def ensure_dir(p: str):
+    """Create directory if it doesn't exist (matching study_plots.py pattern)."""
+    os.makedirs(p, exist_ok=True)
 
 RESULTS_FILES = [
     'results/1_test_results.json',
@@ -16,35 +40,18 @@ RESULTS_FILES = [
 ]
 YESNO_PLOT_FILE = 'analysis_reports/consistency_yesno_quadrant_map.png'
 SCALE_PLOT_FILE = 'analysis_reports/consistency_scale_diagonal_map.png'
-A4_LANDSCAPE_FIGSIZE = (11.5, 7.5)
-
-YES_WORDS = {
-    'en': ['yes'], 'ro': ['da'], 'hu': ['igen'], 'ru': ['да']
-}
-NO_WORDS = {
-    'en': ['no'], 'ro': ['nu'], 'hu': ['nem'], 'ru': ['нет']
-}
+A4_LANDSCAPE_FIGSIZE = (16, 10)
 
 def parse_yesno_response(row):
     response = row['response']
     lang = row['question_language']
-    if not isinstance(response, str) or lang not in YES_WORDS:
-        return 0
-    cleaned_response = re.sub(r'[.!,?]', '', response).lower().strip()
-    if cleaned_response in YES_WORDS[lang]:
+    parsed = parse_yesno_pv(response, lang)
+    if parsed is True:
         return 1
-    else:
-        return 0
+    return 0
 
 def clean_response(response_text):
-    if not isinstance(response_text, str):
-        return response_text
-    stripped_text = response_text.lstrip()
-    if stripped_text.startswith('<think>'):
-        end_tag_index = stripped_text.find('</think>')
-        if end_tag_index != -1:
-            return stripped_text[end_tag_index + len('</think>'):].strip()
-    return response_text
+    return clean_response_parse_visual(response_text)
 
 def shorten_model_name(full_name):
     if '/' in full_name:
@@ -80,7 +87,12 @@ def create_yesno_heatmap(df):
         print("No 'Yes/No' data found to generate a plot.")
         return
     print("Generating 'Yes/No' consistency heatmap...")
-    df['yes_count'] = df.apply(parse_yesno_response, axis=1)
+    # Report invalid parses (None)
+    parsed_vals = df.apply(lambda r: parse_yesno_pv(r['response'], r['question_language']), axis=1)
+    invalid_n = parsed_vals.isna().sum()
+    if invalid_n:
+        print(f"Warning: {int(invalid_n)} YES/NO responses could not be parsed exactly (see cleaning rules). They count as 'No' in the visualization.")
+    df['yes_count'] = parsed_vals.fillna(False).astype(int)
     pivot_df = df.pivot_table(
         index='model', columns=['question_id', 'question_language'],
         values='yes_count', aggfunc='sum'
@@ -101,7 +113,7 @@ def create_yesno_heatmap(df):
         'hu': {'pos': (0, 0.5), 'label': 'HU'}, 'ru': {'pos': (0.5, 0.5), 'label': 'RU'}
     }
     
-    cmap = plt.get_cmap('GnBu')
+    cmap = plt.get_cmap('YlGnBu')
     norm = mcolors.Normalize(vmin=0, vmax=4)
 
     fig, ax = plt.subplots(figsize=A4_LANDSCAPE_FIGSIZE)
@@ -129,16 +141,16 @@ def create_yesno_heatmap(df):
     ax.set_ylim(len(models), 0); ax.set_xlim(0, len(unique_qids))
     ax.set_yticks([i + 0.5 for i in range(len(models))]); ax.set_yticklabels(models, fontsize=8)
     ax.set_xticks([i + 0.5 for i in range(len(unique_qids))]); ax.set_xticklabels(unique_qids, rotation=60, fontsize=8)
-    ax.set_title('Consistency of "Yes" Responses Across 4 Runs', fontsize=13, pad=12)
+    ax.set_title('Consistency of "Yes" Responses Across 4 Runs\nCell split into RO|EN|HU|RU; color = count of "Yes" across runs (0–4). Unparsable counted as 0.', fontsize=14, pad=12)
     cbar_ax = fig.add_axes([0.9, 0.6, 0.02, 0.3])
     cbar = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cbar_ax, ticks=[0, 1, 2, 3, 4])
     cbar.set_label('Number of "Yes" Responses', rotation=270, labelpad=10)
     
     fig.subplots_adjust(left=0.18, right=0.89, top=0.92, bottom=0.15)
-    os.makedirs(os.path.dirname(YESNO_PLOT_FILE), exist_ok=True)
-    plt.savefig(YESNO_PLOT_FILE, dpi=300, bbox_inches='tight')
+    ensure_dir(os.path.dirname(YESNO_PLOT_FILE))
+    plt.savefig(YESNO_PLOT_FILE, dpi=FIG_DPI, bbox_inches='tight')
     print(f"Yes/No consistency heatmap saved to '{YESNO_PLOT_FILE}'")
-    plt.show()
+    plt.close()  # Add plt.close() for memory management
 
 def create_scale_heatmap(df):
     if df.empty:
@@ -146,7 +158,13 @@ def create_scale_heatmap(df):
         return
         
     print("Generating RO/HU score divergence heatmap...")
-    df['response_num'] = pd.to_numeric(df['response'], errors='coerce')
+    rn = pd.to_numeric(df['response'], errors='coerce')
+    # Enforce valid range [1,10]
+    rn = rn.where((rn >= 1) & (rn <= 10))
+    invalid_sc = rn.isna().sum()
+    if invalid_sc:
+        print(f"Warning: {int(invalid_sc)} SCALE responses invalid or out of [1,10] after cleaning; excluded from medians.")
+    df['response_num'] = rn
     df_ro_hu = df[df['question_language'].isin(['ro', 'hu'])].copy()
     
     pivot_data = df_ro_hu.pivot_table(
@@ -200,7 +218,7 @@ def create_scale_heatmap(df):
         ax=ax,
         annot=annot_df,
         fmt='s',
-        cmap="coolwarm",
+        cmap="RdBu_r",
         center=0,
         linewidths=1.5,
         linecolor='white',
@@ -208,7 +226,7 @@ def create_scale_heatmap(df):
         cbar_kws={'label': 'Score Difference (RO median - HU median)', 'shrink': 0.75}
     )
 
-    ax.set_title('Divergence of Median Scores (RO vs HU) Across 4 Runs', fontsize=16, pad=20)
+    ax.set_title('Divergence of Median Scores (RO vs HU) Across 4 Runs\nCell text = RO|HU medians; color = RO − HU (only valid 1–10 included)', fontsize=16, pad=20)
     ax.set_xlabel('Question ID', fontsize=12, labelpad=10)
     ax.set_ylabel('Model', fontsize=12, labelpad=10)
     plt.xticks(rotation=60, ha='center', fontsize=9)
@@ -217,20 +235,25 @@ def create_scale_heatmap(df):
     annot_patch = mpatches.Patch(color='grey', label='RO score | HU score')
     ax.legend(handles=[annot_patch], title='Cell Annotation Format', bbox_to_anchor=(1.01, 1), loc='upper left')
     
-    fig.subplots_adjust(left=0.17, right=0.83, top=0.9, bottom=0.25)    
-    os.makedirs(os.path.dirname(SCALE_PLOT_FILE), exist_ok=True)
-    plt.savefig(SCALE_PLOT_FILE, dpi=300, bbox_inches='tight')
+    fig.subplots_adjust(left=0.17, right=0.83, top=0.9, bottom=0.25)
+    ensure_dir(os.path.dirname(SCALE_PLOT_FILE))
+    plt.savefig(SCALE_PLOT_FILE, dpi=FIG_DPI, bbox_inches='tight')
     print(f"Scale divergence heatmap saved to '{SCALE_PLOT_FILE}'")
-    plt.show()
+    plt.close()  # Add plt.close() for memory management
+
     
 def main():
     df = load_and_prepare_data(RESULTS_FILES)
     if df is None:
         return
-    df_yesno = df[df['system_prompt_id'].str.startswith('yesno')].copy()
-    df_scale = df[df['system_prompt_id'].str.startswith('scale')].copy()
+    df_yesno = df[df['system_prompt_id'].astype(str).str.startswith('yesno')].copy()
+    df_scale = df[df['system_prompt_id'].astype(str).str.startswith('scale')].copy()
     create_yesno_heatmap(df_yesno)
     create_scale_heatmap(df_scale)
+
+
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     main()

@@ -9,6 +9,20 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 import re
+try:
+    from .parser_utils import (
+        clean_response_parse_visual,
+        parse_yesno_pv,
+        parse_scale_pv,
+        infer_prompt_type,
+    )
+except Exception:
+    from parser_utils import (
+        clean_response_parse_visual,
+        parse_yesno_pv,
+        parse_scale_pv,
+        infer_prompt_type,
+    )
 
 
 # --- Config ---
@@ -26,55 +40,50 @@ FIG_DPI = 200
 FIGSIZE_WIDE = (12, 7)
 FIGSIZE_TALL = (9, 12)
 
+sns.set_theme(style='whitegrid', context='paper')
+mpl.rcParams.update({
+    'font.size': 8,
+    'axes.titlesize': 10,
+    'axes.labelsize': 9,
+    'xtick.labelsize': 7,
+    'ytick.labelsize': 7,
+    'legend.fontsize': 8,
+})
+
+LANG_ORDER = ['ro', 'en', 'hu', 'ru']
+LANG_NAMES = {'ro': 'RO', 'en': 'EN', 'hu': 'HU', 'ru': 'RU'}
+LANG_COLORS = {
+    'ro': '#d62728',  # red
+    'en': '#1f77b4',  # blue
+    'hu': '#2ca02c',  # green
+    'ru': '#9467bd',  # purple
+}
+
 
 # --- Helpers: parsing ---
 def ensure_dir(p: str):
     os.makedirs(p, exist_ok=True)
 
 
-def infer_prompt_type(sys_id: Optional[str]) -> Optional[str]:
-    if not isinstance(sys_id, str):
-        return None
-    s = sys_id.lower()
-    if 'yesno' in s:
-        return 'yesno'
-    if 'scale' in s:
-        return 'scale'
-    return None
+PARSE_FAIL_ROWS: List[Dict] = []
+
+
+def _clean_text(resp: str) -> str:
+    # Keep for compatibility; use parser_utils cleaner
+    cleaned = clean_response_parse_visual(resp)
+    return cleaned or ''
+
+
+def _normalize_ru_homoglyphs(text: str) -> str:
+    return text
 
 
 def parse_yesno(resp: str, lang: str) -> Optional[bool]:
-    YES = {"en": ["yes"], "ro": ["da"], "hu": ["igen"], "ru": ["да"]}
-    NO = {"en": ["no"], "ro": ["nu"], "hu": ["nem"], "ru": ["нет"]}
-    if not isinstance(resp, str) or not resp:
-        return None
-    t = resp.strip().lower().split()[0].strip('.,!?;:"')
-    if t in YES.get(lang, []):
-        return True
-    if t in NO.get(lang, []):
-        return False
-    low = resp.lower()
-    for y in YES.get(lang, []):
-        if f" {y} " in f" {low} ":
-            return True
-    for n in NO.get(lang, []):
-        if f" {n} " in f" {low} ":
-            return False
-    return None
+    return parse_yesno_pv(resp, lang)
 
 
-def parse_scale(resp: str) -> Optional[int]:
-    if not isinstance(resp, str) or not resp:
-        return None
-    import re
-    m = re.search(r"\b(10|[1-9])\b", resp)
-    if not m:
-        return None
-    try:
-        v = int(m.group(1))
-    except Exception:
-        return None
-    return v if 1 <= v <= 10 else None
+def parse_scale(resp: str) -> Optional[float]:
+    return parse_scale_pv(resp)
 
 
 def load_runs(paths: List[str]) -> pd.DataFrame:
@@ -91,9 +100,14 @@ def load_runs(paths: List[str]) -> pd.DataFrame:
             lang = r.get('question_language')
             sys_id = r.get('system_prompt_id')
             ptype = infer_prompt_type(sys_id)
-            resp = (r.get('response') or '').strip()
+            raw = (r.get('response') or '').strip()
+            resp = _clean_text(raw)
             yn = parse_yesno(resp, lang) if ptype == 'yesno' else None
             sc = parse_scale(resp) if ptype == 'scale' else None
+            if ptype == 'yesno' and yn is None:
+                PARSE_FAIL_ROWS.append({'run': run_idx, 'ptype': ptype, 'model': model, 'qid': qid, 'lang': lang, 'system_prompt_id': sys_id, 'raw': raw, 'cleaned': resp})
+            if ptype == 'scale' and sc is None:
+                PARSE_FAIL_ROWS.append({'run': run_idx, 'ptype': ptype, 'model': model, 'qid': qid, 'lang': lang, 'system_prompt_id': sys_id, 'raw': raw, 'cleaned': resp})
             rows.append({
                 'model': model,
                 'qid': qid,
@@ -173,9 +187,9 @@ def compute_model_consistency(df14: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(out)
 
 
-def plot_barh(series: pd.Series, title: str, xlabel: str, outfile: str, xlim: Optional[Tuple[float,float]] = None):
-    s = series.dropna().sort_values(ascending=False)
-    plt.figure(figsize=(10, max(4, 0.35*len(s))))
+def plot_barh(series: pd.Series, title: str, xlabel: str, outfile: str, xlim: Optional[Tuple[float,float]] = None, sort_desc: bool = True):
+    s = series.dropna().sort_values(ascending=not sort_desc)
+    plt.figure(figsize=(12, max(5, 0.45*len(s))))
     ax = sns.barplot(x=s.values, y=s.index, orient='h', color='#4c78a8')
     ax.set_title(title)
     ax.set_xlabel(xlabel)
@@ -183,9 +197,137 @@ def plot_barh(series: pd.Series, title: str, xlabel: str, outfile: str, xlim: Op
     if xlim is not None:
         ax.set_xlim(*xlim)
     for i, v in enumerate(s.values):
-        ax.text(v + (0.01 if (xlim and xlim[1] <= 1.0) else 0.02), i, f"{v:.2f}", va='center')
+        ax.text(v + (0.005 if (xlim and xlim[1] <= 1.0) else 0.01), i, f"{v:.2f}", va='center', fontsize=8)
     plt.tight_layout()
     plt.savefig(os.path.join(OUTDIR, outfile), dpi=FIG_DPI)
+    plt.close()
+
+
+def compute_yesno_perfect_components(df14: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Compute overall perfect rate per model and language-wise contributions.
+    Returns:
+      - overall_df: model, total_items, total_perfect, overall_rate
+      - lang_df: model, lang, items, perfect, rate
+    """
+    rows_lang = []
+    rows_overall = []
+    for model, g in df14[df14['prompt_type']=='yesno'].groupby('model'):
+        total_items = 0
+        total_perfect = 0
+        # per-language
+        for lang, gl in g.groupby('lang'):
+            perfect = 0
+            items = 0
+            for qid, gg in gl.groupby('qid'):
+                runs = gg.set_index('run').sort_index()['yesno']
+                if set([1,2,3,4]).issubset(set(runs.index)):
+                    vals = runs.loc[[1,2,3,4]].tolist()
+                    if None in vals:
+                        continue
+                    items += 1
+                    if len(set(vals)) == 1:
+                        perfect += 1
+            rate = (perfect / items) if items else np.nan
+            rows_lang.append({'model': model, 'lang': lang, 'items': items, 'perfect': perfect, 'rate': rate})
+            total_items += items
+            total_perfect += perfect
+        overall_rate = (total_perfect / total_items) if total_items else np.nan
+        rows_overall.append({'model': model, 'total_items': total_items, 'total_perfect': total_perfect, 'overall_rate': overall_rate})
+    return pd.DataFrame(rows_overall), pd.DataFrame(rows_lang)
+
+
+def plot_A1_stacked_by_language(overall_df: pd.DataFrame, lang_df: pd.DataFrame, outfile: str):
+    """A1 stacked per language: vertical bars; height = overall perfect rate; segments = language share."""
+    overall_df = overall_df.set_index('model')
+    lang_pivot = lang_df.pivot_table(index='model', columns='lang', values='perfect', aggfunc='sum').fillna(0.0)
+    for l in LANG_ORDER:
+        if l not in lang_pivot.columns:
+            lang_pivot[l] = 0.0
+    lang_pivot = lang_pivot[LANG_ORDER]
+    shares = lang_pivot.div(lang_pivot.sum(axis=1).replace(0, np.nan), axis=0).fillna(0.0)
+    seg = shares.mul(overall_df['overall_rate'], axis=0).fillna(0.0)
+    seg = seg.loc[overall_df['overall_rate'].sort_values(ascending=False).index]
+
+    plt.figure(figsize=(max(14, 0.8*len(seg)), 8))
+    ax = plt.gca()
+    x = np.arange(len(seg))
+    bottom = np.zeros(len(seg))
+    for lang in LANG_ORDER:
+        vals = seg[lang].values
+        ax.bar(x, vals, bottom=bottom, color=LANG_COLORS.get(lang, '#999'), edgecolor='white', label=LANG_NAMES.get(lang, lang).upper(), width=0.7)
+        bottom += vals
+    ax.set_xticks(x)
+    ax.set_xticklabels(seg.index, rotation=45, ha='right')
+    ax.tick_params(axis='x', labelsize=7)
+    ax.tick_params(axis='y', labelsize=7)
+    ax.set_ylim(0, 1)
+    ax.set_ylabel('Yes/No Perfect Consistency (0–1)')
+    ax.set_title('Yes/No Perfect Consistency by Model (segmented by language)\nStability = identical Yes/No across runs 1–4')
+    overall_sorted = overall_df.loc[seg.index, 'overall_rate']
+    for i, v in enumerate(overall_sorted.values):
+        ax.text(i, min(1.0, v + 0.015), f"{v:.2f}", va='bottom', ha='center', fontsize=8)
+    ax.legend(title='Language', bbox_to_anchor=(1.02, 1), loc='upper left')
+    plt.tight_layout()
+    plt.savefig(os.path.join(OUTDIR, outfile), dpi=FIG_DPI, bbox_inches='tight')
+    plt.close()
+
+
+def plot_A1_grouped_by_language(lang_df: pd.DataFrame, outfile: str):
+    """A1 grouped per language: 4 separate bars per model, one for each language."""
+    # Calculate per-language rates for each model
+    lang_rates = lang_df.copy()
+    lang_rates['rate'] = lang_rates['perfect'] / lang_rates['items']
+    lang_rates = lang_rates.fillna(0.0)
+    
+    # Pivot to get model x language matrix
+    pivot = lang_rates.pivot_table(index='model', columns='lang', values='rate', aggfunc='first').fillna(0.0)
+    
+    # Ensure all languages are present
+    for l in LANG_ORDER:
+        if l not in pivot.columns:
+            pivot[l] = 0.0
+    pivot = pivot[LANG_ORDER]
+    
+    # Sort models by overall performance (average across languages)
+    model_avg = pivot.mean(axis=1).sort_values(ascending=False)
+    pivot = pivot.loc[model_avg.index]
+    
+    # Create grouped bar plot
+    n_models = len(pivot)
+    n_langs = len(LANG_ORDER)
+    bar_width = 0.22
+    x = np.arange(n_models)
+    
+    plt.figure(figsize=(max(14, 1.0*n_models*n_langs), 20))
+    ax = plt.gca()
+    
+    # Plot bars for each language
+    for i, lang in enumerate(LANG_ORDER):
+        offset = (i - 1.5) * bar_width
+        vals = pivot[lang].values
+        bars = ax.bar(x + offset, vals, bar_width, 
+                     color=LANG_COLORS.get(lang, '#999'), 
+                     label=LANG_NAMES.get(lang, lang).upper(),
+                     edgecolor='white', linewidth=1.0)
+        
+        # Add value labels on bars
+        for j, v in enumerate(vals):
+            if v > 0.02:  # Only show labels for bars with meaningful height
+                ax.text(x[j] + offset, v + 0.02, f"{v:.2f}", 
+                       ha='center', va='bottom', fontsize=18, rotation=0, weight='bold')
+    
+    ax.set_xticks(x)
+    ax.set_xticklabels(pivot.index, rotation=45, ha='right')
+    ax.tick_params(axis='x', labelsize=20)
+    ax.tick_params(axis='y', labelsize=20)
+    ax.set_ylim(0, 1.12)
+    ax.set_ylabel('Yes/No Perfect Consistency (0–1)', fontsize=24)
+    ax.set_title('A1b: Yes/No Perfect Consistency by Model and Language (grouped bars)\nStability = identical Yes/No across runs 1–4', fontsize=26, pad=30)
+    ax.legend(title='Language', bbox_to_anchor=(1.02, 1), loc='upper left', fontsize=20, title_fontsize=22)
+    ax.grid(True, alpha=0.3, axis='y')
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(OUTDIR, outfile), dpi=FIG_DPI, bbox_inches='tight')
     plt.close()
 
 
@@ -235,22 +377,22 @@ def compute_language_consistency(df14: pd.DataFrame) -> pd.DataFrame:
         yn_perfect = (perfect / total_items) if total_items else np.nan
         yn_flip_avg = (np.mean(flip_rates) if flip_rates else np.nan)
 
-        # SCALE
+        # SCALE (more permissive: use items with at least 2 parsed runs)
         sc_items = g[g['prompt_type']=='scale'].groupby(['model','qid'])
         sc_total = 0
         sc_high = 0
         sc_stds = []
         for (_, _), gg in sc_items:
             runs = gg.set_index('run').sort_index()['scale']
-            if set([1,2,3,4]).issubset(set(runs.index)):
-                vals = runs.loc[[1,2,3,4]].tolist()
-                if any(v is None for v in vals):
-                    continue
-                sc_total += 1
-                sd = float(np.std(vals, ddof=0))
-                sc_stds.append(sd)
-                if sd <= 1.0:
-                    sc_high += 1
+            # Take available parsed runs among 1..4
+            vals = [runs.get(r) for r in [1,2,3,4] if runs.get(r) is not None]
+            if len(vals) < 2:
+                continue
+            sc_total += 1
+            sd = float(np.std(vals, ddof=0))
+            sc_stds.append(sd)
+            if sd <= 1.0:
+                sc_high += 1
         sc_high_rate = (sc_high / sc_total) if sc_total else np.nan
         sc_std_avg = (np.mean(sc_stds) if sc_stds else np.nan)
 
@@ -261,6 +403,21 @@ def compute_language_consistency(df14: pd.DataFrame) -> pd.DataFrame:
             'sc_high_consistency_rate': sc_high_rate,
             'sc_avg_std': sc_std_avg,
         })
+    return pd.DataFrame(rows)
+
+
+def compute_scale_std_items(df14: pd.DataFrame) -> pd.DataFrame:
+    """Compute per-item std across runs 1–4 for scale, by (model,qid,lang)."""
+    rows = []
+    g = df14[df14['prompt_type']=='scale']
+    for (model, qid, lang), gg in g.groupby(['model','qid','lang']):
+        runs = gg.set_index('run').sort_index()['scale']
+        if set([1,2,3,4]).issubset(set(runs.index)):
+            vals = runs.loc[[1,2,3,4]].tolist()
+            if any(v is None for v in vals):
+                continue
+            sd = float(np.std(vals, ddof=0))
+            rows.append({'model': model, 'qid': qid, 'lang': lang, 'std': sd})
     return pd.DataFrame(rows)
 
 
@@ -301,12 +458,18 @@ def pairwise_scale_corr(df14: pd.DataFrame) -> pd.DataFrame:
     return corr
 
 
-def heatmap_with_values(df: pd.DataFrame, title: str, outfile: str, cmap='viridis', vmin=None, vmax=None, fmt='.2f', annot=True):
-    plt.figure(figsize=(max(8, 0.5*len(df.columns)+4), max(6, 0.35*len(df.index)+3)))
-    sns.heatmap(df, annot=annot, fmt=fmt, cmap=cmap, vmin=vmin, vmax=vmax)
+def heatmap_with_values(df: pd.DataFrame, title: str, outfile: str, cmap='viridis', vmin=None, vmax=None, fmt='.2f', annot=False, top_xlabels=False, x_fontsize=6, y_fontsize=6):
+    plt.figure(figsize=(max(12, 0.7*len(df.columns)+6), max(10, 0.7*len(df.index)+5)))
+    ax = sns.heatmap(df, annot=annot, fmt=fmt, cmap=cmap, vmin=vmin, vmax=vmax, cbar_kws={'shrink': 0.85})
     plt.title(title)
+    if top_xlabels:
+        ax.xaxis.tick_top()
+        ax.tick_params(axis='x', rotation=45, labelsize=x_fontsize)
+    else:
+        ax.tick_params(axis='x', rotation=45, labelsize=x_fontsize)
+    ax.tick_params(axis='y', labelsize=y_fontsize)
     plt.tight_layout()
-    plt.savefig(os.path.join(OUTDIR, outfile), dpi=FIG_DPI)
+    plt.savefig(os.path.join(OUTDIR, outfile), dpi=FIG_DPI, bbox_inches='tight')
     plt.close()
 
 
@@ -483,14 +646,26 @@ def main():
     # Load data
     df14 = load_runs(RUN_FILES_1_4)
     df5 = load_runs([RUN_FILE_5])
+    # Print parse warnings summary and save CSV
+    if PARSE_FAIL_ROWS:
+        warn_df = pd.DataFrame(PARSE_FAIL_ROWS)
+        warn_path = os.path.join(CSV_OUTDIR, 'study_plots_parse_failures.csv')
+        ensure_dir(CSV_OUTDIR)
+        warn_df.to_csv(warn_path, index=False)
+        counts = warn_df.groupby(['run','ptype']).size().reset_index(name='n')
+        print('Parse warnings (study_plots):')
+        for _, row in counts.iterrows():
+            print(f"  run {int(row['run'])} {row['ptype']}: {int(row['n'])} failures (details: {warn_path})")
+    else:
+        print('No parse failures detected in study_plots input parsing.')
 
     # --- A. Model-Level Consistency (runs 1–4) ---
     model_cons = compute_model_consistency(df14)
     model_cons.to_csv(os.path.join(CSV_OUTDIR, 'model_consistency_metrics.csv'), index=False)
 
-    plot_barh(model_cons.set_index('model')['yn_perfect_consistency_rate'],
-              'Yes/No Perfect Consistency Rate (runs 1–4)\nExample: [Yes,Yes,Yes,Yes] = 100%',
-              'rate (0–1)', 'A1_model_yesno_perfect_consistency.png', xlim=(0,1))
+    # A1 enhanced: stacked by language, with overall annotation
+    overall_df, lang_df = compute_yesno_perfect_components(df14)
+    plot_A1_stacked_by_language(overall_df, lang_df, 'A1_model_yesno_perfect_consistency.png')
     plot_barh(model_cons.set_index('model')['yn_avg_flip_rate'],
               'Yes/No Average Flip Rate vs Run1 (runs 1–4)\nFraction of runs 2–4 differing from run 1',
               'flip rate (0–1, lower is better)', 'A2_model_yesno_avg_flip_rate.png', xlim=(0,1))
@@ -498,8 +673,30 @@ def main():
               'Scale High Consistency Rate (std ≤ 1, runs 1–4)',
               'rate (0–1)', 'A3_model_scale_high_consistency.png', xlim=(0,1))
     plot_barh(model_cons.set_index('model')['sc_avg_std'],
-              'Scale Average Standard Deviation (runs 1–4)',
-              'std dev (1–10 scale)', 'A4_model_scale_avg_std.png')
+              'Scale Average Standard Deviation (runs 1–4) — lower is more stable',
+              'std dev (1–10 scale)', 'A4_model_scale_avg_std.png', sort_desc=False)
+
+    # Additional diagnostics for scale std equality suspicion
+    std_items = compute_scale_std_items(df14)
+    if not std_items.empty:
+        by_model = std_items.groupby('model')['std']
+        summary = pd.DataFrame({
+            'count_items': by_model.count(),
+            'mean_std': by_model.mean(),
+            'median_std': by_model.median(),
+            'min_std': by_model.min(),
+            'max_std': by_model.max(),
+        }).sort_index()
+        summary.to_csv(os.path.join(CSV_OUTDIR, 'model_scale_std_summary.csv'))
+        # Print notice if any models share identical mean_std (rounded 1e-4)
+        rounded = summary['mean_std'].round(4)
+        dup_vals = rounded[rounded.duplicated(keep=False)]
+        if not dup_vals.empty:
+            print('Note: some models share identical mean std (rounded to 4 decimals):')
+            for val, grp in rounded.groupby(rounded):
+                if len(grp) > 1:
+                    models_same = ', '.join(grp.index.tolist())
+                    print(f"  {val:.4f} -> {models_same}")
 
     # --- B. Temperature Effect (runs 1–4 vs run 5) ---
     yes_m, yes_l, sc_m, sc_l = compute_temperature_effects(df14, df5)
@@ -523,52 +720,37 @@ def main():
 
     # --- D. Cross-Model & Cross-Language Agreement ---
     yes_agree_mat = pairwise_yes_agreement(df14)
-    heatmap_with_values(yes_agree_mat, 'Pairwise Model Agreement (Yes/No, runs 1–4)', 'D1_pairwise_yes_agreement.png', cmap='RdYlGn', vmin=0, vmax=1)
+    heatmap_with_values(
+        yes_agree_mat,
+        'Pairwise Model Agreement (Yes/No, runs 1–4)\nCell = fraction of items with the same modal Yes/No (modal = majority across runs 1–4)',
+        'D1_pairwise_yes_agreement.png',
+        cmap='YlGnBu', vmin=0, vmax=1, annot=True, top_xlabels=False, x_fontsize=9, y_fontsize=9
+    )
 
     sc_corr_mat = pairwise_scale_corr(df14)
-    heatmap_with_values(sc_corr_mat, 'Pairwise Model Correlation (Scale means, runs 1–4)', 'D2_pairwise_scale_correlation.png', cmap='vlag', vmin=-1, vmax=1, fmt='.2f')
+    heatmap_with_values(
+        sc_corr_mat,
+        'Pairwise Model Correlation (Scale means, runs 1–4)\nPearson on per-item mean(1–10); not on Yes/No. Example 1100 vs 0011 ⇒ r ≈ −1 if used',
+        'D2_pairwise_scale_correlation.png',
+        cmap='RdBu_r', vmin=-1, vmax=1, fmt='.2f', annot=True, top_xlabels=False, x_fontsize=9, y_fontsize=9
+    )
 
     lang_q_heat = language_agreement_per_question(df14)
-    heatmap_with_values(lang_q_heat, 'Language Agreement per Question (Yes/No, fraction matching question majority)', 'D3_lang_agreement_per_question.png', cmap='RdYlGn', vmin=0, vmax=1)
+    heatmap_with_values(
+        lang_q_heat,
+        'Language Agreement per Question (Yes/No)\nCell = share of models (per language) whose modal Yes/No matches the question-level majority (across langs+models)',
+        'D3_lang_agreement_per_question.png',
+        cmap='YlGnBu', vmin=0, vmax=1, annot=True, top_xlabels=True, x_fontsize=9, y_fontsize=9
+    )
 
     # --- E. Question-Level Reliability ---
     q_model_stab = question_yesno_stability(df14)
     if not q_model_stab.empty:
-        heatmap_with_values(q_model_stab, 'Per-Question Consistency (Yes/No stability across runs 1–4) Q×Model', 'E1_question_model_yesno_stability.png', cmap='RdYlGn', vmin=0, vmax=1)
+        heatmap_with_values(q_model_stab, 'Per-Question Consistency (Yes/No stability across runs 1–4) Q×Model\nCell = avg over languages of [1 if all 4 runs identical else 0]', 'E1_question_model_yesno_stability.png', cmap='YlGnBu', vmin=0, vmax=1, annot=True, top_xlabels=False, x_fontsize=9, y_fontsize=9)
         q_model_stab.to_csv(os.path.join(CSV_OUTDIR, 'question_model_yesno_stability.csv'))
+    # E2 removed per request
 
-    sc_std_rows = question_scale_stddevs(df14)
-    sc_std_rows.to_csv(os.path.join(CSV_OUTDIR, 'scale_std_by_question_lang_model.csv'), index=False)
-    # Boxplots per question (aggregate languages and models)
-    if not sc_std_rows.empty:
-        plt.figure(figsize=(12, max(4, 0.4*len(sc_std_rows['qid'].unique()))))
-        sns.boxplot(data=sc_std_rows, x='std', y='qid', orient='h', color='#9467bd')
-        plt.title('Std Dev of Scale across runs 1–4 per Question (distribution over models×languages)')
-        plt.xlabel('std dev (1–10 scale)')
-        plt.ylabel('Question')
-        plt.tight_layout()
-        plt.savefig(os.path.join(OUTDIR, 'E2_boxplot_scale_std_per_question.png'), dpi=FIG_DPI)
-        plt.close()
-
-    # --- F. Temperature Sensitivity Deep Dive ---
-    # Reuse merges from B for scatter/histograms
-    base_scale = df14[df14['prompt_type']=='scale'].dropna(subset=['scale']).groupby(['model','qid','lang'])['scale'].mean().reset_index(name='base_scale')
-    r5_scale = df5[df5['prompt_type']=='scale'].dropna(subset=['scale']).groupby(['model','qid','lang'])['scale'].first().reset_index(name='r5_scale')
-    sc_merge = pd.merge(base_scale, r5_scale, on=['model','qid','lang'], how='inner')
-    sc_merge['mad'] = (sc_merge['base_scale'] - sc_merge['r5_scale']).abs()
-    sc_merge.to_csv(os.path.join(CSV_OUTDIR, 'temp_scale_item_diffs.csv'), index=False)
-
-    plot_histograms_per_model(sc_merge, 'F1_hist_scale_diffs')
-    plot_scatter_per_model(sc_merge, 'F2_scatter_scale_temp_comparison')
-
-    # --- G. Composite Ranking of Models ---
-    comp = composite_scores(model_cons, yes_m, sc_m)
-    comp.to_csv(os.path.join(CSV_OUTDIR, 'model_composite_scores.csv'))
-    # Bar chart of stability index
-    plot_barh(comp['stability_index'], 'Composite Stability Index (normalized metrics average)', 'index (0–1)', 'G2_composite_stability_index.png', xlim=(0,1))
-    # Radar per model
-    for m in comp.index:
-        radar_chart(comp, m, 'G1_radar')
+    # F and G sections removed per request
 
     print(f"All figures saved to {OUTDIR}")
 
