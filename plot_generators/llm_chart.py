@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import os
 from datetime import datetime
+import numpy as np 
 
 model_data = [
     {
@@ -51,21 +52,12 @@ model_data = [
         "architecture": "Dense",
     },
     {
-        "name": "deepseek-ai/DeepSeek-R1",
-        "short_name": "DeepSeek-R1",
+        "name": "deepseek-ai/DeepSeek-{V3/R1}",
+        "short_name": "DeepSeek-{V3/R1}",
         "developer": "DeepSeek AI",
         "release_date": "2024-09-02",
-        "total_params_b": 145, # estimated total often cited as very large
-        "active_params_b": 21, # Estimated active params
-        "architecture": "MoE",
-    },
-    {
-        "name": "deepseek-ai/DeepSeek-V3",
-        "short_name": "DeepSeek-V3",
-        "developer": "DeepSeek AI",
-        "release_date": "2024-09-02", # often discussed alongside R1
-        "total_params_b": 150, # placeholder
-        "active_params_b": 25, # placeholder
+        "total_params_b": 671,
+        "active_params_b": 37,
         "architecture": "MoE",
     },
     {
@@ -125,20 +117,15 @@ model_data = [
 ]
 
 def create_model_timeline_plot(data, output_path="analysis_reports/model_timeline_plot.png"):
-    """
-    Generates a scatter plot of models over time, showing total vs. active parameters.
-    """
-    print("Preparing data for plotting...")
     df = pd.DataFrame(data)
     df['release_date'] = pd.to_datetime(df['release_date'])
     df = df.sort_values('release_date')
 
     developers = df['developer'].unique()
-    colors = plt.cm.viridis(range(0, 256, 256 // len(developers)))
+    colors = plt.cm.plasma(np.linspace(0, 1, len(developers)))
     color_map = dict(zip(developers, colors))
     df['color'] = df['developer'].map(color_map)
 
-    print("Generating plot...")
     fig, ax = plt.subplots(figsize=(14, 8))
 
     ax.scatter(
@@ -160,9 +147,9 @@ def create_model_timeline_plot(data, output_path="analysis_reports/model_timelin
             verticalalignment='center'
         )
 
-
     ax.set_yscale('log')
-    ax.set_ylim(bottom=3, top=300)
+    top_limit = df['total_params_b'].max() * 1.2
+    ax.set_ylim(bottom=3, top=top_limit)
 
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda y, _: f'{int(y)}B'))
     ax.yaxis.set_minor_formatter(mticker.NullFormatter())
@@ -185,7 +172,7 @@ def create_model_timeline_plot(data, output_path="analysis_reports/model_timelin
     size_handles = [plt.scatter([], [], s=p * 15, c='gray', alpha=0.7, edgecolors='w',
                                 label=f'{p}B') for p in size_legend_points]
     legend2 = ax.legend(handles=size_handles, title="Active Parameters",
-                        bbox_to_anchor=(0.02, 0.64), loc='upper left', 
+                        bbox_to_anchor=(0.02, 0.6), loc='upper left', 
                         borderaxespad=0., labelspacing=2)
 
     fig.tight_layout()
