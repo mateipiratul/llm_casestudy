@@ -1,0 +1,14 @@
+model,yes_agree_rate
+Qwen/Qwen2.5-7B-Instruct-Turbo,1.0
+Qwen/Qwen3-235B-A22B-Instruct-2507-tput,0.9629629629629629
+arcee-ai/virtuoso-large,0.9811320754716981
+deepseek-ai/DeepSeek-R1,0.9310344827586207
+deepseek-ai/DeepSeek-V3.1,0.8571428571428571
+google/gemma-3n-E4B-it,0.9444444444444444
+lgai/exaone-3-5-32b-instruct,0.9444444444444444
+meta-llama/Llama-3.3-70B-Instruct-Turbo,0.9444444444444444
+meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8,0.9818181818181818
+meta-llama/Llama-4-Scout-17B-16E-Instruct,0.9818181818181818
+mistralai/Mistral-Small-24B-Instruct-2501,0.8837209302325582
+moonshotai/Kimi-K2-Instruct,0.9629629629629629
+openai/gpt-oss-20b,0.9
