@@ -1,8 +1,27 @@
 import pandas as pd
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
+import seaborn as sns
 import os
 from datetime import datetime
+
+# Configuration matching study_plots.py standards
+FIG_DPI = 200
+sns.set_theme(style='whitegrid', context='paper')
+mpl.rcParams.update({
+    'font.size': 8,
+    'axes.titlesize': 10,
+    'axes.labelsize': 9,
+    'xtick.labelsize': 7,
+    'ytick.labelsize': 7,
+    'legend.fontsize': 8,
+})
+
+def ensure_dir(p: str):
+    """Create directory if it doesn't exist (matching study_plots.py pattern)."""
+    os.makedirs(p, exist_ok=True)
 
 model_data = [
     {
@@ -190,10 +209,10 @@ def create_model_timeline_plot(data, output_path="analysis_reports/model_timelin
 
     fig.tight_layout()
     
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    ensure_dir(os.path.dirname(output_path))
+    plt.savefig(output_path, dpi=FIG_DPI, bbox_inches='tight')
     print(f"Plot saved successfully to '{output_path}'")
-    plt.show()
+    plt.close()  # Add plt.close() for memory management
 
 
 if __name__ == "__main__":
