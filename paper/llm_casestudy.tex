@@ -12,6 +12,8 @@
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{booktabs}
+\usepackage{float}
+\usepackage{array}
 
 \renewcommand*{\Authand}{, }
 \renewcommand*{\Authands}{, AND }
@@ -23,7 +25,7 @@
 \fontsize{10}{12}\selectfont%
 \textbf{Keywords: } %
 }
-
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 %\setlength\titlebox{5cm}
 
 % You can expand the titlebox if you need extra space
@@ -50,7 +52,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-In this case study, we select a set of controversial Romanian historical questions and ask multiple Large Language Models to answer them across languages and contexts, in order to assess their biases. Besides being a study mainly performed for educational purposes, the motivation also lies in the recognition that history is often presented through altered perspectives, primarily influenced by the culture and ideals of a state, even through large language models. Since they are often trained on certain data sets that may present certain ambiguities, the lack of neutrality is subsequently instilled in users. The research process was carried out in three stages, to confirm the idea that the type of response expected can influence, to a certain extent, the response itself; after providing an affirmative answer to some given question, an LLM could shift its way of thinking after being asked the same question again, but being told to respond with a numerical value of a scale. Our research brings to light the predisposition of models to such inconsistencies, within a specific contextualization of the language for the question asked. 
+In this case study, we select a set of controversial Romanian historical questions and ask multiple Large Language Models to answer them across languages and contexts, in order to assess their biases. Besides being a study mainly performed for educational purposes, the motivation also lies in the recognition that history is often presented through altered perspectives, primarily influenced by the culture and ideals of a state, even through large language models. Since they are often trained on certain data sets that may present certain ambiguities, the lack of neutrality is subsequently instilled in users. The research process was carried out in three stages, to confirm the idea that the type of response expected can influence, to a certain extent, the response itself; after providing an affirmative answer to some given question, an LLM could shift its way of thinking after being asked the same question again, but being told to respond with a numerical value of a scale. Results show that \textit{Yes/No} stability is relatively high but far from perfect and varies by language (means $\approx$0.75–0.81; Russian highest, English/Hungarian lower). Models often flip stance across languages or between formats; numeric ratings frequently diverge from the initial binary choice, and the most consistent models are not always those judged most accurate or neutral. Our research brings to light the predisposition of models to such inconsistencies, within a specific contextualization of the language for the question asked. 
 \end{abstract}
 
 \begin{keyword} 
@@ -124,36 +126,58 @@ Here, we report findings covering all three methods of analysis throughout diffe
 
 \subsection{Consistency}
 \subsubsection{Within the Model} 
-The results displayed below show how even small-scale LLMs with superior fine-tuning features can have high-consistency within their responses \textit{(LLama-4-Scout-17B-16E-Instruct, gemma-3n-E4B-it)}, while Deepseek's suite struggled with keeping its answers consistent, with this issue being amplified specifically across romanian, english and hungarian languages; in such similar manner, OpenAI's \textit{gpt-oss-20b} model performance recorded a drastically low consistency when it comes to its romanian queries, thus confirming the model's inherent linguistic deficit \cite{walker2024}.
+The results displayed below show how even small-scale LLMs with superior fine-tuning capabilities can have high-consistency within their responses \textit{(LLama-4-Scout-17B-16E-Instruct, gemma-3n-E4B-it)}, while Deepseek's suite struggled with keeping its answers consistent, with this issue being amplified specifically across romanian, english and hungarian languages; in such similar manner, OpenAI's \textit{gpt-oss-20b} model performance recorded a drastically low consistency when it comes to its romanian queries, thus confirming the model's inherent linguistic deficit \cite{walker2024}.
 \begin{figure*}[htbp]
     \centering
-    \includegraphics[scale=0.45]{../analysis_reports/A1_model_yesno_perfect_consistency.png}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../analysis_reports/A4_model_scale_avg_std.png}
+        \caption{Average standard deviation of Likert-scale responses (1-10) for each model. Lower values indicate higher consistency.}
+        \label{fig:model_scale_avg_std}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../analysis_reports/F1_best_models_judge_agreement.png}
+        \caption{Average agreement score on scale between the LLM-as-a-judge and the model itself.}
+        \label{fig:model_judge_avg_std}
+    \end{subfigure}
+    \caption{Comparative consistency metrics for model performance. Figure (a) shows the variability in scaled answers, while Figure (b) shows the judged quality of essay responses.}
+    \label{fig:side_by_side_consistency}
+\end{figure*}
+\newpage
+\begin{figure*}[H]
+    \centering
+    \includegraphics[width=1.05\textwidth]{../analysis_reports/A1_model_yesno_perfect_consistency.png}
     \caption{This figure shows the perfect consistency of "Yes" and "No" responses within each model across multiple runs and languages. A perfectly consistent model would always give the same "Yes" or "No" answer for a given question in a given language across all runs.}
     \label{fig:model_yesno_consistency}
 \end{figure*}
 
-% \begin{wrapfigure}{R}{0.5\textwidth}
-%     \centering
-%     \includegraphics[width=0.48\textwidth]{../analysis_reports/A4_model_scale_avg_std.png}
-%     \caption{This plot illustrates the average Likert-scale response (1-10) and its standard deviation for each model across all questions and languages. The average score indicates the general tendency of a model to agree or disagree with the historical statements, while the standard deviation serves as a measure of the consistency and certainty of its responses. Models with lower standard deviations suggest more stable and predictable opinions, whereas higher standard deviations indicate greater variability or uncertainty in their stances on sensitive topics.}
-%     \label{fig:model_scale_avg_std}
-% \end{wrapfigure}
 
-\clearpage
 
 \subsubsection{Within the Language} 
 
+\begin{wrapfigure}{R}{0.5\textwidth}
+    \vspace{-20pt}
+    \centering
+    \includegraphics[width=0.49\textwidth]{../analysis_reports/D3_lang_agreement_per_question.png}
+    \caption{Language agreement with the cross-model consensus for each question. Low scores (e.g., for RU on `ceausescu`) indicate a strong divergent narrative.}
+    \label{fig:lang_agreement_per_question}
+\end{wrapfigure}
+
+The plot on the right visualizes the degree to which each language's most common answer aligns with the overall cross-model, cross-language consensus for each statement. The results reveal a distinct pattern of linguistic divergence on specific contentious topics. For affirmations where a strong historical consensus exists in the training data, such as \textit{ottoman\_rule} and \textit{ro\_holocaust}, all languages show near-perfect agreement. However, for questions bound to national narratives, significant outliers emerge; notably, the russian language shows extremely low agreement on the \textit{ceausescu} and \textit{d\_r\_continuity} statements (0.15 and 0.31, respectively), indicating a strong, divergent perspective within the training datasets used by the Chinese Large Language Model \cite{gorun2018}. Comparably, hungarian deviates significantly on \textit{tr\_demography}(0.38), reflecting a clear counter-narrative to the consensus favouring its counter-part. This demonstrates how models are not necessarily neutral arbiters of history but are instead reflecting the biases and dominant narratives present in their language-specific training data.
 \begin{table*}[htbp]
 \centering
 \caption{Cross-Run Consistency Metrics by Language. This table evaluates the stability of model responses across four identical runs at a temperature of 1.0.}
 \label{tab:language_consistency}
-\renewcommand{\arraystretch}{1.2} % Adds a little vertical space for readability
-\begin{tabular}{l p{5.5cm} p{5.5cm}}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l C{5.5cm} C{5.5cm}}
 \toprule
 \textbf{Language} & 
+% The header text is now automatically centered
 \textbf{Binary (Yes/No) Stability} \newline \small (Fraction of perfect agreement across 4 runs. Higher is better.) & 
 \textbf{Numeric (1-10) Variability} \newline \small (Average standard deviation across 4 runs. Lower is better.) \\
-\hline
+\midrule
 English (en)    & 0.75 & \textbf{0.59} \\
 Hungarian (hu)  & 0.75 & 0.87 \\
 Romanian (ro)   & 0.78 & 0.74 \\
@@ -161,14 +185,6 @@ Russian (ru)    & \textbf{0.81} & 0.70 \\
 \bottomrule
 \end{tabular}
 \end{table*}
-
-% \begin{wrapfigure}{R}{0.5\textwidth}
-%     \centering
-%     \includegraphics[width=0.48\textwidth]{../analysis_reports/D3_lang_agreement_per_question.png}
-%     \caption{This figure presents the inter-model agreement on "Yes" responses for each question, broken down by language. It quantifies how frequently different models converged on an affirmative answer when asked the same question in Romanian, English, Hungarian, or Russian. High agreement indicates a consensus among models within that language, potentially reflecting broadly accepted historical narratives or a strong bias inherited from training data. Conversely, low agreement highlights questions or languages where models diverge significantly, suggesting areas of high controversy or inconsistent interpretative frameworks.}
-%     \label{fig:lang_agreement_per_question}
-% \end{wrapfigure}
-
 
 \subsubsection{Cross-Model \& Cross-Language Analysis}
 The largest cross-language divergences between romanian and the other languages involved were found within hungarian, especially when it came down to answers regarding rough historiographical matters \textit{(statements such as: mihai\_viteazul, d\_r\_continuity)}. In a similar fashion, one particular question stood out from the rest, in terms of receiving conflicting answers between romanian and the rest of the languages evoked, was \textit{hu\_kingdom}, that refers to the clashes for complete independence held between the states of Moldavia and Wallachia against the Kingdom of Hungary in the first half of the 14th century \cite{gulias2016}, indicating that most models choose to ignore the details of this period of time in the linguistical context of interacting with romanian users; 
@@ -187,6 +203,8 @@ The largest cross-language divergences between romanian and the other languages 
 
 \subsection{Answer Analysis}
 
+
+\newpage
 \begin{figure*}[htbp]
     \centering
     \includegraphics[scale=0.5]{../analysis_reports/consistency_yesno_quadrant_map.png}
@@ -197,7 +215,31 @@ The largest cross-language divergences between romanian and the other languages 
 
 \subsection{The Meticulous Effect of Temperature} % 1 vs 0.6 ...
 This theme tackles the simple idea that "lower temperature hosts better results" \cite{li2025}; 
+\begin{table*}[htbp]
+\centering
+\caption{Effect of Temperature Reduction (1.0 vs. 0.6) on Response Stability by Language. This table quantifies how changing the model's temperature from a creative setting (1.0) to a more deterministic one (0.6) impacts the answers, comparing the stability of the binary choice against the magnitude of the shift in the numeric score.}
+\label{tab:temp_effect_lang}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l C{5.5cm} C{5.5cm}}
+\toprule
+\textbf{Language} & 
+\textbf{Binary Answer Stability} \newline \small (Agreement rate between Temp 1.0 and 0.6. Higher is better.) & 
+\textbf{Numeric Score Shift} \newline \small (Mean absolute difference between scores. Lower is better.) \\
+\midrule
+English (en)    & \textbf{0.96} & \textbf{0.53} \\
+Hungarian (hu)  & 0.90 & 0.87 \\
+Romanian (ro)   & 0.95 & 0.81 \\
+Russian (ru)    & 0.95 & 0.73 \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
+% \begin{figure*}[htbp]
+%     \centering
+%     \includegraphics[scale=0.5]{../analysis_reports/}
+%     \caption{}
+%     \label{fig:model_}
+% \end{figure*}
 
 
 \subsection{Questions with inconsistencies analysis}  % aici e de istoric
