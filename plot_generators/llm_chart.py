@@ -69,11 +69,11 @@ model_data = [
         "architecture": "Dense",
     },
     {
-        "name": "deepseek-ai/DeepSeek-V3",
-        "short_name": "DeepSeek-V3",
+        "name": "deepseek-ai/DeepSeek-V3.1",
+        "short_name": "DeepSeek-V3.1",
         "developer": "DeepSeek AI",
-        "release_date": "2025-03-25",
-        "total_params_b": 671,
+        "release_date": "2025-08-21",
+        "total_params_b": 685,
         "active_params_b": 37,
         "architecture": "MoE",
     },
@@ -142,7 +142,7 @@ model_data = [
     },
 ]
 
-def create_model_timeline_plot(data, output_path="model_timeline_plot.png"):
+def create_model_timeline_plot(data, output_path="../analysis_reports/model_timeline_plot.png"):
     df = pd.DataFrame(data)
     df['release_date'] = pd.to_datetime(df['release_date'])
     df = df.sort_values('release_date')

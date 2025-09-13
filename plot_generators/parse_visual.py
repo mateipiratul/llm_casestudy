@@ -33,7 +33,7 @@ RESULTS_FILES = [
     '../results/4_test_results.json'
 ]
 YESNO_PLOT_FILE = '../analysis_reports/consistency_yesno_quadrant_map.png'
-SCALE_PLOT_FILE = '../analysis_reports/consistency_scale_ru.png'
+SCALE_PLOT_FILE = '../analysis_reports/consistency_scale_hu.png'
 
 def parse_yesno_response(row):
     response = row['response']
@@ -153,9 +153,9 @@ def create_scale_heatmap(df):
         print("No 'Scale' data found to generate a plot.")
         return
         
-    print("Generating RO/RU score divergence heatmap...")
+    print("Generating RO/HU score divergence heatmap...")
     df['response_num'] = pd.to_numeric(df['response'], errors='coerce')
-    df_ro_hu = df[df['question_language'].isin(['ro', 'ru'])].copy()
+    df_ro_hu = df[df['question_language'].isin(['ro', 'hu'])].copy()
     
     pivot_data = df_ro_hu.pivot_table(
         index='model', 
@@ -171,9 +171,9 @@ def create_scale_heatmap(df):
         ro_df = pd.DataFrame(index=pivot_data.index)
 
     try:
-        en_df = pivot_data.xs('ru', level='question_language', axis=1)
+        en_df = pivot_data.xs('hu', level='question_language', axis=1)
     except KeyError:
-        print("Warning: No Russian ('ru') data found in the scale results.")
+        print("Warning: No Hungarian ('hu') data found in the scale results.")
         en_df = pd.DataFrame(index=pivot_data.index)
 
     difference_df = ro_df.subtract(en_df, fill_value=np.nan) # use NaN for missing pairs
@@ -212,16 +212,16 @@ def create_scale_heatmap(df):
         linewidths=1.5,
         linecolor='white',
         annot_kws={"size": 14, "weight": "bold"},
-        cbar_kws={'label': 'Score Difference (RO median - RU median)', 'shrink': 0.75}
+        cbar_kws={'label': 'Score Difference (RO median - HU median)', 'shrink': 0.75}
     )
 
-    ax.set_title('Divergence of Median Scores (RO vs RU) Across 4 Runs', fontsize=17, pad=17, weight='bold')
+    ax.set_title('Divergence of Median Scores (RO vs HU) Across 4 Runs', fontsize=17, pad=17, weight='bold')
     ax.set_xlabel('Question ID', fontsize=16, labelpad=16, weight='bold')
     ax.set_ylabel('Model', fontsize=16, labelpad=16)
     plt.xticks(rotation=60, ha='right', fontsize=15, weight='bold')
     plt.yticks(rotation=0, fontsize=15, weight='bold')
     
-    annot_patch = mpatches.Patch(color='grey', label='RO score | RU score')
+    annot_patch = mpatches.Patch(color='grey', label='RO score | HU score')
     ax.legend(handles=[annot_patch], title='Cell Annotation Format', bbox_to_anchor=(1.01, 1), loc='upper left')
     
     fig.subplots_adjust(left=0.18, right=0.88, top=0.92, bottom=0.2)
@@ -235,10 +235,10 @@ def main():
     df = load_and_prepare_data(RESULTS_FILES)
     if df is None:
         return
-    # df_yesno = df[df['system_prompt_id'].astype(str).str.startswith('yesno')].copy()
+    df_yesno = df[df['system_prompt_id'].astype(str).str.startswith('yesno')].copy()
     df_scale = df[df['system_prompt_id'].astype(str).str.startswith('scale')].copy()
     
-    # create_yesno_heatmap(df_yesno)
+    create_yesno_heatmap(df_yesno)
     create_scale_heatmap(df_scale)
 
 if __name__ == "__main__":
