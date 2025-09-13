@@ -15,6 +15,7 @@
 \usepackage{float}
 \usepackage{array}
 \usepackage[section]{placeins}
+\usepackage{enumitem}
 
 \renewcommand*{\Authand}{, }
 \renewcommand*{\Authands}{, AND }
@@ -86,7 +87,7 @@ With the unceasing development of \textit{general-purpose LLMs} and their contin
 Persona prompting is increasingly used in LLMs to simulate views of various sociodemographic groups, being a decisive factor when it comes to the outcome of the answer provided \cite{lutz2025}. As these technologies are progressively adopted in fundamental education, their potential to act as biased instructors presents a significant degree of risk, by presenting skewed information or reinforcing stereotypes in personalized education settings \cite{weissburg2025}. This issue is aggravated concomitantly by the models' tendency towards overconfidence, where information is presented bent or incomplete with a lifted level of authority, thereby amplifying already existing human doubts rather than mitigating them \cite{sun2025}. Ultimately, understanding how to evaluate and control this predisposition is critical before LLMs can be responsibly deployed as trustworthy educational tools.
 
 \subsection{Cultural alignment of LLMs}
-Culture plays a major role in shaping the way individuals think and behave on a daily basis \cite{oyserman2008} by embedding common knowledge and beliefs into groups of people \cite{hofstede2001}. With most LLMs having a west-european centered bias in cultural alignment, exceptionally OpenAI's GPT suite \cite{tao2024}, the expectations are to have some models comport in some manner, based on the dataset they have been trained on and their family of appartenance; while less attention has been paid to the more subtle geopolitical and historiographical biases that arise from culturally-specific training data \cite{hauser2024}, our work addresses this gap by focusing on the contested domain of romanian history across multiple centuries, by aiming to quantify subtle shifts in narrative and underlying mechanisms of bias that are activated by linguistic and contextual cues \cite{bhatia2024}.
+Culture plays a major role in shaping the way individuals think and behave on a daily basis \cite{oyserman2008} by embedding common knowledge and beliefs into groups of people \cite{hofstede2001}. With most LLMs having a west-european centered bias in cultural alignment, exceptionally OpenAI's GPT suite \cite{tao2024}, the expectations are to have some models comport in some manner, based on the dataset they have been trained on and their family of appartenance; while less attention has been paid to the more subtle geopolitical and historiographical biases that arise from culturally-specific training data \cite{hauser2024}, our work addresses this gap by focusing on the contested domain of Romanian history across multiple centuries, by aiming to quantify subtle shifts in narrative and underlying mechanisms of bias that are activated by linguistic and contextual cues \cite{bhatia2024}.
 
 \section{Methodology}
 The methodology for this study was structured into three key phases, each thought to ensure a comprehensive analysis of the biases, regarding controversial historical events, that could be exploited.
@@ -114,7 +115,7 @@ For our experiments, we picked a pool of 13 models to represent a diverse cross-
 
 \subsection{Running the queries}
 \subsubsection{Prompt}
-The following prompt template was unanimously used throughout the conducted tests across all four languages (romanian, english, hungarian and russian).
+The following prompt template was unanimously used throughout the conducted tests across all four languages (Romanian, English, Hungarian and Russian).
 \begin{itemize}
     \item \textbf{Answering Model, Boolean YES or NO answer:} \textit{"Answer STRICTLY with a single word: "Yes" or "No". No explanations, no justifications, no extra text. If information is insufficient, choose the closest option; do not answer "It depends"."}
     \item \textbf{Answering Model, Number on the 1-10 scale:} \textit{"Answer STRICTLY with a single digit from 1 to 10 (1 = strongly disagree, 10 = strongly agree). No explanations or extra text."}
@@ -127,7 +128,7 @@ Here, we report findings covering all three methods of analysis throughout diffe
 
 \subsection{Consistency}
 \subsubsection{Within the Model} 
-The results displayed below show how even small-scale LLMs with superior fine-tuning capabilities can have high-consistency within their responses \textit{(LLama-4-Scout-17B-16E-Instruct, gemma-3n-E4B-it)}, while Deepseek's suite struggled with keeping its answers consistent, with this issue being amplified specifically across romanian, english and hungarian languages; in such similar manner, OpenAI's \textit{gpt-oss-20b} model performance recorded a drastically low consistency when it comes to its romanian queries, thus confirming the model's inherent linguistic deficit \cite{walker2024}.
+The results displayed below show how even small-scale LLMs with superior fine-tuning capabilities can have high-consistency within their responses \textit{(LLama-4-Scout-17B-16E-Instruct, gemma-3n-E4B-it)}, while Deepseek's suite struggled with keeping its answers consistent, with this issue being amplified specifically across Romanian, English and Hungarian languages; in such similar manner, OpenAI's \textit{gpt-oss-20b} model performance recorded a drastically low consistency when it comes to its Romanian queries, thus confirming the model's inherent linguistic deficit \cite{walker2024}.
 \begin{figure*}[htbp]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
@@ -166,7 +167,7 @@ The results displayed below show how even small-scale LLMs with superior fine-tu
     \label{fig:lang_agreement_per_question}
 \end{wrapfigure}
 
-The plot on the right visualizes the degree to which each language's most common answer aligns with the overall cross-model, cross-language consensus for each statement. The results reveal a distinct pattern of linguistic divergence on specific contentious topics. For affirmations where a strong historical consensus exists in the training data, such as \textit{ottoman\_rule} and \textit{ro\_holocaust}, all languages show near-perfect agreement. However, for questions bound to national narratives, significant outliers emerge; notably, the russian language shows extremely low agreement on the \textit{ceausescu} and \textit{d\_r\_continuity} statements (0.15 and 0.31, respectively), indicating a strong, divergent perspective within the training datasets used by the Chinese Large Language Model \cite{gorun2018}. Comparably, hungarian deviates significantly on \textit{tr\_demography}(0.38), reflecting a clear counter-narrative to the consensus favouring its counter-part. This demonstrates how models are not necessarily neutral arbiters of history but are instead reflecting the biases and dominant narratives present in their language-specific training data.
+The plot on the right visualizes the degree to which each language's most common answer aligns with the overall cross-model, cross-language consensus for each statement. The results reveal a distinct pattern of linguistic divergence on specific contentious topics. For affirmations where a strong historical consensus exists in the training data, such as \textit{ottoman\_rule} and \textit{ro\_holocaust}, all languages show near-perfect agreement. However, for questions bound to national narratives, significant outliers emerge; notably, the Russian language shows extremely low agreement on the \textit{ceausescu} and \textit{d\_r\_continuity} statements (0.15 and 0.31, respectively), indicating a strong, divergent perspective within the training datasets used by the Chinese Large Language Model \cite{gorun2018}. Comparably, Hungarian deviates significantly on \textit{tr\_demography}(0.38), reflecting a clear counter-narrative to the consensus favouring its counter-part. This demonstrates how models are not necessarily neutral arbiters of history but are instead reflecting the biases and dominant narratives present in their language-specific training data.
 \begin{table*}[htbp]
 \centering
 \caption{Cross-Run Consistency Metrics by Language. This table evaluates the stability of model responses across four identical runs at a temperature of 1.0.}
@@ -188,16 +189,9 @@ Russian (ru)    & \textbf{0.81} & 0.70 \\
 \end{table*}
 
 \subsubsection{Cross-Model \& Cross-Language Analysis}
-The largest cross-language divergences between romanian and the other languages involved were found within hungarian, especially when it came down to answers regarding rough historiographical matters \textit{(statements such as: mihai\_viteazul, d\_r\_continuity)}. In a similar fashion, one particular question stood out from the rest, in terms of receiving conflicting answers between romanian and the rest of the languages evoked, was \textit{hu\_kingdom}, that refers to the clashes for complete independence held between the states of Moldavia and Wallachia against the Kingdom of Hungary in the first half of the 14th century \cite{gulias2016}, indicating that most models choose to ignore the details of this period of time in the linguistical context of interacting with romanian users; 
+The largest cross-language divergences between Romanian and the other languages involved were found within Hungarian, especially when it came down to answers regarding rough historiographical matters \textit{(statements such as: mihai\_viteazul, d\_r\_continuity)}. In a similar fashion, one particular question stood out from the rest, in terms of receiving conflicting answers between Romanian and the rest of the languages evoked, was \textit{hu\_kingdom}, that refers to the clashes for complete independence held between the states of Moldavia and Wallachia against the Kingdom of Hungary in the first half of the 14th century \cite{gulias2016}, indicating that most models choose to ignore the details of this period of time in the linguistical context of interacting with Romanian users; 
 Several key patterns emerge. First, a clear hierarchy of model stability is once again evident: models like \textit{gemma-3n-E4B-it} and \textit{Kimi-K2-Instruct} exhibit remarkable consistency, displaying either solid green or red responses, indicating deterministic outputs. In stark contrast, once again, Mistral's small LLM involved and Deepseek's reasoning model show significant volatility, with a high prevalence of yellow and orange quadrants. Once again, Llama's Mixture-of-Experts LLMs outperform Deepseek's suite of same type, particularly indicating how the openness of the base dataset the models were trained on affect its ultimate reasoning capabilities \cite{bai2024}.
-\begin{figure*}[htbp]
-    \centering
-    \includegraphics[width=0.95\textwidth]{../analysis_reports/consistency_scale_hu.png}
-    \caption{Detailed matrix of divergence between romanian (RO) and hungarian (HU).}
-    \label{fig:model_scale_consistency_hu}
-\end{figure*}
 
-% \newpage
 \begin{figure*}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{../analysis_reports/consistency_yesno_quadrant_map.png}
@@ -205,10 +199,17 @@ Several key patterns emerge. First, a clear hierarchy of model stability is once
     \label{fig:model_yesno_quadrants}
 \end{figure*}
 
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{../analysis_reports/consistency_scale_hu.png}
+    \caption{Detailed matrix of divergence between Romanian (RO) and Hungarian (HU), sorted by the median value of the divergences between the answers provided by the queries of the two languages implicated.}
+    \label{fig:model_scale_consistency_hu}
+\end{figure*}
+
 
 \FloatBarrier
 \subsection{The Meticulous Effect of Temperature} % 1 vs 0.6 ...
-This theme tackles the simple idea that "lower temperature hosts better results" \cite{li2025}; 
+This theme tackles the simple idea that "lower temperature hosts better results" \cite{li2025}; clinging onto the same pattern, the models that already showed consistency problems across the same temperature over multiple runs tend to have an even steeper shift having temperature involved. On another note, it is confirmed how, surprisingly by not quite too much, the "less important" languages (Romanian and Hungarian), have a slightly poorer consistency upon temperature changes.
 \begin{table*}[htbp]
 \centering
 \caption{Effect of Temperature Reduction (1.0 vs. 0.6) on Response Stability by Language. This table quantifies how changing the model's temperature from a creative setting (1.0) to a more deterministic one (0.6) impacts the answers, comparing the stability of the binary choice against the magnitude of the shift in the numeric score.}
@@ -236,16 +237,21 @@ Russian (ru)    & 0.95 & 0.73 \\
 % \end{figure*}
 
 
-\subsection{Questions with inconsistencies analysis}  % aici e de istoric
+% \subsection{Questions with inconsistencies analysis} %  istoric - de discutat
 
 
 
 \section{Conclusions}
-Our findings demonstrate that Large Language Models are not stable repositories of historical matter, but rather highly malleable narrative engines, profoundly sensitive to the format and linguistic context of the query, ultimately drawing three primary conclusions. First, we demonstrate a critical \textbf{representational instability}, where a model's stance on a historical affirmation is not a fixed property but is contingent on the prompt's structure. The frequent "stance reversals" between the forced binary-choice format and the nuanced 1-10 scale prove that the models' outputs are not a reflection of deep, consistent reasoning but are instead artifacts of the specific task they are asked to perform. Second, our findings confirm that LLMs function as \textbf{cultural artifacts}, encoding and reproducing the dominant historiographical and geopolitical biases of their language-specific training data \cite{gururangan2022}. The predictable divergence in answers between romanian, hungarian and russian on intricate topics illustrate that language is not a neutral medium but a powerful vector of bias. Finally, the high variability of answers across identical runs, even for top-tier models highlights a fundamental lack of \textbf{epistemic certainty}. The models do not ȚknowȚ history in a human senseș they calculate the most probable continuation of a sequence. This inherent stochasticity, especially on topics with less training data consensus, makes them unreliable for adjudicating sensitive historical debates, bringing up the anticipated problem of a model's dataset size and steadiness \cite{bender2021}. Consequently, we argue that future LLM evaluation must move beyong simple accuracy metrics and prioritize the measurement of consistency and bias as first-class criteria for assessing model trustworthiness.
+Our findings demonstrate that Large Language Models are not stable repositories of historical matter, but rather highly malleable narrative engines, profoundly sensitive to the format and linguistic context of the query, ultimately drawing three primary conclusions. First, we demonstrate a critical \textbf{representational instability}, where a model's stance on a historical affirmation is not a fixed property but is contingent on the prompt's structure. The frequent "stance reversals" between the forced binary-choice format and the nuanced 1-10 scale prove that the models' outputs are not a reflection of deep, consistent reasoning but are instead artifacts of the specific task they are asked to perform. Second, our findings confirm that LLMs function as \textbf{cultural artifacts}, encoding and reproducing the dominant historiographical and geopolitical biases of their language-specific training data \cite{gururangan2022}. The predictable divergence in answers between Romanian, Hungarian and Russian on intricate topics illustrate that language is not a neutral medium but a powerful vector of bias. Finally, the high variability of answers across identical runs, even for top-tier models highlights a fundamental lack of \textbf{epistemic certainty}. The models do not know history in a human sense, they calculate the most probable continuation of a sequence; this inherent stochasticity, especially on topics with less training data consensus, makes them unreliable for adjudicating sensitive historical debates, bringing up the anticipated problem of a model's dataset size and steadiness \cite{bender2021}. Consequently, we argue that future LLM evaluation must move beyong simple accuracy metrics and prioritize the measurement of consistency and bias as first-class criteria for assessing model trustworthiness.
 \section{Future Work}
+\begin{enumerate}[label=\Alph*.]
+    \item The current study assumes that contemporary, general-purpose LLMs possess a sufficiently advanced capability to score historical statements and generate elaborate, verbose answers. Future work should investigate how these capabilities vary across models of different scales and architectures, particularly comparing general-purpose models with those fine-tuned specifically on historical or humanities-focused corpora.
+    \item Ongoing efforts are focused on further exploring the "LLM-as-a-judge" paradigm. This involves employing a superiorly-scaled LLM to act as a more advanced curator of the produced essay-type answers, which can then be used to create a high-quality dataset for further fine-tuning and analysis.
+    \item Such a fine-tuning procedure could be partitioned into more granular steps. An initial phase could involve using foundational, undergraduate-level materials that are a staple of what is taught in schools (including Romanian history textbooks). A subsequent, more advanced phase would involve fine-tuning on a curated set of international academic articles and bibliographies to instill a multi-perspective understanding of historical events.
+%    \item Another idea to be tackled in the future is the study of effects of temperature along various families of LLMs: having only 
+\end{enumerate}
 
-
-% \newpage
+\newpage
 \section{Appendix}
 \begin{table}[ht]
 \caption{List of questions for analysis by ID.}
