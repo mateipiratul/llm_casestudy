@@ -7,13 +7,13 @@
 \citation{cichocka2020}
 \citation{guo2024}
 \citation{kumar2024}
+\citation{lutz2025}
+\citation{weissburg2025}
+\citation{sun2025}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \newlabel{intro}{{1}{1}{Introduction}{section.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{1}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Bias in Large Language Models}{1}{subsection.2.1}\protected@file@percent }
-\citation{lutz2025}
-\citation{weissburg2025}
-\citation{sun2025}
 \citation{oyserman2008}
 \citation{hofstede2001}
 \citation{tao2024}
@@ -46,52 +46,29 @@
 \citation{gorun2018}
 \citation{gulias2016}
 \citation{bai2024}
-\citation{li2025}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces This figure shows the perfect consistency of "Yes" and "No" responses within each model across multiple runs and languages. A perfectly consistent model would always give the same "Yes" or "No" answer for a given question in a given language across all runs.}}{5}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:model_yesno_consistency}{{3}{5}{This figure shows the perfect consistency of "Yes" and "No" responses within each model across multiple runs and languages. A perfectly consistent model would always give the same "Yes" or "No" answer for a given question in a given language across all runs}{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Within the Language}{5}{subsubsection.4.1.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Language agreement with the cross-model consensus for each question. Low scores indicate a strong divergent narrative.}}{5}{figure.caption.4}\protected@file@percent }
 \newlabel{fig:lang_agreement_per_question}{{4}{5}{Language agreement with the cross-model consensus for each question. Low scores indicate a strong divergent narrative}{figure.caption.4}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Cross-Run Consistency Metrics by Language. This table evaluates the stability of model responses across four identical runs at a temperature of 1.0.}}{5}{table.caption.5}\protected@file@percent }
 \newlabel{tab:language_consistency}{{1}{5}{Cross-Run Consistency Metrics by Language. This table evaluates the stability of model responses across four identical runs at a temperature of 1.0}{table.caption.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Cross-Model \& Cross-Language Analysis}{5}{subsubsection.4.1.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Detailed matrix of divergence between romanian(RO) and hungarian(HU).}}{6}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:model_scale_consistency_hu}{{5}{6}{Detailed matrix of divergence between romanian(RO) and hungarian(HU)}{figure.caption.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Detailed matrix of response consistency, where each cell visualizes the stability of a specific model's "Yes" answers to a specific question across four runs, further subdivided by the language of the prompt. The color of each quadrant indicates the count of "Yes" responses, providing a gramular view of both intra-model consistency and cross-lingual bias.}}{6}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:model_yesno_quadrants}{{6}{6}{Detailed matrix of response consistency, where each cell visualizes the stability of a specific model's "Yes" answers to a specific question across four runs, further subdivided by the language of the prompt. The color of each quadrant indicates the count of "Yes" responses, providing a gramular view of both intra-model consistency and cross-lingual bias}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Cross-Model \& Cross-Language Analysis}{6}{subsubsection.4.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Detailed matrix of divergence between romanian (RO) and hungarian (HU).}}{6}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:model_scale_consistency_hu}{{5}{6}{Detailed matrix of divergence between romanian (RO) and hungarian (HU)}{figure.caption.6}{}}
+\citation{li2025}
 \citation{gururangan2022}
 \citation{bender2021}
-\bibstyle{consilr}
-\bibdata{llm_casestudy}
-\bibcite{bai2024}{\citename {Bai \bgroup et al.\egroup }2024}
-\bibcite{bender2021}{\citename {Bender \bgroup et al.\egroup }2021}
-\bibcite{bhatia2024}{\citename {Bhatia \bgroup et al.\egroup }2024}
-\bibcite{chandra2025}{\citename {Chandra}2025}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Detailed matrix of response consistency, where each cell visualizes the stability of a specific model's "Yes" answers to a specific question across four runs, further subdivided by the language of the prompt. The color of each quadrant indicates the count of "Yes" responses, providing a granular view of both intra-model consistency and cross-lingual bias.}}{7}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:model_yesno_quadrants}{{6}{7}{Detailed matrix of response consistency, where each cell visualizes the stability of a specific model's "Yes" answers to a specific question across four runs, further subdivided by the language of the prompt. The color of each quadrant indicates the count of "Yes" responses, providing a granular view of both intra-model consistency and cross-lingual bias}{figure.caption.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}The Meticulous Effect of Temperature}{7}{subsection.4.2}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Effect of Temperature Reduction (1.0 vs. 0.6) on Response Stability by Language. This table quantifies how changing the model's temperature from a creative setting (1.0) to a more deterministic one (0.6) impacts the answers, comparing the stability of the binary choice against the magnitude of the shift in the numeric score.}}{7}{table.caption.8}\protected@file@percent }
 \newlabel{tab:temp_effect_lang}{{2}{7}{Effect of Temperature Reduction (1.0 vs. 0.6) on Response Stability by Language. This table quantifies how changing the model's temperature from a creative setting (1.0) to a more deterministic one (0.6) impacts the answers, comparing the stability of the binary choice against the magnitude of the shift in the numeric score}{table.caption.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Questions with inconsistencies analysis}{7}{subsection.4.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5}Conclusions}{7}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Future Work}{7}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Appendix}{7}{section.7}\protected@file@percent }
-\bibcite{cichocka2020}{\citename {Cichocka and Cislak}2020}
-\bibcite{coman2013}{\citename {Coman}2013}
-\bibcite{deepseekai2025}{\citename {DeepSeek-AI}2025}
-\bibcite{gorun2018}{\citename {Gorun and Branescu}2018}
-\bibcite{gulias2016}{\citename {Gulyás and Csüllög}2016}
-\bibcite{guo2024}{\citename {Guo \bgroup et al.\egroup }2024}
-\bibcite{gururangan2022}{\citename {Gururangan \bgroup et al.\egroup }2022}
-\bibcite{hauser2024}{\citename {Hauser \bgroup et al.\egroup }2024}
-\bibcite{hofstede2001}{\citename {Hofstede}2001}
+\bibstyle{consilr}
+\bibdata{llm_casestudy}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Future Work}{8}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Appendix}{8}{section.7}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces List of questions for analysis by ID.}}{8}{table.caption.9}\protected@file@percent }
-\bibcite{kumar2024}{\citename {Kumar \bgroup et al.\egroup }2024}
-\bibcite{leighton2003}{\citename {Leighton}2003}
-\bibcite{li2025}{\citename {Li \bgroup et al.\egroup }2025}
-\bibcite{lutz2025}{\citename {Lutz \bgroup et al.\egroup }2025}
-\bibcite{oyserman2008}{\citename {Oyserman and Lee}2008}
-\bibcite{petrescu}{\citename {Petrescu}2003}
-\bibcite{sun2025}{\citename {Sun \bgroup et al.\egroup }2025}
-\bibcite{tao2024}{\citename {Tao \bgroup et al.\egroup }2024}
-\bibcite{walker2024}{\citename {Walker and Timoneda}2024}
-\bibcite{weissburg2025}{\citename {Weissburg \bgroup et al.\egroup }2025}
-\bibcite{zhao2025}{\citename {Zhao \bgroup et al.\egroup }2025}
-\bibcite{zheng2023}{\citename {Zheng \bgroup et al.\egroup }2023}
-\gdef \@abspage@last{9}
+\gdef \@abspage@last{8}

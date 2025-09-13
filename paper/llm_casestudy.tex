@@ -14,6 +14,7 @@
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{array}
+\usepackage[section]{placeins}
 
 \renewcommand*{\Authand}{, }
 \renewcommand*{\Authands}{, AND }
@@ -146,9 +147,9 @@ The results displayed below show how even small-scale LLMs with superior fine-tu
     \label{fig:side_by_side_consistency}
 \end{figure*}
 \newpage
-\begin{figure*}[H]
+\begin{figure*}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{../analysis_reports/a1b fara top number.png}
+    \includegraphics[width=0.95\textwidth]{../analysis_reports/a1b_fara_top_number.png}
     \caption{This figure shows the perfect consistency of "Yes" and "No" responses within each model across multiple runs and languages. A perfectly consistent model would always give the same "Yes" or "No" answer for a given question in a given language across all runs.}
     \label{fig:model_yesno_consistency}
 \end{figure*}
@@ -188,23 +189,24 @@ Russian (ru)    & \textbf{0.81} & 0.70 \\
 
 \subsubsection{Cross-Model \& Cross-Language Analysis}
 The largest cross-language divergences between romanian and the other languages involved were found within hungarian, especially when it came down to answers regarding rough historiographical matters \textit{(statements such as: mihai\_viteazul, d\_r\_continuity)}. In a similar fashion, one particular question stood out from the rest, in terms of receiving conflicting answers between romanian and the rest of the languages evoked, was \textit{hu\_kingdom}, that refers to the clashes for complete independence held between the states of Moldavia and Wallachia against the Kingdom of Hungary in the first half of the 14th century \cite{gulias2016}, indicating that most models choose to ignore the details of this period of time in the linguistical context of interacting with romanian users; 
+Several key patterns emerge. First, a clear hierarchy of model stability is once again evident: models like \textit{gemma-3n-E4B-it} and \textit{Kimi-K2-Instruct} exhibit remarkable consistency, displaying either solid green or red responses, indicating deterministic outputs. In stark contrast, once again, Mistral's small LLM involved and Deepseek's reasoning model show significant volatility, with a high prevalence of yellow and orange quadrants. Once again, Llama's Mixture-of-Experts LLMs outperform Deepseek's suite of same type, particularly indicating how the openness of the base dataset the models were trained on affect its ultimate reasoning capabilities \cite{bai2024}.
 \begin{figure*}[htbp]
     \centering
-    \includegraphics[scale=0.3]{../analysis_reports/consistency_scale_hu.png}
-    \caption{Detailed matrix of divergence between romanian(RO) and hungarian(HU).}
+    \includegraphics[width=0.95\textwidth]{../analysis_reports/consistency_scale_hu.png}
+    \caption{Detailed matrix of divergence between romanian (RO) and hungarian (HU).}
     \label{fig:model_scale_consistency_hu}
 \end{figure*}
 
-Several key patterns emerge. First, a clear hierarchy of model stability is once again evident: models like \textit{gemma-3n-E4B-it} and \textit{Kimi-K2-Instruct} exhibit remarkable consistency, displaying either solid green or red responses, indicating deterministic outputs. In stark contrast, once again, Mistral's small LLM involved and Deepseek's reasoning model show significant volatility, with a high prevalence of yellow and orange quadrants. Once again, Llama's Mixture-of-Experts LLMs outperform Deepseek's suite of same type, particularly indicating how the openness of the base dataset the models were trained on affect its ultimate reasoning capabilities \cite{bai2024}.
 % \newpage
 \begin{figure*}[htbp]
     \centering
-    \includegraphics[scale=0.5]{../analysis_reports/consistency_yesno_quadrant_map.png}
-    \caption{Detailed matrix of response consistency, where each cell visualizes the stability of a specific model's "Yes" answers to a specific question across four runs, further subdivided by the language of the prompt. The color of each quadrant indicates the count of "Yes" responses, providing a gramular view of both intra-model consistency and cross-lingual bias.}
+    \includegraphics[width=0.95\textwidth]{../analysis_reports/consistency_yesno_quadrant_map.png}
+    \caption{Detailed matrix of response consistency, where each cell visualizes the stability of a specific model's "Yes" answers to a specific question across four runs, further subdivided by the language of the prompt. The color of each quadrant indicates the count of "Yes" responses, providing a granular view of both intra-model consistency and cross-lingual bias.}
     \label{fig:model_yesno_quadrants}
 \end{figure*}
 
 
+\FloatBarrier
 \subsection{The Meticulous Effect of Temperature} % 1 vs 0.6 ...
 This theme tackles the simple idea that "lower temperature hosts better results" \cite{li2025}; 
 \begin{table*}[htbp]
