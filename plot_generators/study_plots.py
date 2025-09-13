@@ -322,7 +322,7 @@ def plot_A1_grouped_by_language(lang_df: pd.DataFrame, outfile: str):
     ax.tick_params(axis='y', labelsize=20)
     ax.set_ylim(0, 1.12)
     ax.set_ylabel('Yes/No Perfect Consistency (0–1)', fontsize=24)
-    ax.set_title('A1b: Yes/No Perfect Consistency by Model and Language (grouped bars)\nStability = identical Yes/No across runs 1–4', fontsize=26, pad=30)
+    ax.set_title('Yes/No Perfect Consistency by Model and Language (grouped bars)\nStability = identical Yes/No across runs 1–4', fontsize=26, pad=30)
     ax.legend(title='Language', bbox_to_anchor=(1.02, 1), loc='upper left', fontsize=20, title_fontsize=22)
     ax.grid(True, alpha=0.3, axis='y')
     
@@ -692,7 +692,7 @@ def main():
         rounded = summary['mean_std'].round(4)
         dup_vals = rounded[rounded.duplicated(keep=False)]
         if not dup_vals.empty:
-            print('Note: some models share identical mean std (rounded to 4 decimals):')
+            print('Note: some models share identical mean std:')
             for val, grp in rounded.groupby(rounded):
                 if len(grp) > 1:
                     models_same = ', '.join(grp.index.tolist())
@@ -746,7 +746,7 @@ def main():
     # --- E. Question-Level Reliability ---
     q_model_stab = question_yesno_stability(df14)
     if not q_model_stab.empty:
-        heatmap_with_values(q_model_stab, 'Per-Question Consistency (Yes/No stability across runs 1–4) Q×Model\nCell = avg over languages of [1 if all 4 runs identical else 0]', 'E1_question_model_yesno_stability.png', cmap='YlGnBu', vmin=0, vmax=1, annot=True, top_xlabels=False, x_fontsize=9, y_fontsize=9)
+        heatmap_with_values(q_model_stab, 'Per-Question Consistency (Yes/No stability across runs 1–4) Q×Model\nCell = avg. over languages of', 'E1_question_model_yesno_stability.png', cmap='YlGnBu', vmin=0, vmax=1, annot=True, top_xlabels=False, x_fontsize=9, y_fontsize=9)
         q_model_stab.to_csv(os.path.join(CSV_OUTDIR, 'question_model_yesno_stability.csv'))
     # E2 removed per request
 

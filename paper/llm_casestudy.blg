@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: llm_casestudy.aux
+Reallocating 'name_of_file' (item size: 1) to 8 items.
+The style file: consilr.bst
+Reallocating 'name_of_file' (item size: 1) to 14 items.
+Database file #1: llm_casestudy.bib
+You've used 21 entries,
+            2490 wiz_defined-function locations,
+            655 strings with 8632 characters,
+and the built_in function-call counts, 8892 in all, are:
+= -- 858
+> -- 552
+< -- 1
++ -- 201
+- -- 198
+* -- 696
+:= -- 1511
+add.period$ -- 81
+call.type$ -- 21
+change.case$ -- 181
+chr.to.int$ -- 21
+cite$ -- 21
+duplicate$ -- 299
+empty$ -- 570
+format.name$ -- 223
+if$ -- 1777
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 16
+newline$ -- 124
+num.names$ -- 63
+pop$ -- 226
+preamble$ -- 1
+purify$ -- 204
+quote$ -- 0
+skip$ -- 252
+stack$ -- 0
+substring$ -- 233
+swap$ -- 54
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 156
+warning$ -- 0
+while$ -- 50
+width$ -- 23
+write$ -- 277
