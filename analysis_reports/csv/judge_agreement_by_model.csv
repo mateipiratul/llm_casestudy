@@ -1,0 +1,14 @@
+model,n_items,mad_to_judge
+Qwen/Qwen3-235B-A22B-Instruct-2507-tput,56,1.9017857142857142
+arcee-ai/virtuoso-large,56,2.09375
+deepseek-ai/DeepSeek-R1,56,2.1607142857142856
+meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8,56,2.169642857142857
+moonshotai/Kimi-K2-Instruct,56,2.232142857142857
+meta-llama/Llama-4-Scout-17B-16E-Instruct,56,2.299107142857143
+mistralai/Mistral-Small-24B-Instruct-2501,56,2.3973214285714284
+openai/gpt-oss-20b,56,2.4419642857142856
+meta-llama/Llama-3.3-70B-Instruct-Turbo,56,2.4642857142857144
+google/gemma-3n-E4B-it,56,2.575892857142857
+lgai/exaone-3-5-32b-instruct,56,2.6651785714285716
+Qwen/Qwen2.5-7B-Instruct-Turbo,56,2.7723214285714284
+deepseek-ai/DeepSeek-V3.1,56,2.8125
