@@ -1,14 +1,12 @@
 """Generate historian-alignment plots for model outputs.
 
-The script compares each model's averaged scale responses against
-historian-provided grades and saves several summary plots/CSVs under
-`analysis_reports/`.
+The script compares each individual model response against historian-provided
+grades, then aggregates summary plots/CSVs under `analysis_reports/`.
 """
 import json
 import os
-from collections import defaultdict
 from pathlib import Path
-from typing import Dict, Iterable, List, Tuple
+from typing import Dict, Iterable, List
 
 import numpy as np
 import pandas as pd
@@ -90,14 +88,15 @@ mpl.rcParams.update(
 def ensure_dir(path: str) -> None:
     os.makedirs(path, exist_ok=True)
 
-def load_scale_responses(run_files: Iterable[str]) -> Dict[Tuple[str, str, str], List[float]]:
-    """Return per (model, question_id, language) list of numeric scale responses."""
-    bucket: Dict[Tuple[str, str, str], List[float]] = defaultdict(list)
+def load_scale_records(run_files: Iterable[str]) -> pd.DataFrame:
+    """Return per-response scale records with historian alignment metrics."""
+    rows: List[Dict[str, object]] = []
     for path in run_files:
-        if not os.path.exists(path):
+        path_obj = BASE_DIR / path
+        if not path_obj.exists():
             print(f"Warning: run file not found, skipping: {path}")
             continue
-        with open(path, "r", encoding="utf-8") as fh:
+        with open(path_obj, "r", encoding="utf-8") as fh:
             payload = json.load(fh)
         for record in payload.get("results", []):
             system_prompt = record.get("system_prompt_id", "")
@@ -106,7 +105,8 @@ def load_scale_responses(run_files: Iterable[str]) -> Dict[Tuple[str, str, str],
             qid = record.get("question_id")
             lang = record.get("question_language")
             model = record.get("model")
-            if not (qid and lang and model):
+            grade = HISTORIAN_GRADES.get(qid)
+            if grade is None or not (qid and lang and model):
                 continue
             try:
                 value = float(str(record.get("response", "")).strip())
@@ -114,47 +114,35 @@ def load_scale_responses(run_files: Iterable[str]) -> Dict[Tuple[str, str, str],
                 continue
             if not (1.0 <= value <= 10.0):
                 continue
-            bucket[(model, qid, lang)].append(value)
-    return bucket
-
-def build_alignment_frame(responses: Dict[Tuple[str, str, str], List[float]]) -> pd.DataFrame:
-    """Construct a DataFrame with historian-alignment metrics."""
-    rows: List[Dict[str, object]] = []
-    for (model, qid, lang), values in responses.items():
-        grade = HISTORIAN_GRADES.get(qid)
-        if grade is None or not values:
-            continue
-        mean_score = float(np.mean(values))
-        abs_error = abs(mean_score - grade)
-        accuracy = max(0.0, 1.0 - abs_error / 9.0)
-        rows.append(
-            {
+            abs_error = abs(value - grade)
+            accuracy = max(0.0, 1.0 - abs_error / 9.0)
+            rows.append({
                 "model": model,
                 "question_id": qid,
                 "language": lang,
-                "mean_score": mean_score,
+                "run_file": path,
                 "historian_grade": grade,
+                "response_value": value,
                 "abs_error": abs_error,
                 "accuracy": accuracy,
                 "accuracy_pct": accuracy * 100.0,
-                "response_count": len(values),
-            }
-        )
+            })
     if not rows:
-        raise RuntimeError("No historian-aligned rows could be built; check source data.")
+        raise RuntimeError("No historian-aligned scale rows could be built; check source data.")
     df = pd.DataFrame(rows)
     df["language_label"] = df["language"].map(LANG_LABELS).fillna(df["language"])
     return df
 
 
-def load_yesno_responses(run_files: Iterable[str]) -> Dict[Tuple[str, str, str], List[bool]]:
-    """Return per (model, question_id, language) list of boolean yes/no responses."""
-    bucket: Dict[Tuple[str, str, str], List[bool]] = defaultdict(list)
+def load_yesno_records(run_files: Iterable[str]) -> pd.DataFrame:
+    """Return per-response yes/no records with historian alignment metrics."""
+    rows: List[Dict[str, object]] = []
     for path in run_files:
-        if not os.path.exists(path):
+        path_obj = BASE_DIR / path
+        if not path_obj.exists():
             print(f"Warning: run file not found, skipping: {path}")
             continue
-        with open(path, "r", encoding="utf-8") as fh:
+        with open(path_obj, "r", encoding="utf-8") as fh:
             payload = json.load(fh)
         for record in payload.get("results", []):
             system_prompt = record.get("system_prompt_id", "")
@@ -163,53 +151,37 @@ def load_yesno_responses(run_files: Iterable[str]) -> Dict[Tuple[str, str, str],
             qid = record.get("question_id")
             lang = record.get("question_language")
             model = record.get("model")
-            if not (qid and lang and model):
+            grade = HISTORIAN_GRADES.get(qid)
+            if grade is None or not (qid and lang and model):
                 continue
             raw = str(record.get("response", ""))
             cleaned = clean_response_parse_visual(raw)
             yn = parse_yesno_pv(cleaned, lang)
             if yn is None:
                 continue
-            bucket[(model, qid, lang)].append(bool(yn))
-    return bucket
-
-
-def build_yesno_alignment_frame(responses: Dict[Tuple[str, str, str], List[bool]]) -> pd.DataFrame:
-    """Construct a DataFrame with historian-alignment metrics for yes/no prompts."""
-    rows: List[Dict[str, object]] = []
-    for (model, qid, lang), values in responses.items():
-        grade = HISTORIAN_GRADES.get(qid)
-        if grade is None or not values:
-            continue
-        if grade > YES_THRESHOLD:
-            expected = True
-        elif grade < YES_THRESHOLD:
-            expected = False
-        else:
-            continue
-        total = len(values)
-        correct = sum(1 for v in values if v == expected)
-        accuracy = correct / total if total else 0.0
-        rows.append(
-            {
+            expected_yes = bool(grade > YES_THRESHOLD)
+            is_yes = bool(yn)
+            correct = (is_yes == expected_yes)
+            accuracy = 1.0 if correct else 0.0
+            rows.append({
                 "model": model,
                 "question_id": qid,
                 "language": lang,
+                "run_file": path,
                 "historian_grade": grade,
-                "expected_yes": expected,
-                "correct_count": correct,
-                "total_count": total,
+                "response_value": bool(yn),
+                "expected_yes": expected_yes,
+                "is_threshold_case": grade == YES_THRESHOLD,
+                "is_correct": correct,
                 "accuracy": accuracy,
                 "accuracy_pct": accuracy * 100.0,
-            }
-        )
+            })
     if not rows:
         raise RuntimeError("No historian-aligned yes/no rows could be built; check source data.")
     df = pd.DataFrame(rows)
     df["language_label"] = df["language"].map(LANG_LABELS).fillna(df["language"])
     return df
 
-# --- Plot helpers ----------------------------------------------------------
 
 def save_bar_plot(series: pd.Series, title: str, xlabel: str, outfile: str, horizontal: bool = True) -> None:
     series = series.dropna()
@@ -249,8 +221,7 @@ def save_heatmap(pivot: pd.DataFrame, title: str, outfile: str) -> None:
 # --- Main entry point ------------------------------------------------------
 
 def generate_outputs(run_files: Iterable[str], suffix: str) -> None:
-    responses = load_scale_responses(run_files)
-    df = build_alignment_frame(responses)
+    df = load_scale_records(run_files)
 
     detailed_path = CSV_OUTDIR / f"historian_alignment_detailed{suffix}.csv"
     df.to_csv(detailed_path, index=False)
@@ -307,8 +278,7 @@ def generate_outputs(run_files: Iterable[str], suffix: str) -> None:
     )
 
     # Yes/No alignment
-    yn_responses = load_yesno_responses(run_files)
-    yn_df = build_yesno_alignment_frame(yn_responses)
+    yn_df = load_yesno_records(run_files)
 
     yn_detailed_path = CSV_OUTDIR / f"historian_yesno_alignment_detailed{suffix}.csv"
     yn_df.to_csv(yn_detailed_path, index=False)
