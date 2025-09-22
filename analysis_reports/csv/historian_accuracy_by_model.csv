@@ -1,0 +1,13 @@
+model,accuracy_pct
+moonshotai/Kimi-K2-Instruct,70.21367521367522
+google/gemma-3n-E4B-it,66.75213675213675
+meta-llama/Llama-3.3-70B-Instruct-Turbo,65.68376068376068
+Qwen/Qwen3-235B-A22B-Instruct-2507-tput,65.25641025641026
+openai/gpt-oss-20b,64.61538461538461
+meta-llama/Llama-4-Scout-17B-16E-Instruct,64.23076923076923
+meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8,63.71794871794872
+mistralai/Mistral-Small-24B-Instruct-2501,62.77777777777778
+arcee-ai/virtuoso-large,61.92307692307692
+lgai/exaone-3-5-32b-instruct,60.2991452991453
+deepseek-ai/DeepSeek-V3.1,59.44444444444445
+Qwen/Qwen2.5-7B-Instruct-Turbo,55.72649572649573
