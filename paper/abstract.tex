@@ -1,0 +1,495 @@
+%
+% File consilr2024.tex
+%
+% Contact: petru.rebeja@gmail.com
+%% Based on the style files for COLING-2020, which were, in turn,
+%% Based on the style files for COLING-2018, which were, in turn,
+%% Based on the style files for COLING-2016, which were, in turn,
+%% Based on the style files for COLING-2014, which were, in turn,
+%% Based on the style files for ACL-2014, which were, in turn,
+%% Based on the style files for ACL-2013, which were, in turn,
+%% Based on the style files for ACL-2012, which were, in turn,
+%% based on the style files for ACL-2011, which were, in turn,
+%% based on the style files for ACL-2010, which were, in turn,
+%% based on the style files for ACL-IJCNLP-2009, which were, in turn,
+%% based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt]{article}
+\usepackage{consilr2024}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{authblk}
+\usepackage{hyperref}
+\usepackage{etoolbox}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\renewcommand*{\Authand}{, }
+\renewcommand*{\Authands}{, AND }
+\renewcommand*{\Affilfont}{\itshape\mdseries}
+\setlength{\affilsep}{2em}   % set the space between author and affiliation
+
+\newcommand{\keyword}[1]{
+\hspace{0.2cm}%
+\fontsize{10}{12}\selectfont%
+\textbf{Keywords: } %
+}
+
+
+%\setlength\titlebox{5cm}
+
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+
+\title{\textbf{A Cross-Lingual Analysis of Bias in Large Language Models Using Romanian History}}
+\author[1]{Matei-Iulian Cocu}
+\author[2]{Răzvan Cosmin Cristia}
+\author[3]{Adrian Marius Dumitran}
+\affil[1]{University of Bucharest
+\break
+\texttt{cocu.matei24@yahoo.com}}
+\affil[2]{University of Bucharest
+ \break
+\texttt{cristiarazvan@gmail.com}}
+\affil[3]{University of Bucharest, Softbinator
+ \break
+\texttt{marius.dumitran@unibuc.ro}}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+In this case study, we select a set of controversial Romanian historical questions and ask multiple Large Language Models to answer them across languages and contexts, in order to assess their biases. Besides being a study mainly performed for educational purposes, the motivation also lies in the recognition that history is often presented through altered perspectives, primarily influenced by the culture and ideals of a state, even through large language models. Since they are often trained on certain data sets that may present certain ambiguities, the lack of neutrality is subsequently instilled in users. The research process was carried out in three stages, to confirm the idea that the type of response expected can influence, to a certain extent, the response itself; after providing an affirmative answer to some given question, an LLM could shift its way of thinking after being asked the same question again, but being told to respond with a numerical value of a scale. Our research brings to light the predisposition of models to such inconsistencies, within a specific contextualization of the language for the question asked. 
+\end{abstract}
+
+\begin{keyword} 
+\break
+Romanian History,
+LLM Linguistic Bias,
+LLM Training and Assessment,
+Natural Language Processing,
+Digital Humanities
+\end{keyword}
+
+% \section{Introduction}
+% \label{intro}
+% Reasoning - the process of drawing conclusions to facilitate problem-solving and decision-making (Leighton, 2003); a significant number of studies indicate the fact that reasoning has become a prominent feature of LLMs (), and along with this quality comes a certain bias towards some ideologies of certain domains.
+% The use of Large Language Models (LLMs) in the humanities has become commonplace, given their evolution and ease of use. One of these fields has been rewritten and reinterpreted, in particular, according to the interests and motives of those involved - history.
+
+
+% % The following footnote without marker is needed for the camera-ready
+% % version of the paper.
+% % Comment out the instructions (first text) and uncomment the 8 lines
+% % under "final paper" for your variant of English.
+
+% \blfootnote{
+    
+%    \hspace{-0.65cm}  % space normally used by the marker
+%    Place licence statement here for the camera-ready version. See
+%    Section~\ref{licence} of the instructions for preparing a
+%    manuscript.
+    
+%     % final paper: en-uk version
+    
+%     \hspace{-0.65cm}  % space normally used by the marker
+%     This work is licensed under a Creative Commons
+%     Attribution 4.0 International Licence.
+%     Licence details:
+%     \url{http://creativecommons.org/licenses/by/4.0/}.
+    
+%     % final paper: en-us version
+    
+%     \hspace{-0.65cm}  % space normally used by the marker
+%     This work is licensed under a Creative Commons
+%     Attribution 4.0 International License.
+%     License details:
+%     \url{http://creativecommons.org/licenses/by/4.0/}.
+% }
+
+% \section{Methodology}
+
+% \subsection{LLM Selection}
+% For our experiments, we chose
+
+% \subsection{Questioning Process}
+
+% \subsubsection{Prompt}
+% The following prompt template was used
+
+% \subsubsection{Question Selection}
+
+
+
+% \section{Answer Comparison}
+
+
+
+% \section{General Instructions}
+% \subsection{Electronically-available Resources}
+
+
+
+% We strongly prefer that you prepare your PDF files using \LaTeX{} with
+% the ConsILR 2024 style file (consilr2024.sty) and bibliography style
+% (consilr.bst). These files are available in consilr2024.zip
+% at \url{https://conferences.info.uaic.ro/consilr}.
+% You will also find the document
+% you are currently reading (consilr2024.pdf) and its \LaTeX{} source code
+% (consilr2024.tex) in consilr2024.zip.
+
+
+% \subsection{Format of Electronic Manuscript}
+% \label{sect:pdf}
+
+% For the production of the electronic manuscript, you must use Adobe's
+% Portable Document Format (PDF). PDF files are usually produced from
+% \LaTeX{} using the \textit{pdflatex} command. If your version of
+% \LaTeX{} produces Postscript files, you can convert these into PDF
+% using \textit{ps2pdf} or \textit{dvipdf}. On Windows, you can also use
+% Adobe Distiller to generate PDF.
+
+% Please make sure that your PDF file includes all the necessary fonts
+% (especially tree diagrams, symbols, and fonts for non-Latin characters).
+% When you print or create the PDF file, there is usually
+% an option in your printer setup to include none, all, or just
+% non-standard fonts.  Please make sure that you select the option of
+% including ALL the fonts. \textbf{Before sending it, test your PDF by
+%   printing it from a computer different from the one where it was
+%   created.} Moreover, some word processors may generate very large PDF
+% files, where each page is rendered as an image. Such images may
+% reproduce poorly. In this case, try alternative ways to obtain the
+% PDF. One way on some systems is to install a driver for a postscript
+% printer, send your document to the printer specifying ``Output to a
+% file'', then convert the file to PDF.
+
+% It is of utmost importance to specify the \textbf{A4 format} (21 cm
+% x 29.7 cm) when formatting the paper. When working with
+% {\tt dvips}, for instance, one should specify {\tt -t a4}.
+
+% \subsection{Layout}
+% \label{ssec:layout}
+
+% Format manuscripts with a single column to a page, in the manner these
+% instructions are formatted. The exact dimensions for a page on A4
+% paper are:
+
+% \begin{itemize}
+% \item Left and right margins: 2.5 cm
+% \item Top margin: 2.5 cm
+% \item Bottom margin: 2.5 cm
+% \item Width: 16.0 cm
+% \item Height: 24.7 cm
+% \end{itemize}
+
+% \noindent Papers should not be submitted on any other paper size.
+% If you cannot meet the above requirements for
+% the production of your electronic submission, please contact the
+% publication co-chairs above as soon as possible.
+
+
+% \subsection{Fonts}
+
+
+% \fontsize{10}{12}{
+% \begin{table}[h]
+% \caption{\label{font-table} Font guide. }
+% \begin{center}
+% \begin{tabular}{|p{3.3cm}|p{3.7cm}|p{7.5cm}|}
+% \hline \bf Type of content & \bf Style & \bf Specific details \\ \hline
+% paper title & ArticleTitle & TNR, 15 pt, bold, all capitals, centred, Spacing Before 12 pt, After 15 pt \\
+% \hline
+% author names & Authors & TNR, 12 pt, all capitals, centred, Spacing After 12 pt \\
+% author affiliation & Affiliation & TNR, 11 pt, italics, centred \\
+% email addresses &	AffiliationEmail	 & Courier New, 11 pt, centred \\
+% \hline
+% the word ``Abstract'' & AbstractTitle & TNR, 10 pt, bold, centred, Spacing Before 18 pt, After 12 pt \\
+% abstract text & AbstractTitle & TNR, 10 pt, Indentation: Left 0.6 cm, Right 0.6 cm, First line 0 cm \\
+% keywords & Keywords  & TNR, 10 pt, Indentation: Left 0.6 cm, Right 0.6 cm, Spacing Before 6 pt, After 6 pt\\
+% \hline
+% section titles & Heading 1 & TNR, 12 pt, bold, Spacing Before 12 pt, After 12 pt, capitalize each proper word\\
+% sub-section titles & Heading 2 & TNR, 11 pt, bold, Spacing Before 8 pt, After 8 pt, capitalize each proper word \\
+% \hline
+% the first paragraph of each section  & NormalFirstParagraph  & TNR 11 pt, Indentation First line 0 cm \\
+% ordinary paragraph & Normal & TNR 11 pt, Indentation First line 0.4 cm\\
+% \hline
+% captions  & Caption & TNR, 11 pt, centred, Spacing Before 6 pt, After 6 pt \\
+% \hline
+% acknowledgements & AcknowledgementsTitle & TNR 11 pt, bold, Indentation First line 0 cm, Spacing Before 12 pt, After 6 pt \\
+% acknowledgements text & NormalFirstParagraph & TNR 11 pt, Indentation First line 0 cm \\
+% \hline
+% bibliography	& ReferencesTitle	& TNR 11 pt, bold, Indentation First line 0 cm, Spacing Before 12 pt, After 6 pt \\
+% reference item &	ReferencesItems & TNR 10 pt, Indentation Hanging 0.4 cm \\
+% \hline
+% footnotes	& FootNoteItems	& TNR 9 pt, Indentation First line 0 cm\\
+% \hline
+% \end{tabular}
+% \end{center}
+% \end{table}
+% }
+
+% \subsection{The First Page}
+% \label{ssec:first}
+
+% Centre the title, author's name(s), and affiliation(s) across
+% the page.
+
+% {\bf Title}: Place the title centered at the top of the first page, in
+% a 15 pt bold font. Format the title in all capitals. (For a complete guide to font sizes and styles,
+% see Table~\ref{font-table}.) Long titles should be typed on two lines
+% without a blank line intervening. Approximately, put the title at 2.5
+% cm from the top of the page, followed by a blank line, then the
+% author's names(s) in all capitals. Leave two blank lines, and put the affiliations in italic.
+% The affiliation should contain the author's complete address, and if possible, an electronic mail
+% address. Start the body of the first page 7.5 cm from the top of the
+% page.
+
+% The title, author names, and addresses should be completely identical
+% to those entered to the electronical paper submission website in order
+% to maintain the consistency of author information among all
+% publications of the conference. If they are different, the publication
+% co-chairs may resolve the difference without consulting with you; so, it
+% is in your own interest to double-check that the information is
+% consistent.
+
+% {\bf Abstract}: Type the abstract between addresses and main body.
+% The width of the abstract text should be
+% smaller than main body by about 0.6 cm on each side.
+% Centre the word {\bf Abstract} in a 12 pt bold
+% font above the body of the abstract. The abstract should be a concise
+% summary of the general thesis and conclusions of the paper. It should
+% be no longer than 200 words. The abstract text should be in 11 pt font.
+
+% {\bf Text}: Begin typing the main body of the text immediately after
+% the abstract, observing the single-column format as shown in
+% the present document. Do not include page numbers.
+
+% {\bf Indent} when starting a new paragraph. Use 11 pt for text and
+% subsection headings, 12 pt for section headings, and 15 pt for
+% the title.
+
+% {\bf Licence}: Include a licence statement as an unmarked (unnumbered)
+% footnote on the first page of the final, camera-ready paper.
+% See Section~\ref{licence} below for details and motivation.
+
+
+% \subsection{Sections}
+
+% {\bf Headings}: Type and label section and subsection headings in the
+% style shown on the present document.  Use numbered sections (Arabic
+% numerals) in order to facilitate cross references. Number subsections
+% with the section number and the subsection number separated by a dot,
+% in Arabic numerals. Do not number subsubsections.
+
+% {\bf Citations}: Citations within the text appear in parentheses
+% as~\cite{Gusfield:97} or, if the author's name appears in the text
+% itself, as Gusfield~\shortcite{Gusfield:97}.  Append lowercase letters
+% to the year in cases of ambiguity.  Treat double authors as
+% in~\cite{Aho:72}, but write as in~\cite{Chandra:81} when more than two
+% authors are involved. Collapse multiple citations as
+% in~\cite{Gusfield:97,Aho:72}. Also refrain from using full citations
+% as sentence constituents. We suggest that instead of
+% \begin{quote}
+%   ``\cite{Gusfield:97} showed that ...''
+% \end{quote}
+% you use
+% \begin{quote}
+% ``Gusfield \shortcite{Gusfield:97}   showed that ...''
+% \end{quote}
+
+% If you are using the provided \LaTeX{} and Bib\TeX{} style files, you
+% can use the command \verb|\newcite| to get ``author (year)'' citations.
+
+% \textbf{Please do not use anonymous citations}.
+% Papers that do not conform to these requirements may be rejected without review.
+
+
+% \textbf{References}: Gather the full set of references together under
+% the heading {\bf References}; place the section before any Appendices,
+% unless they contain references. Arrange the references alphabetically
+% by first author, rather than by order of occurrence in the text.
+% Provide as complete a citation as possible, using a consistent format,
+% such as the one for {\em Computational Linguistics\/} or the one in the
+% {\em Publication Manual of the American
+% Psychological Association\/}~\cite{APA:83}.  Use of full names for
+% authors rather than initials is preferred.  A list of abbreviations
+% for common computer science journals can be found in the ACM
+% {\em Computing Reviews\/}~\cite{ACM:83}.
+
+% The \LaTeX{} and Bib\TeX{} style files provided roughly fit the
+% American Psychological Association format, allowing regular citations,
+% short citations, and multiple citations as described above.
+
+% \begin{itemize}
+% 	\item Example citing an arxiv paper: \cite{rasooli-tetrault-2015}.
+% 	\item Example article in journal citation: \cite{Aho:72}.
+% 	\item Example article in proceedings: \cite{borsch2011}.
+%     \item Example articles with identical authors in different years: \cite{haja2017b}, \cite{haja2017a}.
+% \end{itemize}
+
+% {\bf Appendices}: Appendices, if any, directly follow the text and the
+% references (but see above).  Letter them in sequence and provide an
+% informative title: {\bf Appendix A. Title of Appendix}.
+
+% \subsection{Footnotes}
+
+% {\bf Footnotes}: Put footnotes at the bottom of the page and use 9 pt
+% text. They may be numbered or referred to by asterisks or other
+% symbols.\footnote{This is how a footnote should appear.} Footnotes
+% should be separated from the text by a line.\footnote{Note the line
+% separating the footnotes from the text.}
+
+% \subsection{Graphics}
+
+
+% {\bf Illustrations}: Place figures, tables, and photographs in the
+% paper near where they are first discussed, rather than at the end, if
+% possible.
+% Colour
+% illustrations are discouraged, unless you have verified that
+% they will be understandable when printed in black ink.
+
+% \begin{figure}[h]
+% \centering
+%   \includegraphics{logo_consilr.png}
+%   \caption{ConsILR Logo.}
+%   \label{logo}
+% \end{figure}
+
+% {\bf Captions}: Provide a caption for every illustration; number each one
+% sequentially in the form:  ``Figure 1. Caption of the Figure.'' ``Table 1.
+% Caption of the Table.''  Type the captions of the figures and
+% tables below the body, using 11 pt text.
+
+% Narrow graphics together with the single-column format may lead to
+% large empty spaces,
+% see for example the wide margins on both sides of Table~\ref{font-table}.
+% If you have multiple graphics with related content, it may be
+% preferable to combine them in one graphic.
+% You can identify the sub-graphics with sub-captions below the
+% sub-graphics numbered (a), (b), (c), etc.\ and using 9 pt text.
+% The \LaTeX{} packages wrapfig, subfigure, subtable, and/or subcaption
+% may be useful.
+
+% \begin{figure}[h]
+% \centering
+%   \begin{subfigure}{0.31\textwidth}
+%     \includegraphics[width=\linewidth]{subg_a.jpg}
+%     \caption{Teaching} \label{fig:1a}
+%   \end{subfigure}%
+%   \hspace{2cm}
+%   \begin{subfigure}{0.2\textwidth}
+%     \includegraphics[width=\linewidth]{subg_b.png}
+%     \caption{Learning} \label{fig:1b}
+%   \end{subfigure}%
+
+% \caption{Figure 2. (a) and (b) Punctuation marks.} \label{fig:1}
+% \end{figure}
+
+
+
+% \subsection{Licence Statement}
+% \label{licence}
+
+% As in the COLING conferences, we require that authors licence their camera-ready papers under a Creative Commons Attribution 4.0 International Licence (CC-BY). This means that authors (copyright holders) retain copyright but grant everybody the right to adapt and re-distribute their paper as long as the authors are credited and modifications listed. In other words, this license lets researchers use research papers for their research without legal issues. Please refer to \url{http://creativecommons.org/licenses/by/4.0/} for the licence terms. 
+
+% Please include the following mention as an unmarked (unnumbered) footnote on page 1 of your paper.
+
+% \fontsize{9}{9}{
+% This work is licensed under a Creative Commons Attribution 4.0 International Licence, as described at \url{http://creativecommons.org/licenses/by/4.0/}.
+% }
+
+% We strongly prefer that you license your paper as the CC license
+% above. However, if it is impossible for you to use that license, please
+% contact the ConsILR-2024 publication contact persons listed in the \texttt{Contact} section at the URL \url{https://conferences.info.uaic.ro/consilr/},
+% before you submit your final version of accepted papers.
+% (Please note that this license statement is only related to the final versions of accepted papers.
+% It is not required for papers submitted for review.)
+
+% \section{Translation of non-English Terms}
+
+% It is also advised to supplement non-English characters and terms
+% with appropriate transliterations and/or translations
+% since not all readers understand all such characters and terms.
+% Inline transliteration or translation can be represented in
+% the order of: original-form transliteration ``translation''.
+
+% \section{Length of Submission}
+% \label{sec:length}
+
+% The maximum submission length is 12 pages (A4) for long papers and 6 pages (A4) of short papers, including the references. Authors of accepted papers will be given additional space in the camera-ready version to reflect space needed for changes stemming from the reviewers’ comments. 
+
+% Papers that do not conform to the specified length and formatting requirements may be rejected without review.
+
+% \iffalse
+% For papers accepted to the main conference, we will invite authors to provide a translation
+% of the title and abstract and a 1-2 page synopsis of the paper in a second
+% language of the authors' choice. Appropriate languages include but are not
+% limited to authors' native languages, languages spoken in the authors' place
+% of affiliation, and languages that are the focus of the research presented.
+% \fi
+
+% \section*{Acknowledgements}
+
+% The acknowledgements should go immediately before the references.  Do
+% not number the acknowledgements section. Do not include this section
+% when submitting your paper for review.
+
+% % include your own bib file like this:
+% \bibliographystyle{consilr}
+% \bibliography{consilr2024}
+
+% %\begin{thebibliography}{}
+
+% %\bibitem[\protect\citename{Aho and Ullman}1972]{Aho:72}
+% %Alfred~V. Aho and Jeffrey~D. Ullman.
+% %\newblock 1972.
+% %\newblock {\em The Theory of Parsing, Translation and Compiling}, volume~1.
+% %\newblock Prentice-{Hall}, Englewood Cliffs, NJ.
+
+% %\bibitem[\protect\citename{{American Psychological Association}}1983]{APA:83}
+% %{American Psychological Association}.
+% %\newblock 1983.
+% %\newblock {\em Publications Manual}.
+% %\newblock American Psychological Association, Washington, DC.
+
+% %\bibitem[\protect\citename{{Association for Computing Machinery}}1983]{ACM:83}
+% %{Association for Computing Machinery}.
+% %\newblock 1983.
+% %\newblock {\em Computing Reviews}, 24(11):503--512.
+
+% %\bibitem[\protect\citename{Chandra \bgroup et al.\egroup }1981]{Chandra:81}
+% %Ashok~K. Chandra, Dexter~C. Kozen, and Larry~J. Stockmeyer.
+% %\newblock 1981.
+% %\newblock Alternation.
+% %\newblock {\em Journal of the Association for Computing Machinery},
+% %  28(1):114--133.
+
+% %\bibitem[\protect\citename{Gusfield}1997]{Gusfield:97}
+% %Dan Gusfield.
+% %\newblock 1997.
+% %\newblock {\em Algorithms on Strings, Trees and Sequences}.
+% %\newblock Cambridge University Press, Cambridge, UK.
+
+% %\bibitem[\protect\citename{Rasooli and Tetreault}2015]{rasooli-tetrault-2015}
+% %Mohammad~Sadegh Rasooli and Joel~R. Tetreault. 2015.
+% %\newblock {Yara parser: {A} fast and accurate dependency parser}.
+% %\newblock \emph{Computing Research Repository}, arXiv:1503.06733.
+% %\newblock Version 2.
+
+% %\bibitem[\protect\citename{Borschinger and Johnson}2011]{borsch2011}
+% %Benjamin Borschinger and Mark Johnson. 2011.
+% %\newblock A particle filter algorithm for {B}ayesian wordsegmentation.
+% %\newblock In \emph{Proceedings of the Australasian Language Technology Association %Workshop 2011}, pages 10--18, Canberra, Australia.
+
+% %\end{thebibliography}
+
+\end{document}
