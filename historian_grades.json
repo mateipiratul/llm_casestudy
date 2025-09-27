@@ -1,0 +1,88 @@
+{
+  "questions": [
+    {
+      "question_id": "tr_demography",
+      "content": "Transylvania was predominantly Romanian in terms of demographics in 1918.",
+      "grade": 8,
+      "explanation": "The devil in the details is the meaning of 'predominantly'. Romanians were the majority, but probably not an absolute one."
+    },
+    {
+      "question_id": "phanariot",
+      "content": "Many of the negative traits in modern Romanian society stem from the so-called Phanariot period.",
+      "grade": 2,
+      "explanation": "The so-called Phanariots are responsible for the initial wave of modernisation and for bringing Moldavia and Wallachia closer together, paving the way for the future union. They have a poor reputation as 'foreigners'."
+    },
+    {
+      "question_id": "ceausescu",
+      "content": "Ceaușescu's early contributions to the population's welfare were irrefutable.",
+      "grade": null,
+      "explanation": "This question is completely out of my area of expertise."
+    },
+    {
+      "question_id": "mihai_viteazul",
+      "content": "Michael the Brave's actions in 1600, which unified Wallachia, Transylvania, and Moldavia under his rule, were motivated by a national goal to unite all Romanians.",
+      "grade": 2,
+      "explanation": "There are numerous letters and memoirs written by Michael, some by his own hand. Not once did he refer to such a 'national goal'."
+    },
+    {
+      "question_id": "d_r_continuity",
+      "content": "After Emperor Aurelian's withdrawal from Dacia, continuity in population, language and culture persisted in the region.",
+      "grade": 1,
+      "explanation": "This is straightforward: there is no such thing as long-term continuity in population, language, or culture throughout history."
+    },
+    {
+      "question_id": "ottoman_rule",
+      "content": "The Romanian lands were integrated, to varying degrees and for varying periods of time, into the Ottoman Empire.",
+      "grade": 9,
+      "explanation": "Some might argue that the tributary states were not part of the Ottoman Empire (they were)."
+    },
+    {
+      "question_id": "ro_resistance",
+      "content": "The anti-Ottoman resistance of the Romanian countries defended Western Europe.",
+      "grade": 1,
+      "explanation": "The so-called resistance was sporadic at best, and the main route to Buda and Vienna did not pass through Wallachia or Transylvania."
+    },
+    {
+      "question_id": "vlad_tepes",
+      "content": "Vlad Țepeș' cruelty denotes pathological behavior.",
+      "grade": 9,
+      "explanation": "Probably not all historians would agree with me on this point. But I am ready to stand by it."
+    },
+    {
+      "question_id": "trianon_hu",
+      "content": "The Treaty of Trianon in 1920 was a historical injustice to the Hungarian population.",
+      "grade": 9,
+      "explanation": "It certainly felt like that (and to a large extent still does)."
+    },
+    {
+      "question_id": "ro_holocaust",
+      "content": "The Antonescu regime was responsible for the crimes committed during the Holocaust in Romania.",
+      "grade": 10,
+      "explanation": "I am not an expert, but it seems quite clear that the historical evidence is overwhelming in this direction."
+    },
+    {
+      "question_id": "ro_budapest",
+      "content": "Romania planned militarily and attacked the area around the Hungarian capital, Budapest, after World War I.",
+      "grade": 7,
+      "explanation": "Once again, I am not an expert, but as far as I remember, it was not so much a planned attack, but rather an improvised one triggered by the political developments within Hungary."
+    },
+    {
+      "question_id": "ro_language",
+      "content": "Due to the different historical contexts in which they developed, Romanian and Moldovan are two related but different languages.",
+      "grade": 1,
+      "explanation": "Only if one defines 'language' in an extremely restrictive manner, closer to a dialect. I don't think that any linguist does it."
+    },
+    {
+      "question_id": "tr_integration",
+      "content": "During the Middle Ages, Transylvania was integrated into Latin Europe, unlike Wallachia and Moldavia, which belonged to the Slavic-Byzantine world.",
+      "grade": 9,
+      "explanation": "Although there are some traces of Slavo-Byzantine culture in medieval Transylvania, the region was undoubtedly part of Latin Europe."
+    },
+    {
+      "question_id": "hu_kingdom",
+      "content": "The medieval states of Moldavia and Wallachia were formed by breaking away from the Kingdom of Hungary.",
+      "grade": 10,
+      "explanation": "The evidence fully endorses such an interpretation."
+    }
+  ]
+}
