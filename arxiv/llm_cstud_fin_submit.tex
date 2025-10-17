@@ -113,7 +113,7 @@ This multi-stage approach allowed us to not only compare direct answers but also
 For our experiments, we picked a pool of 13 models to represent a diverse cross-section of the LLM landscape, ensuring a degree of variety across some key dimensions: model architecture, parameter scale and developer origin (see at Figure~\ref{fig:model_timeline}), while also having ever so slightly different models included, fact that can be observed within the present Deepseek \cite{deepseekai2025} and Llama families.
 \begin{figure*}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{../analysis_reports/model_timeline_plot.png}
+    \includegraphics[width=\textwidth]{model_timeline_plot.png}
     \caption{This figure illustrates the timeline of the Large Language Models (LLMs) selected for our study, categorized by their release date.}
     \label{fig:model_timeline}
 \end{figure*}
@@ -129,14 +129,14 @@ The results displayed below show how even small-scale LLMs with superior fine-tu
     \centering
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../analysis_reports/A4_model_scale_avg_std.png}
+        \includegraphics[width=\textwidth]{A4_model_scale_avg_std.png}
         \caption{Average standard deviation of Likert-scale responses (1-10) for each model. Lower values indicate higher consistency.}
         \label{fig:model_scale_avg_std}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.495\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{../analysis_reports/F1_best_models_judge_agreement.png}
+        \includegraphics[width=\textwidth]{F1_best_models_judge_agreement.png}
         \caption{Average agreement score on scale between the LLM-as-a-judge and the model itself.}
         \label{fig:model_judge_avg_std}
     \end{subfigure}
@@ -149,7 +149,7 @@ The results displayed below show how even small-scale LLMs with superior fine-tu
 \begin{wrapfigure}{R}{0.5\textwidth}
     \vspace{-20pt}
     \centering
-    \includegraphics[width=0.49\textwidth]{../analysis_reports/D3_lang_agreement_per_question.png}
+    \includegraphics[width=0.49\textwidth]{D3_lang_agreement_per_question.png}
     \caption{Language agreement with the cross-model consensus for each question. Low scores indicate a strong divergent narrative.}
     \label{fig:lang_agreement_per_question}
 \end{wrapfigure}
@@ -180,7 +180,7 @@ Several key patterns emerge. First, a clear hierarchy of model stability is once
 
 \begin{figure*}[htbp]
     \centering
-    \includegraphics[width=0.98\textwidth]{../analysis_reports/consistency_yesno_quadrant_map.png}
+    \includegraphics[width=0.98\textwidth]{consistency_yesno_quadrant_map.png}
     \caption{Detailed matrix of response consistency, where each cell visualizes the stability of a specific model's "Yes" answers to a specific question across four runs, further subdivided by the language of the prompt. The color of each quadrant indicates the count of "Yes" responses, providing a granular view of both intra-model consistency and cross-lingual bias.}
     \label{fig:model_yesno_quadrants}
 \end{figure*}
@@ -209,14 +209,14 @@ Russian (ru)    & 0.95 & 0.73 \\
 \begin{figure*}[htbp]
     \centering
     \caption{This figure shows the perfect consistency of "Yes" and "No" responses within each model across multiple runs and languages. A perfectly consistent model would always give the same "Yes" or "No" answer for a given question in a given language across all runs.}
-    \includegraphics[width=0.98\textwidth]{../analysis_reports/A1b_model_yesno_perfect_consistency_grouped.jpeg}
+    \includegraphics[width=0.98\textwidth]{A1b_model_yesno_perfect_consistency_grouped.jpeg}
     \label{fig:model_yesno_consistency}
 \end{figure*}
 
 \begin{figure*}[htbp]
     \centering
     \caption{Detailed matrix of divergence between Romanian (RO) and Hungarian (HU), sorted by the median value of the divergences between the answers provided by the queries of the two languages implicated.}
-    \includegraphics[width=0.98\textwidth]{../analysis_reports/consistency_scale_hu.png}
+    \includegraphics[width=0.98\textwidth]{consistency_scale_hu.png}
     \label{fig:model_scale_consistency_hu}
 \end{figure*}
 
