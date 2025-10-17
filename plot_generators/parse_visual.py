@@ -48,8 +48,18 @@ def clean_response(response_text):
 
 def shorten_model_name(full_name):
     if '/' in full_name:
-        return full_name.split('/', 1)[1]
-    return full_name
+        name = full_name.split('/', 1)[1]
+    else:
+        name = full_name
+
+    name = re.sub(r'instruct', 'it', name, flags=re.IGNORECASE)
+    name = re.sub(r'turbo', 'tb', name, flags=re.IGNORECASE)
+    name = name.replace('-tput', '')
+    name = name.replace('-4', '4')
+    name = re.sub(r'-FP8', '', name, flags=re.IGNORECASE)
+    name = re.sub(r'maverick', 'mav', name, flags=re.IGNORECASE)
+    
+    return name
 
 def load_and_prepare_data(file_paths):
     print(f"Loading results from {len(file_paths)} files...")
@@ -132,8 +142,8 @@ def create_yesno_heatmap(df):
     for i in range(len(unique_qids) + 1): ax.axvline(i, color='#555555', linewidth=2)
     for i in range(len(models) + 1): ax.axhline(i, color='#555555', linewidth=2)
     ax.set_ylim(len(models), 0); ax.set_xlim(0, len(unique_qids))
-    ax.set_yticks([i + 0.5 for i in range(len(models))]); ax.set_yticklabels(models, fontsize=16, weight='bold')
-    ax.set_xticks([i + 0.5 for i in range(len(unique_qids))]); ax.set_xticklabels(unique_qids, rotation=60, ha='right', fontsize=16, weight='bold')
+    ax.set_yticks([i + 0.5 for i in range(len(models))]); ax.set_yticklabels(models, fontsize=18)
+    ax.set_xticks([i + 0.5 for i in range(len(unique_qids))]); ax.set_xticklabels(unique_qids, rotation=45, ha='right', fontsize=18)
     
     ax.set_title('Consistency of "Yes" Responses Across 4 Runs', fontsize=16, pad=16)
     
@@ -171,24 +181,22 @@ def create_scale_heatmap(df):
         ro_df = pd.DataFrame(index=pivot_data.index)
 
     try:
-        en_df = pivot_data.xs('hu', level='question_language', axis=1)
+        hu_df = pivot_data.xs('hu', level='question_language', axis=1)
     except KeyError:
         print("Warning: No Hungarian ('hu') data found in the scale results.")
-        en_df = pd.DataFrame(index=pivot_data.index)
+        hu_df = pd.DataFrame(index=pivot_data.index)
 
-    difference_df = ro_df.subtract(en_df, fill_value=np.nan) # use NaN for missing pairs
+    difference_df = ro_df.subtract(hu_df, fill_value=np.nan)
     annot_df = pd.DataFrame(index=pivot_data.index, columns=difference_df.columns)
     for model in annot_df.index:
         for qid in annot_df.columns:
             ro_val = ro_df.get(qid, {}).get(model, np.nan)
-            en_val = en_df.get(qid, {}).get(model, np.nan)
+            hu_val = hu_df.get(qid, {}).get(model, np.nan)
             ro_str = f"{ro_val:.1f}" if pd.notna(ro_val) else "N/A"
-            if ro_str == '10.0':
-                ro_str = '10'
-            ru_str = f"{en_val:.1f}" if pd.notna(en_val) else "N/A"
-            if ru_str == '10.0':
-                ru_str = '10'
-            annot_df.loc[model, qid] = f"{ro_str}|{ru_str}"
+            if ro_str == '10.0': ro_str = '10'
+            hu_str = f"{hu_val:.1f}" if pd.notna(hu_val) else "N/A"
+            if hu_str == '10.0': hu_str = '10'
+            annot_df.loc[model, qid] = f"{ro_str}|{hu_str}"
 
     col_scores = difference_df.abs().mean(axis=0)
     sorted_qids = col_scores.sort_values(ascending=False).index.tolist()
@@ -216,10 +224,10 @@ def create_scale_heatmap(df):
     )
 
     ax.set_title('Divergence of Median Scores (RO vs HU) Across 4 Runs', fontsize=17, pad=17, weight='bold')
-    ax.set_xlabel('Question ID', fontsize=16, labelpad=16, weight='bold')
-    ax.set_ylabel('Model', fontsize=16, labelpad=16)
-    plt.xticks(rotation=60, ha='right', fontsize=15, weight='bold')
-    plt.yticks(rotation=0, fontsize=15, weight='bold')
+    ax.set_xlabel('Question ID', fontsize=18, labelpad=19)
+    ax.set_ylabel('Model', fontsize=18, labelpad=19)
+    plt.xticks(rotation=45, ha='right', fontsize=18)
+    plt.yticks(rotation=0, fontsize=18)
     
     annot_patch = mpatches.Patch(color='grey', label='RO score | HU score')
     ax.legend(handles=[annot_patch], title='Cell Annotation Format', bbox_to_anchor=(1.01, 1), loc='upper left')
@@ -229,7 +237,7 @@ def create_scale_heatmap(df):
     ensure_dir(os.path.dirname(SCALE_PLOT_FILE))
     plt.savefig(SCALE_PLOT_FILE, dpi=FIG_DPI, bbox_inches='tight')
     print(f"Scale divergence heatmap saved to '{SCALE_PLOT_FILE}'")
-    plt.show()
+    plt.close()
     
 def main():
     df = load_and_prepare_data(RESULTS_FILES)

@@ -2,6 +2,8 @@
 
 Studiu de caz asupra răspunsurilor oferite de modelele lingvistice mari și a înclinațiilor acestora în cadrul anumitor întrebări controversate ce aparțin de istoria României
 
+[https://arxiv.org/abs/2510.02362](Paper can be found here)
+
 ## Usage
 
 ### Running the bulk test

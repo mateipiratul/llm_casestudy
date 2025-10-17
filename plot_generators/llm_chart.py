@@ -11,12 +11,12 @@ import numpy as np
 FIG_DPI = 200
 sns.set_theme(style='whitegrid', context='paper')
 mpl.rcParams.update({
-    'font.size': 8,
-    'axes.titlesize': 10,
-    'axes.labelsize': 9,
-    'xtick.labelsize': 7,
-    'ytick.labelsize': 7,
-    'legend.fontsize': 8,
+    'font.size': 17,
+    'axes.titlesize': 15,
+    'axes.labelsize': 15,
+    'xtick.labelsize': 13,
+    'ytick.labelsize': 13,
+    'legend.fontsize': 13,
 })
 
 def ensure_dir(p: str):
@@ -169,7 +169,7 @@ def create_model_timeline_plot(data, output_path="../analysis_reports/model_time
             row['release_date'],
             row['total_params_b'],
             f"  {row['short_name']}",
-            fontsize=8,
+            fontsize=16,
             verticalalignment='center'
         )
 
@@ -206,7 +206,7 @@ def create_model_timeline_plot(data, output_path="../analysis_reports/model_time
     ensure_dir(os.path.dirname(output_path))
     plt.savefig(output_path, dpi=FIG_DPI, bbox_inches='tight')
     print(f"Plot saved successfully to '{output_path}'")
-    plt.close()  # Add plt.close() for memory management
+    plt.close()
 
 
 if __name__ == "__main__":
