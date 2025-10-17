@@ -1,3 +1,23 @@
+%
+% File consilr2024.tex
+%
+% Contact: petru.rebeja@gmail.com
+%% Based on the style files for COLING-2020, which were, in turn,
+%% Based on the style files for COLING-2018, which were, in turn,
+%% Based on the style files for COLING-2016, which were, in turn,
+%% Based on the style files for COLING-2014, which were, in turn,
+%% Based on the style files for ACL-2014, which were, in turn,
+%% Based on the style files for ACL-2013, which were, in turn,
+%% Based on the style files for ACL-2012, which were, in turn,
+%% based on the style files for ACL-2011, which were, in turn,
+%% based on the style files for ACL-2010, which were, in turn,
+%% based on the style files for ACL-IJCNLP-2009, which were, in turn,
+%% based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
 \documentclass[11pt]{article}
 \usepackage{consilr2024}
 \usepackage{times}
@@ -155,7 +175,6 @@ The results displayed below show how even small-scale LLMs with superior fine-tu
     \label{fig:lang_agreement_per_question}
 \end{wrapfigure}
 
-% to be rephrased
 The plot on the right visualizes the degree to which each language's most common answer aligns with the overall cross-model, cross-language consensus for each statement. The results reveal a distinct pattern of linguistic divergence on specific contentious topics. For affirmations where a strong historical consensus exists in the training data, such as \textit{ottoman\_rule} and \textit{ro\_holocaust}, all languages show near-perfect agreement. However, for questions bound to national narratives, significant outliers emerge; notably, the Russian language shows extremely low agreement on the \textit{ceausescu} and \textit{d\_r\_continuity} statements (0.15 and 0.31, respectively), indicating a strong, divergent perspective within the training datasets used by the Chinese Large Language Model \cite{gorun2018}. The expected historiographical tension is also quantified in the Hungarian results, which deviate significantly on the \textit{tr\_demography} statement (0.38). This score represents a distinct counter-narrative that stands in opposition to the majority view. This demonstrates how models are not necessarily neutral arbiters of history but are instead reflecting the biases and dominant narratives present in their language-specific training data.
 \begin{table*}[htbp]
 \centering
